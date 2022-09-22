@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.samples</groupId>
@@ -11,25 +12,88 @@
 		<version>2.2.4.RELEASE</version>
 	</parent>
 	<name>petclinic</name>
-
+=======
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.springframework.samples</groupId>
+    <artifactId>L7-5</artifactId>
+    <version>2.2.0.BUILD-SNAPSHOT</version>
+    
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.4.RELEASE</version>
+    </parent>
+    <name>L7-5</name>
+    
 	<properties>
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
+	<properties>
+=======
 		<!-- Generic properties -->
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
+		<!-- Generic properties -->
+		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+=======
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
 		<webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
 		<webjars-jquery.version>2.2.4</webjars-jquery.version>
 		<wro4j.version>1.8.0</wro4j.version>
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
+		<!-- Web dependencies -->
+		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
+		<webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
+		<webjars-jquery.version>2.2.4</webjars-jquery.version>
+		<wro4j.version>1.8.0</wro4j.version>
+=======
 		<jacoco.version>0.8.5</jacoco.version>
 		<spring-format.version>0.0.19</spring-format.version>
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
+		<jacoco.version>0.8.5</jacoco.version>
+		<spring-format.version>0.0.19</spring-format.version>
+=======
 	</properties>
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
+	</properties>
+=======
+	<developers>
+		<developer>
+			<id>adrrf</id>
+			<name>Adrian</name>
+			<email>adrromflo@alum.us.es</email>
+			<url>https://github.com/adrrf</url>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<properties>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/72525701?v=4
+				</picUrl>
+			</properties>
+		</developer>
+		<!-- More developers ...-->
+	</developers>
+>>>>>>> refs/remotes/origin/master
+
+<<<<<<< HEAD
 	<developers>
 		<developer>
 			<id>lemonada02</id>
@@ -45,6 +109,8 @@
 		</developer>
 	</developers>
 
+=======
+>>>>>>> refs/remotes/origin/master
 	<dependencies>
 		<!-- Spring and Spring Boot dependencies -->
 		<dependency>
