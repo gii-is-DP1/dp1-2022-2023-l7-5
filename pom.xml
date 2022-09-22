@@ -40,13 +40,43 @@
 			</roles>
 			<properties>
 				<picUrl>
-https://avatars.githubusercontent.com/u/73135017?v=4
-</picUrl>
+					https://avatars.githubusercontent.com/u/73135017?v=4
+				</picUrl>
 			</properties>
-
 		</developer>
-		<!-- More developers ...-->
+		
+		<developer>
+			<id>lemonada02</id>
+			<name>Jorge Limon</name>
+			<email>jorromlim@alum.us.es</email>
+			<url>https://github.com/lemonada02</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<properties>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/72464430?v=4
+				</picUrl>
+			</properties>
+		</developer>
+		
+		<developer>
+			<id>adrrf</id>
+			<name>Adrian</name>
+			<email>adrromflo@alum.us.es</email>
+			<url>https://github.com/adrrf</url>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<properties>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/72525701?v=4
+				</picUrl>
+			</properties>
+		</developer>
 	</developers>
+		
+		
 	<dependencies>
 		<!-- Spring and Spring Boot dependencies -->
 		<dependency>
