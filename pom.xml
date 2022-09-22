@@ -56,7 +56,20 @@
 				</picUrl>
 			</properties>
 		</developer>
-		
+		<developer>
+			<id>manvazmar3</id>
+			<name>Manuel</name>
+			<email>manvazmar3@alum.us.es</email>
+			<url>https://github.com/manvazmar3</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<properties>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/72883680?s=400/u=0081b6b26bf0ce10758ca26b8361242c0b91b342?v=4
+				</picUrl>
+			</properties>
+		</developer>
 		<developer>
 			<id>adrrf</id>
 			<name>Adrian</name>
