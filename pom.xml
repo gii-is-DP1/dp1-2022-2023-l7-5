@@ -84,6 +84,20 @@
 				</picUrl>
 			</properties>
 		</developer>
+		<developer>
+			<id>bogdanstefan</id>
+			<name>Bogdan Marian Stefan</name>
+			<email>bogste@alum.us.es</email>
+			<url>https://github.com/bogdanstefan</url>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<properties>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/25999360?s=400/u=69e8d0a856d0ffb7ce56702178b17bdd1110b36b?v=4
+				</picUrl>
+			</properties>
+		</developer>
 	</developers>
 
 	<dependencies>
@@ -309,6 +323,5 @@
 			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
 		</license>
 	</licenses>
-
 
 </project>
