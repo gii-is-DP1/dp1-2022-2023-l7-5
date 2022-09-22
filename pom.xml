@@ -18,17 +18,15 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
 		<webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
 		<webjars-jquery.version>2.2.4</webjars-jquery.version>
 		<wro4j.version>1.8.0</wro4j.version>
-
 		<jacoco.version>0.8.5</jacoco.version>
 		<spring-format.version>0.0.19</spring-format.version>
-
 	</properties>
+
 	<developers>
 		<developer>
 			<id>AMC112002</id>
@@ -44,7 +42,6 @@
 				</picUrl>
 			</properties>
 		</developer>
-		
 		<developer>
 			<id>lemonada02</id>
 			<name>Jorge Limon</name>
@@ -75,8 +72,7 @@
 			</properties>
 		</developer>
 	</developers>
-		
-		
+
 	<dependencies>
 		<!-- Spring and Spring Boot dependencies -->
 		<dependency>
