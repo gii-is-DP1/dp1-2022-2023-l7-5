@@ -18,13 +18,6 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-		<!-- Web dependencies -->
-		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
-		<webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
-		<webjars-jquery.version>2.2.4</webjars-jquery.version>
-		<wro4j.version>1.8.0</wro4j.version>
-
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
 		<webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
@@ -36,16 +29,16 @@
 
 	<developers>
 		<developer>
-			<id>adrrf</id>
-			<name>Adrian</name>
-			<email>adrromflo@alum.us.es</email>
-			<url>https://github.com/adrrf</url>
+			<id>AMC112002</id>
+			<name>Alejandro</name>
+			<email>alejandromateocapilla2gmail.com</email>
+			<url>https://github.com/AMC112002</url>
 			<roles>
-				<role>Developer</role>
+				<role>developer</role>
 			</roles>
 			<properties>
 				<picUrl>
-					https://avatars.githubusercontent.com/u/72525701?v=4
+					https://avatars.githubusercontent.com/u/73135017?v=4
 				</picUrl>
 			</properties>
 		</developer>
@@ -58,7 +51,24 @@
 				<role>developer</role>
 			</roles>
 			<properties>
-				<picUrl>https://avatars.githubusercontent.com/u/72464430?v=4</picUrl>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/72464430?v=4
+				</picUrl>
+			</properties>
+		</developer>
+		
+		<developer>
+			<id>adrrf</id>
+			<name>Adrian</name>
+			<email>adrromflo@alum.us.es</email>
+			<url>https://github.com/adrrf</url>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<properties>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/72525701?v=4
+				</picUrl>
 			</properties>
 		</developer>
 	</developers>
