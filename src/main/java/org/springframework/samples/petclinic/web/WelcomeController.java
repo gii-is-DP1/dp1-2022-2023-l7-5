@@ -41,10 +41,10 @@ public class WelcomeController {
 		  person.setLastName("Mateo");
 		  persons.add(person4);
 		  
-//		  Person person5 = new Person();
-//		  person.setFirstName("Jorge");
-//		  person.setLastName("Limon");
-//		  persons.add(person5);
+		  Person person5 = new Person();
+		  person.setFirstName("Jorge");
+		  person.setLastName("Limon");
+		  persons.add(person5);
 		  
 		  model.put("persons", persons);
 		  model.put("title", "My Project");
