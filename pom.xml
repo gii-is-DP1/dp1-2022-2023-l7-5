@@ -43,6 +43,20 @@
 			</properties>
 		</developer>
 		<developer>
+			<id>angmunpri</id>
+			<name>Angel Muñoz</name>
+			<email>lokydeocean28@gmail.com</email>
+			<url>https://github.com/angmunpri</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<properties>
+				<picUrl>
+					https://avatars.githubusercontent.com/u/72874315?v=4
+				</picUrl>
+			</properties>
+		</developer>
+		<developer>
 			<id>lemonada02</id>
 			<name>Jorge Limon</name>
 			<email>jorromlim@alum.us.es</email>
