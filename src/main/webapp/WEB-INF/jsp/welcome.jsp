@@ -18,8 +18,12 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-responsive" src="${petsImage}"/>
+            <spring:url value="/resources/images/ranagato.jpg" htmlEscape="true" var="ranagato"/>
+            <img class="img-responsive" src="${ranagato}"/>
+            <spring:url value="/resources/images/patito.jpg" htmlEscape="true" var="patito"/>
+            <img class="img-responsive" src="${patito}"/>
+            <spring:url value="/resources/images/conejito.jpg" htmlEscape="true" var="conejito"/>
+            <img class="img-responsive" src="${conejito}"/>
         </div>
     </div>
 </petclinic:layout>
