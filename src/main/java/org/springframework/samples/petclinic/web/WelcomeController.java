@@ -22,28 +22,28 @@ public class WelcomeController {
 		  persons.add(person);
 		  
 		  Person person1 = new Person();
-		  person.setFirstName("Adrian");
-		  person.setLastName("Romero");
+		  person1.setFirstName("Adrian");
+		  person1.setLastName("Romero");
 		  persons.add(person1);
 		  
 		  Person person2 = new Person();
-		  person.setFirstName("Bogdan Marian");
-		  person.setLastName("Stefan");
+		  person2.setFirstName("Bogdan Marian");
+		  person2.setLastName("Stefan");
 		  persons.add(person2);
 		  
 		  Person person3 = new Person();
-		  person.setFirstName("Angel");
-		  person.setLastName("Muñoz");
+		  person3.setFirstName("Angel");
+		  person3.setLastName("Muñoz");
 		  persons.add(person3);
 		  
 		  Person person4 = new Person();
-		  person.setFirstName("Alejandro");
-		  person.setLastName("Mateo");
+		  person4.setFirstName("Alejandro");
+		  person4.setLastName("Mateo");
 		  persons.add(person4);
 		  
 		  Person person5 = new Person();
-		  person.setFirstName("Jorge");
-		  person.setLastName("Limon");
+		  person5.setFirstName("Jorge");
+		  person5.setLastName("Limon");
 		  persons.add(person5);
 		  
 		  model.put("persons", persons);
