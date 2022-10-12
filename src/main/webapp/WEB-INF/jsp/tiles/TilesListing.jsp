@@ -13,6 +13,7 @@
             <th>Id</th>
             <th>Starting Side</th>
             <th>Filled Side</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -27,8 +28,12 @@
                 <td>
                     <c:out value="${tile.filledSide}"/>
                 </td>
+				<td>
+					<a href="<c:url value="/tiles/${tile.id}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+				</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <a class="btn btn-default" href="/tiles/new">Create new tile</a>
 </petclinic:layout>

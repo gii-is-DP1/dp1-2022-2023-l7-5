@@ -16,4 +16,16 @@ public class TileService {
 	List<Tile> getTiles() {
 		return repo.findAll();
 	}
+	
+	public Tile getTileById(Integer id) {
+    	return repo.findById(id).get();
+    }
+    
+    public void deleteTileById(Integer id) {
+    	repo.deleteById(id);
+    }
+    
+    public void save(Tile tile) {
+    	repo.save(tile);
+    }
 }
