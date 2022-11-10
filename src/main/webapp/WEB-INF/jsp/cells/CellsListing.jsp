@@ -34,5 +34,4 @@
         </c:forEach>
         </tbody>
     </table>
-    <a class="btn btn-default" href="/cells/new">Create new cell</a>
 </petclinic:layout>
