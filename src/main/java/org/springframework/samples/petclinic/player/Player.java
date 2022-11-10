@@ -24,5 +24,5 @@ public class Player extends BaseEntity {
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
-	private User user;
+	private User username;
 }
