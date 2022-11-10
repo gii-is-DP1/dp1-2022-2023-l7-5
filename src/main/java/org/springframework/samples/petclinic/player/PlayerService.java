@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class PlayerService {
 	
 PlayerRepository repo;
-	
+	//Servicio
 	@Autowired 
 	PlayerService(PlayerRepository repo) {
 		this.repo = repo;

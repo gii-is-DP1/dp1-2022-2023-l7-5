@@ -36,4 +36,4 @@
         </tbody>
     </table>
     <a class="btn btn-default" href="/players/new">Create new player</a>
-</petclinic:layout>
+</petclinic:layout >

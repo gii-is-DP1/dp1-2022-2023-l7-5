@@ -9,7 +9,7 @@ import org.springframework.samples.petclinic.model.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-
+//Entidad
 @Entity
 @Getter
 @Setter

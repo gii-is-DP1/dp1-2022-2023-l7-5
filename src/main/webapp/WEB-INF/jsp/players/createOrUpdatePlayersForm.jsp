@@ -35,4 +35,4 @@
         <c:if test="${!player['new']}">
         </c:if>
     </jsp:body>
-</petclinic:layout>
+</petclinic:layout >
