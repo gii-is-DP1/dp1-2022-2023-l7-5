@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/cells")
+
 public class CellController {
-	private final String CELLS_LISTING_VIEW = "/cells/CellsListing";
-	private final String CELLS_FORM = "/cells/createOrUpdateCellsForm";
+	private final String CELLS_LISTING_VIEW = "cells/CellsListing";
+	private final String CELLS_FORM = "cells/createOrUpdateCellsForm";
 	
 	private CellService service;
 	
@@ -26,7 +26,7 @@ public class CellController {
 		this.service = service;
 	}
 	@Transactional(readOnly = true)
-	@GetMapping("/CellsListing")
+	@GetMapping(value = "/cells/CellsListing")
 	public ModelAndView showCells() {
 		ModelAndView mav = new ModelAndView(CELLS_LISTING_VIEW);
 		mav.addObject("cells", service.getCells());
@@ -61,8 +61,7 @@ public class CellController {
 		return showCells();
 	}
 	
-	@Transactional(readOnly = true)
-	@GetMapping("/new")
+	@GetMapping(value = "/cells/new")
 	public ModelAndView createCell() {
 		Cell cell = new Cell();
 		ModelAndView mav = new ModelAndView(CELLS_FORM);
@@ -70,8 +69,8 @@ public class CellController {
 		return mav;
 	}
 	
-	@Transactional
-	@PostMapping("/new")
+	
+	@PostMapping(value = "/cells/new")
 	public ModelAndView saveNewCell(@Valid Cell cell, BindingResult br) {
 		if(br.hasErrors()) {
 			return new ModelAndView(CELLS_FORM, br.getModel());
