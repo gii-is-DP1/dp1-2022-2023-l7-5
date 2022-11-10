@@ -14,9 +14,11 @@
             <input type="hidden" name="id" value="${cell.id}"/>
             <div class="form-group has-feedback">
            		<h3>Empty Cell</h3>
-            		<form:button label= "Empty Cell" path="emptyCell" selected="emptyCell">Empty Cell</form:button>
+           			<input type="checkbox" id="c1" name="c1" value="Empty Cell">
+           			<label for="c1"> Empty Cell</label>
             	<h3>Blocked Cell</h3>
-            		<form:button label= "Blocked Cell" path="blockedCell" selected="blockedCell">Blocked Cell</form:button>
+            		<input type="checkbox" id="c2" name="c2" value="Blocked Cell">
+           			<label for="c2"> Blocked Cell</label>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
