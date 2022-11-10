@@ -13,9 +13,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.samples.petclinic.cell.Cell;
+//import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.model.BaseEntity;
-import org.springframework.samples.petclinic.player.Player;
+//import org.springframework.samples.petclinic.player.Player;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,9 +43,9 @@ public class Game extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate dateOfCreation;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "game", fetch = FetchType.EAGER)
-	private Set<Cell> cells;
-	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "game", fetch = FetchType.EAGER)
-	private Set<Player> players;
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "game", fetch = FetchType.EAGER)
+//	private Set<Cell> cells;
+//	
+//	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "game", fetch = FetchType.EAGER)
+//	private Set<Player> players;
 }

@@ -17,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/games")
 public class GameController {
 	
-	private final String  GAMES_LISTING_VIEW = "/games/GamesListing";
-    private final String  GAMES_FORM = "/games/createOrUpdateGamesForm";
+	private final String  GAMES_LISTING_VIEW = "games/GamesListing";
+    private final String  GAMES_FORM = "games/createOrUpdateGameForm";
 
     private GameService service;
     
