@@ -5,6 +5,8 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.user.AuthoritiesService;
+import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;	
 
 
@@ -12,6 +14,13 @@ import org.springframework.stereotype.Service;
 public class PlayerService {
 	
 PlayerRepository repo;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private AuthoritiesService authoritiesService;
+	
 	//Servicio
 	@Autowired 
 	PlayerService(PlayerRepository repo) {
@@ -32,6 +41,8 @@ PlayerRepository repo;
     
     public void save(Player player) {
     	repo.save(player);
+    	userService.saveUser(player.getUsername());
+    	authoritiesService.saveAuthorities(player.getUsername().getUsername(), "player");
     }
 
 }

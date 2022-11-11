@@ -12,10 +12,9 @@
     </h2>
     <form:form modelAttribute="player" class="form-horizontal" id="add-player-form">
         <div class="form-group has-feedback">
-           	
-            <petclinic:inputField label="Username" name="user.username"/>
+            <petclinic:inputField label="Username" name="username.username"/>
             <petclinic:inputField label="E-mail" name="email"/>
-            <petclinic:inputField label="Password" name="user.password"/>
+            <petclinic:inputField label="Password" name="username.password"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
