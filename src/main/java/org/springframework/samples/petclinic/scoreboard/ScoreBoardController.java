@@ -41,21 +41,21 @@ public class ScoreBoardController {
     }*/
     
     @Transactional(readOnly = true)
-    @GetMapping("/edit")
-    public ModelAndView editScoreboard(){
-    	ScoreBoard scoreboard = service.getScoreBoard();        
+    @GetMapping("/{id}/edit")
+    public ModelAndView editScoreboard(@PathVariable int id){
+    	ScoreBoard scoreboard = service.getScoreBoardById(id);        
         ModelAndView result = new ModelAndView(ScoreBoard_FORM);
         result.addObject("scoreboard", scoreboard);
         return result;
     }
     
     @Transactional
-    @PostMapping("/edit")
-    public ModelAndView saveTile(@Valid ScoreBoard scoreboard, BindingResult br){
+    @PostMapping("/{id}/edit")
+    public ModelAndView saveScoreBoard(@PathVariable int id, @Valid ScoreBoard scoreboard, BindingResult br){
     	if (br.hasErrors()) {
     		return new ModelAndView(ScoreBoard_FORM, br.getModel());
     	}
-    	ScoreBoard scoreboardToBeUpdated=service.getScoreBoard();
+    	ScoreBoard scoreboardToBeUpdated=service.getScoreBoardById(id);
         BeanUtils.copyProperties(scoreboard,scoreboardToBeUpdated,"id");
         service.save(scoreboardToBeUpdated);
         return showScoreBoard();
