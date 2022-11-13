@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.game;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,9 +14,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.cell.Cell;
 //import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.model.BaseEntity;
 //import org.springframework.samples.petclinic.player.Player;
+import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,9 +46,9 @@ public class Game extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate dateOfCreation;
 	
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "game", fetch = FetchType.EAGER)
-//	private Set<Cell> cells;
-//	
-//	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "game", fetch = FetchType.EAGER)
-//	private Set<Player> players;
+	@ManyToMany(mappedBy="games")
+	private List<ScoreBoard> scoreboards;
+	
+	@OneToMany
+	private List<Cell> cells;
 }
