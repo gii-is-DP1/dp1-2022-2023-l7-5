@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.vet;
 
 import static org.hamcrest.xml.HasXPath.hasXPath;
+
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
