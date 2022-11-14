@@ -1,5 +1,9 @@
 package org.springframework.samples.petclinic.game;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -8,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +31,12 @@ public class GameController {
     public GameController(GameService service) {
     	this.service = service;
     }
+    
+    @ModelAttribute("modes")
+    public Collection<Mode> populateMode() {
+    	return this.service.findModes();
+    }
+    
     @Transactional(readOnly = true)
     @GetMapping("/GamesListing")
     public ModelAndView showGames() {
@@ -73,7 +84,9 @@ public class GameController {
     
     @Transactional
     @PostMapping("/new")
-    public ModelAndView saveNewGame(@Valid Game game, BindingResult br){
+    public ModelAndView saveNewGame(@Valid Game game, BindingResult br) {
+    	game.setFinished(false);
+    	game.setDateOfCreation(LocalDate.now());
     	if (br.hasErrors()) {
     		return new ModelAndView(GAMES_FORM, br.getModel());
     	}

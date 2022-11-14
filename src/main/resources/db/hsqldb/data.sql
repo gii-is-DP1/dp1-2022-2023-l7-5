@@ -107,3 +107,7 @@ INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (4
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (5, 'COMPETITIVE', 'false', 4, '2017-05-18');
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (6, 'SURVIVAL', 'true', 1, '2018-06-20');
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (7, 'SURVIVAL', 'false', 1, '2019-07-22');
+
+INSERT INTO modes VALUES (1, 'SOLO');
+INSERT INTO modes VALUES (2, 'COMPETITIVE');
+INSERT INTO modes VALUES (3, 'SURVIVAL');
