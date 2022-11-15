@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.user.User;
+import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,8 @@ public class ScoreBoardServiceTest {
 
 	@Autowired
 	protected ScoreBoardService serv;
+	@Autowired
+	protected UserService serv2;
 	
 	@Transactional
 	@Test
@@ -24,6 +28,17 @@ public class ScoreBoardServiceTest {
 		ScoreBoard s = new ScoreBoard();
 		s.setOrden(3);
 		s.setScore(2301);
+		
+		User u = new User();
+		u.setEmail("pepe@gmail.com");
+		u.setUsername("Juan");
+		u.setPassword("p");
+		u.setEnabled(true);
+		serv2.saveUser(u);
+		
+		
+		
+		s.setUser(u);
 		
 		this.serv.save(s);
 		assertThat(s.getId()).isNotEqualTo(0);

@@ -46,6 +46,10 @@ public class AuthoritiesService {
 		authoritiesRepository.save(authorities);
 	}
 	
+	public Authorities getAuthByUsername(String username) {
+		return authoritiesRepository.getAuthByUsername(username);
+	}
+	
 	@Transactional
 	public void saveAuthorities(String username, String role) throws DataAccessException {
 		Authorities authority = new Authorities();

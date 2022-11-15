@@ -11,11 +11,12 @@
         </h2>
         <form:form modelAttribute="game" class="form-horizontal">
             <input type="hidden" name="id" value="${game.id}"/>
-            <div class="form-group has-feedback">
-                <petclinic:inputField label="Mode" name="mode"/>
+            <div class="form-group has-feedback"> 
+                <petclinic:selectField name="mode" label="Mode" names="${modes}" size="3"/>
+                <petclinic:selectField name="numberOfPlayers" label="Number of players" names="${nplayers}" size="4"/>
                 <petclinic:inputField label="Finished" name="finished"/>
-                <petclinic:inputField label="Number of Players" name="numberOfPlayers"/>
                 <petclinic:inputField label="Date of Creation" name="dateOfCreation"/>
+                
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

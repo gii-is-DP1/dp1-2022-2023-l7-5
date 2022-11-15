@@ -12,7 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.samples.petclinic.game.Game;
 import org.springframework.samples.petclinic.model.BaseEntity;
-import org.springframework.samples.petclinic.player.Player;
+import org.springframework.samples.petclinic.user.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,9 +31,8 @@ public class ScoreBoard extends BaseEntity{
 	@PositiveOrZero
 	private Integer score;
 
-	
 	@ManyToOne(optional = false)
-	private Player player;
+	private User user;
 	
 	@ManyToMany
 	private List<Game> games;
