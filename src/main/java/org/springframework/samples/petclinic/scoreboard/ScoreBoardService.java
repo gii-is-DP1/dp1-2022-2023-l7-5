@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.scoreboard;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;	
 
@@ -29,6 +31,10 @@ ScoreBoardRepository repo;
     
     public void save(ScoreBoard scores) {
     	repo.save(scores);
+    }
+    
+    public List<ScoreBoard> getScoreboardsById(Integer id) {
+    	return repo.getScoreboardsByGameId(id);
     }
 	
 }

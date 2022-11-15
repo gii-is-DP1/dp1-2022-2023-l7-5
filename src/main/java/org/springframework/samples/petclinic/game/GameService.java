@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.game;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.stereotype.Service;
 
 @Service
