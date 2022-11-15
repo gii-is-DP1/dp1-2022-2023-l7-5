@@ -27,15 +27,3 @@ INSERT INTO tile(id, starting_side, filled_side) VALUES (4, 'yellow', 'yellow');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (5, 'green', 'green');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (6, 'orange', 'orange');
 
-INSERT INTO modes(id,name,max_players) VALUES (1, 'COMPETITIVE', 4);
-INSERT INTO modes(id,name,max_players) VALUES (2, 'SOLO', 1);
-INSERT INTO modes(id,name,max_players) VALUES (3, 'SURVIVAL', 1);
-
-INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (1, 'SOLO', 'true', 1, '2013-01-10');
-INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (2, 'SOLO', 'false', 1, '2014-02-12');
-INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (3, 'COMPETITIVE', 'true', 2, '2015-03-14');
-INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (4, 'COMPETITIVE', 'false', 3, '2016-04-16');
-INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (5, 'COMPETITIVE', 'false', 4, '2017-05-18');
-INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (6, 'SURVIVAL', 'true', 1, '2018-06-20');
-INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (7, 'SURVIVAL', 'false', 1, '2019-07-22');
-

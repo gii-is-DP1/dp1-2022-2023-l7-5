@@ -12,10 +12,8 @@
         <form:form modelAttribute="game" class="form-horizontal">
             <input type="hidden" name="id" value="${game.id}"/>
             <div class="form-group has-feedback"> 
-                <div class="control-group">
-                    <petclinic:selectField name="mode" label="Mode " names="${modes}" size="3"/>
-                </div>
-                <petclinic:inputField label="Number of Players" name="numberOfPlayers"/>
+                <petclinic:selectField name="mode" label="Mode" names="${modes}" size="3"/>
+                <petclinic:selectField name="numberOfPlayers" label="Number of players" names="${nplayers}" size="4"/>
                 <petclinic:inputField label="Finished" name="finished"/>
                 <petclinic:inputField label="Date of Creation" name="dateOfCreation"/>
                 

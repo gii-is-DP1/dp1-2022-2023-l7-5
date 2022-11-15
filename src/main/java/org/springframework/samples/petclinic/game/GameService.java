@@ -1,12 +1,9 @@
 package org.springframework.samples.petclinic.game;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
@@ -31,9 +28,4 @@ public class GameService {
     public void save(Game game) {
     	repository.save(game);
     }
-    
-    @Transactional(readOnly = true)
-	public Collection<Mode> findModes() throws DataAccessException {
-		return repository.findModes();
-	}
 }
