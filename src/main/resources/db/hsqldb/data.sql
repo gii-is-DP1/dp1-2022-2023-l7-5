@@ -1,97 +1,24 @@
 -- One admin user, named admin1 with passwor 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
+INSERT INTO users(username,email,password,enabled) VALUES ('admin1','admin1@gmail.com','4dm1n',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
--- One owner user, named owner1 with passwor 0wn3r
-INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 
-INSERT INTO users(username,password,enabled) VALUES ('bogste','b@gst3',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (11,'bogste','owner');
+INSERT INTO users(username,email,password,enabled) VALUES ('bogste', 'bogste@gmail.com','b@gst3',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (11,'bogste','player');
 
-INSERT INTO users(username,password,enabled) VALUES ('adrrf','4drrf',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (12,'adrrf','owner');
+INSERT INTO users(username,email,password,enabled) VALUES ('adrrf','adrrf@gmail.com','4drrf',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (12,'adrrf','player');
 
-INSERT INTO users(username,password,enabled) VALUES ('manuel','m4nu3l',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (13,'manuel','owner');
+INSERT INTO users(username,email,password,enabled) VALUES ('manuel','manuel@gmail.com','m4nu3l',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (13,'manuel','player');
 
-INSERT INTO users(username,password,enabled) VALUES ('jorromlim','j0rr0ml1m',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (14,'jorromlim','owner');
+INSERT INTO users(username,email,password,enabled) VALUES ('jorromlim','jorromlim@gmail.com','j0rr0ml1m',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (14,'jorromlim','player');
 
-INSERT INTO users(username,password,enabled) VALUES ('alematcap','4lem4tc4p',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (15,'alematcap','owner');
+INSERT INTO users(username,email,password,enabled) VALUES ('alematcap','alematcap@gmail.com','4lem4tc4p',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (15,'alematcap','player');
 
-INSERT INTO users(username,password,enabled) VALUES ('angel','4ng3l',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (16,'angel','owner');
--- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
-
-INSERT INTO vets(id, first_name,last_name) VALUES (1, 'James', 'Carter');
-INSERT INTO vets(id, first_name,last_name) VALUES (2, 'Helen', 'Leary');
-INSERT INTO vets(id, first_name,last_name) VALUES (3, 'Linda', 'Douglas');
-INSERT INTO vets(id, first_name,last_name) VALUES (4, 'Rafael', 'Ortega');
-INSERT INTO vets(id, first_name,last_name) VALUES (5, 'Henry', 'Stevens');
-INSERT INTO vets(id, first_name,last_name) VALUES (6, 'Sharon', 'Jenkins');
-
-INSERT INTO specialties VALUES (1, 'radiology');
-INSERT INTO specialties VALUES (2, 'surgery');
-INSERT INTO specialties VALUES (3, 'dentistry');
-
-INSERT INTO vet_specialties VALUES (2, 1);
-INSERT INTO vet_specialties VALUES (3, 2);
-INSERT INTO vet_specialties VALUES (3, 3);
-INSERT INTO vet_specialties VALUES (4, 2);
-INSERT INTO vet_specialties VALUES (5, 1);
-
-INSERT INTO types VALUES (1, 'cat');
-INSERT INTO types VALUES (2, 'dog');
-INSERT INTO types VALUES (3, 'lizard');
-INSERT INTO types VALUES (4, 'snake');
-INSERT INTO types VALUES (5, 'bird');
-INSERT INTO types VALUES (6, 'hamster');
-INSERT INTO types VALUES (7, 'turtle');
-
-INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
-INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner1');
-INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner1');
-INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'owner1');
-INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'owner1');
-INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'owner1');
-INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'owner1');
-INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
-INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
-INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
-INSERT INTO owners VALUES (11, 'Bogdan Marian', 'Stefan', '687 Fir Blvd.', 'Rampart', '9073583312', 'bogste');
-INSERT INTO owners VALUES (12, 'Adrián', 'Romero', '666 Death Avenue.', 'Sevilla', '6085555487', 'adrrf');
-INSERT INTO owners VALUES (13, 'Manuel', 'Vazquez', '41005 Nalon', 'Sevilla', '6698052447', 'manuel');
-INSERT INTO owners VALUES (14, 'Jorge', 'Limon', '41005 Nalon', 'Sevilla', '695834485', 'jorromlim');
-INSERT INTO owners VALUES (15, 'Alejandro', 'Mateo', '41009 Central Park', 'Sevilla', '644876543', 'alematcap');
-INSERT INTO owners VALUES (16, 'Angel', 'Muñoz', '41006 Talon', 'Sevilla', '678376543', 'angel');
-
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (3, 'Rosy', '2011-04-17', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (4, 'Jewel', '2010-03-07', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (5, 'Iggy', '2010-11-30', 3, 4);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (6, 'George', '2010-01-20', 4, 5);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (7, 'Samantha', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (8, 'Max', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (9, 'Lucky', '2011-08-06', 5, 7);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (10, 'Mulligan', '2007-02-24', 2, 8);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (11, 'Freddy', '2010-03-09', 5, 9);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (12, 'Lucky', '2010-06-24', 2, 10);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (13, 'Sly', '2012-06-08', 1, 10);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'Coco', '2022-09-22', 2, 11);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Dino', '2022-09-25', 5, 12);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Indio', '2019-10-20', 2, 13);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (17, 'Juan', '2009-10-2', 2, 14);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (18, 'Jacobo', '2005-10-2', 1, 15);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (19, 'JoseLuis', '2002-04-24', 2, 8);
-
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
+INSERT INTO users(username,email,password,enabled) VALUES ('angel','angel@gmail.com','4ng3l',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (16,'angel','player');
 
 INSERT INTO tile(id, starting_side, filled_side) VALUES (1, 'purple', 'purple');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (2, 'red', 'red');
@@ -100,6 +27,10 @@ INSERT INTO tile(id, starting_side, filled_side) VALUES (4, 'yellow', 'yellow');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (5, 'green', 'green');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (6, 'orange', 'orange');
 
+INSERT INTO modes(id,name,max_players) VALUES (1, 'COMPETITIVE', 4);
+INSERT INTO modes(id,name,max_players) VALUES (2, 'SOLO', 1);
+INSERT INTO modes(id,name,max_players) VALUES (3, 'SURVIVAL', 1);
+
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (1, 'SOLO', 'true', 1, '2013-01-10');
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (2, 'SOLO', 'false', 1, '2014-02-12');
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (3, 'COMPETITIVE', 'true', 2, '2015-03-14');
@@ -107,3 +38,4 @@ INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (4
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (5, 'COMPETITIVE', 'false', 4, '2017-05-18');
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (6, 'SURVIVAL', 'true', 1, '2018-06-20');
 INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (7, 'SURVIVAL', 'false', 1, '2019-07-22');
+

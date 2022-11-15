@@ -5,7 +5,7 @@
 <petclinic:layout pageName="error">
 
     <spring:url value="/resources/images/pets.png" var="petsImage"/>
-    <img src="${petsImage}"/>
+    <img src="https://media.tenor.com/5eqkf-c99OEAAAAi/beeings-beeing.gif"/>
 
     <h2>Something happened...</h2>
 

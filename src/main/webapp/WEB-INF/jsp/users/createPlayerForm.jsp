@@ -8,18 +8,18 @@
 
 <petclinic:layout pageName="players">
     <h2>
-        <c:if test="${player['new']}">New </c:if> Player
+        <c:if test="${!user.enabled}">New </c:if> Player
     </h2>
-    <form:form modelAttribute="player" class="form-horizontal" id="add-player-form">
+    <form:form modelAttribute="user" class="form-horizontal" id="add-player-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Username" name="username.username"/>
+            <c:if test="${!user.enabled}"><petclinic:inputField label="Username" name="username"/></c:if>
             <petclinic:inputField label="E-mail" name="email"/>
-            <petclinic:inputField label="Password" name="username.password"/>
+            <petclinic:inputField label="Password" name="password"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
-                    <c:when test="${player['new']}">
+                    <c:when test="${!user.enabled}">
                         <button class="btn btn-default" type="submit">Add Player</button>
                     </c:when>
                     <c:otherwise>
