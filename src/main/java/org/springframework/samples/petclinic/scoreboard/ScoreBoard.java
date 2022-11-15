@@ -1,9 +1,6 @@
 package org.springframework.samples.petclinic.scoreboard;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -34,6 +31,7 @@ public class ScoreBoard extends BaseEntity{
 	@ManyToOne(optional = false)
 	private User user;
 	
-	@ManyToMany
-	private List<Game> games;
+	@ManyToOne
+	private Game game;
+	
 }
