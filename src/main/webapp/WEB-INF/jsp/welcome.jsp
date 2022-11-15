@@ -7,8 +7,6 @@
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
 
-
-
 <sec:authorize access="!isAuthenticated()">
 <petclinic:layout pageName="home">
     <h1 
