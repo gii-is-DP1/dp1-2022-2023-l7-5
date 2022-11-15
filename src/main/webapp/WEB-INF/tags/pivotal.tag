@@ -2,9 +2,8 @@
 
 <br/>
 <br/>
-<div class="container">
-    <div class="row">
-        <div class="col-12 text-center"><img src="<spring:url value="/resources/images/spring-pivotal-logo.png" htmlEscape="true" />"
-                                             alt="Sponsored by Pivotal"/></div>
-    </div>
+<div>
+        <h2 style ="text-align: center">
+        Developed by L7-5.
+        </h2>
 </div>

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.samples.petclinic.achievement.Achievement;
 import org.springframework.samples.petclinic.model.BaseEntity;
-import org.springframework.samples.petclinic.player.Player;
+import org.springframework.samples.petclinic.user.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ public class Profile extends BaseEntity{
 	private Integer steals;
 
 	@OneToOne(optional = false)
-	private Player player;
+	private User user;
 	
 	@OneToMany
 	private List<Achievement> achievements;
