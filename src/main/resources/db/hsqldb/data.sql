@@ -68,8 +68,6 @@ INSERT INTO owners VALUES (14, 'Jorge', 'Limon', '41005 Nalon', 'Sevilla', '6958
 INSERT INTO owners VALUES (15, 'Alejandro', 'Mateo', '41009 Central Park', 'Sevilla', '644876543', 'alematcap');
 INSERT INTO owners VALUES (16, 'Angel', 'Muñoz', '41006 Talon', 'Sevilla', '678376543', 'angel');
 
-
-
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (3, 'Rosy', '2011-04-17', 2, 3);
@@ -101,3 +99,11 @@ INSERT INTO tile(id, starting_side, filled_side) VALUES (3, 'blue', 'blue');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (4, 'yellow', 'yellow');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (5, 'green', 'green');
 INSERT INTO tile(id, starting_side, filled_side) VALUES (6, 'orange', 'orange');
+
+INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (1, 'SOLO', 'true', 1, '2013-01-10');
+INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (2, 'SOLO', 'false', 1, '2014-02-12');
+INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (3, 'COMPETITIVE', 'true', 2, '2015-03-14');
+INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (4, 'COMPETITIVE', 'false', 3, '2016-04-16');
+INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (5, 'COMPETITIVE', 'false', 4, '2017-05-18');
+INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (6, 'SURVIVAL', 'true', 1, '2018-06-20');
+INSERT INTO games(id,mode,finished,number_of_players,date_of_creation) VALUES (7, 'SURVIVAL', 'false', 1, '2019-07-22');
