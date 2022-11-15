@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.cell.Cell;
@@ -44,6 +45,7 @@ public class Game extends BaseEntity {
 	@NotNull
 	@Column(name = "date_of_creation")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@PastOrPresent
 	private LocalDate dateOfCreation;
 	
 	@ManyToMany(mappedBy="games")

@@ -13,8 +13,6 @@
 			<a style ="font-size: 46px; color: #FCDC04;" href="<spring:url value="/" htmlEscape="true" />"> Honey!</a>
 		</div>
 		<div class="navbar-collapse collapse" id="main-navbar">
-			<ul class="nav navbar-nav">
-			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="hasAnyAuthority('admin')">
@@ -28,6 +26,10 @@
 							<li>
 								<a href="<c:url value="/achievements/AchievementsListing" />">Achievements listing</a>		
 							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="<c:url value="/games/GamesListing/" />">Games listing</a>		
+							</li>			
 						</ul>					
 				</petclinic:menuItem>		
 				</sec:authorize>
