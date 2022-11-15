@@ -45,13 +45,23 @@ public class ScoreBoardServiceTest {
 		assertThat(this.serv.getScoreBoards().size()).isEqualTo(found+1);
 	}
 	
-	/*@Transactional
+	@Transactional
 	@Test
 	public void shouldFindProfileById() {
 		
 		ScoreBoard s = new ScoreBoard();
 		s.setOrden(3);
 		s.setScore(2301);
+		
+		User u = new User();
+		u.setEmail("pepe@gmail.com");
+		u.setUsername("Juan");
+		u.setPassword("p");
+		u.setEnabled(true);
+		serv2.saveUser(u);
+		s.setUser(u);
+		serv.save(s);
+		
 		Integer id = s.getId();
 		
 		assertThat(this.serv.getScoreBoardById(id)).isEqualTo(s);
@@ -64,7 +74,16 @@ public class ScoreBoardServiceTest {
 		
 		ScoreBoard s = new ScoreBoard();
 		s.setOrden(3);
-		s.setScore(2301);
+		s.setScore(2301);		
+		User u = new User();
+		u.setEmail("pepe@gmail.com");
+		u.setUsername("Juan");
+		u.setPassword("p");
+		u.setEnabled(true);
+		serv2.saveUser(u);
+		s.setUser(u);
+		serv.save(s);
+		
 		Integer id = s.getId();
 		
 		assertThat(this.serv.getScoreBoards().size()).isEqualTo(1);
@@ -72,6 +91,6 @@ public class ScoreBoardServiceTest {
 		assertThat(this.serv.getScoreBoards().size()).isEqualTo(0);
 		
 		
-	}*/
+	}
 	
 }
