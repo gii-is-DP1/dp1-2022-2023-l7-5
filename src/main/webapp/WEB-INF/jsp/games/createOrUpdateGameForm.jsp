@@ -22,7 +22,9 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <c:choose>
                         <c:when test="${game['new']}">
-                            <button class="btn btn-default" type="submit">Add game</button>
+                        <a href ="/game${game.id}/view">
+                        	<button class="btn btn-default" type="submit">Add game</button>
+                        </a>
                         </c:when>
                         <c:otherwise>
                             <button class="btn btn-default" type="submit">Update game</button>

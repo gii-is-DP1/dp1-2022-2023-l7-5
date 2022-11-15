@@ -64,7 +64,7 @@
     	style ="
     		text-align: center;
     		font-size: 64px">
-    	Welcome to Honey!
+    	Let's play!
     </h1>
     
     <div style ="text-align: center">
@@ -72,7 +72,7 @@
     </div>
     
     <div style ="text-align: center">
-    	<a href="/games" 
+    	<a href="/games/new" 
 	    	style = "
 	    		box-shadow:inset 0px 1px 0px 0px #fff6af;
 	    		text-align: center;
@@ -87,9 +87,11 @@
 				padding:6px 24px;
 				text-decoration:none;
 				text-shadow:0px 1px 0px #ffee66;">
-			Play
+			Create a new Game
 		</a>
-    	<a href="https://docdro.id/9EGL9gM" target="_blank"
+	</div>
+	<div style ="text-align: center">
+    	<a href="/games/join"
 	    	style = "
 	    		box-shadow:inset 0px 1px 0px 0px #fff6af;
 	    		text-align: center;
@@ -104,26 +106,7 @@
 				padding:6px 24px;
 				text-decoration:none;
 				text-shadow:0px 1px 0px #ffee66;">
-			See Rules
-		</a>
-    </div>
-    <div style ="text-align: center">
-    	<a href="/player/${username}/edit"
-	    	style = "
-	    		box-shadow:inset 0px 1px 0px 0px #fff6af;
-	    		text-align: center;
-				background-color:#ffde04;
-				border-radius:6px;
-				border:1px solid #ffaa22;
-				display:inline-block;
-				cursor:pointer;
-				color:#333333;
-				font-size:32px;
-				font-weight:bold;
-				padding:6px 24px;
-				text-decoration:none;
-				text-shadow:0px 1px 0px #ffee66;">
-			See my profile
+			Join a Game
 		</a>
     </div>
     
