@@ -21,7 +21,6 @@ PlayerRepository repo;
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
-	//Servicio
 	@Autowired 
 	PlayerService(PlayerRepository repo) {
 		this.repo = repo;

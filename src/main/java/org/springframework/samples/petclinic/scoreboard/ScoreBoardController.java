@@ -27,38 +27,38 @@ public class ScoreBoardController {
     }
     @Transactional(readOnly = true)
     @GetMapping("/ScoreBoardsListing")
-    public ModelAndView showScoreBoard() {
+    public ModelAndView showScoreBoards() {
     	ModelAndView mav = new ModelAndView(ScoreBoard_LISTING_VIEW);
-    	mav.addObject("scoreboard", service.getScoreBoard());
+    	mav.addObject("scoreboard", service.getScoreBoards());
     	return mav;
     }
     
-    /*@Transactional()
+    @Transactional()
     @GetMapping("/{id}/delete")
     public ModelAndView deleteScoreBoard(@PathVariable int id){
         service.deleteScoreBoardById(id);        
         return showScoreBoards();
-    }*/
+    }
     
     @Transactional(readOnly = true)
-    @GetMapping("/edit")
-    public ModelAndView editScoreboard(){
-    	ScoreBoard scoreboard = service.getScoreBoard();        
+    @GetMapping("/{id}//edit")
+    public ModelAndView editScoreboard(@PathVariable int id){
+    	ScoreBoard scoreboard = service.getScoreBoardById(id);        
         ModelAndView result = new ModelAndView(ScoreBoard_FORM);
         result.addObject("scoreboard", scoreboard);
         return result;
     }
     
     @Transactional
-    @PostMapping("/edit")
-    public ModelAndView saveTile(@Valid ScoreBoard scoreboard, BindingResult br){
+    @PostMapping("/{id}/edit")
+    public ModelAndView saveTile(@PathVariable int id, @Valid ScoreBoard scoreboard, BindingResult br){
     	if (br.hasErrors()) {
     		return new ModelAndView(ScoreBoard_FORM, br.getModel());
     	}
-    	ScoreBoard scoreboardToBeUpdated=service.getScoreBoard();
+    	ScoreBoard scoreboardToBeUpdated=service.getScoreBoardById(id);
         BeanUtils.copyProperties(scoreboard,scoreboardToBeUpdated,"id");
         service.save(scoreboardToBeUpdated);
-        return showScoreBoard();
+        return showScoreBoards();
     }
     
     @Transactional(readOnly = true)
@@ -77,7 +77,7 @@ public class ScoreBoardController {
     		return new ModelAndView(ScoreBoard_FORM, br.getModel());
     	}
         service.save(scoreboard);
-        ModelAndView result=showScoreBoard();
+        ModelAndView result=showScoreBoards();
         result.addObject("message", "The scoreboard was created successfully");
         return result;
     }
