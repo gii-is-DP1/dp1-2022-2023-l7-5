@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.scoreboard;
+package org.springframework.samples.petclinic.profile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,21 +13,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class ScoreBoardServiceTest {
-
+public class ProfileServiceTest {
+	
 	@Autowired
-	protected ScoreBoardService serv;
+	protected ProfileService serv;
+	
 	@Autowired
 	protected UserService serv2;
 	
-	@Transactional
 	@Test
-	public void shouldInsertSB() {
-		int found = this.serv.getScoreBoards().size();
+	public void shouldInsertProfile() {
+		int found = this.serv.getProfiles().size();
 		
-		ScoreBoard s = new ScoreBoard();
-		s.setOrden(3);
-		s.setScore(2301);
+		Profile p = new Profile();
+		p.setPlayedGames(200);
+		p.setMatches(2301);
+		p.setWins(0);
+		p.setSteals(543);
 		
 		User u = new User();
 		u.setEmail("pepe@gmail.com");
@@ -36,22 +38,21 @@ public class ScoreBoardServiceTest {
 		u.setEnabled(true);
 		serv2.saveUser(u);
 		
+		p.setUser(u);
 		
-		
-		s.setUser(u);
-		
-		this.serv.save(s);
-		assertThat(s.getId()).isNotEqualTo(0);
-		assertThat(this.serv.getScoreBoards().size()).isEqualTo(found+1);
+		this.serv.save(p);
+		assertThat(p.getId()).isNotEqualTo(0);
+		assertThat(this.serv.getProfiles().size()).isEqualTo(found+1);
 	}
 	
-	@Transactional
 	@Test
 	public void shouldFindProfileById() {
 		
-		ScoreBoard s = new ScoreBoard();
-		s.setOrden(3);
-		s.setScore(2301);
+		Profile p = new Profile();
+		p.setPlayedGames(200);
+		p.setMatches(2301);
+		p.setWins(0);
+		p.setSteals(543);
 		
 		User u = new User();
 		u.setEmail("pepe@gmail.com");
@@ -59,12 +60,13 @@ public class ScoreBoardServiceTest {
 		u.setPassword("p");
 		u.setEnabled(true);
 		serv2.saveUser(u);
-		s.setUser(u);
-		serv.save(s);
+		p.setUser(u);
+		serv.save(p);
 		
-		Integer id = s.getId();
+		Integer id = p.getId();
 		
-		assertThat(this.serv.getScoreBoardById(id)).isEqualTo(s);
+		
+		assertThat(this.serv.getProfileById(id)).isEqualTo(p);
 		
 	}
 	
@@ -72,23 +74,26 @@ public class ScoreBoardServiceTest {
 	@Test
 	public void shouldDeleteProfileById() {
 		
-		ScoreBoard s = new ScoreBoard();
-		s.setOrden(3);
-		s.setScore(2301);		
+		Profile p = new Profile();
+		p.setPlayedGames(200);
+		p.setMatches(2301);
+		p.setWins(0);
+		p.setSteals(543);
+		
 		User u = new User();
 		u.setEmail("pepe@gmail.com");
 		u.setUsername("Juan");
 		u.setPassword("p");
 		u.setEnabled(true);
 		serv2.saveUser(u);
-		s.setUser(u);
-		serv.save(s);
+		p.setUser(u);
+		serv.save(p);
 		
-		Integer id = s.getId();
+		Integer id = p.getId();
 		
-		assertThat(this.serv.getScoreBoards().size()).isEqualTo(1);
-		this.serv.deleteScoreBoardById(id);;
-		assertThat(this.serv.getScoreBoards().size()).isEqualTo(0);
+		assertThat(this.serv.getProfiles().size()).isEqualTo(1);
+		this.serv.deleteProfileById(id);;
+		assertThat(this.serv.getProfiles().size()).isEqualTo(0);
 		
 		
 	}

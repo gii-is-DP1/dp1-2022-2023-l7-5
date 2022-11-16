@@ -50,7 +50,6 @@ public class TileServiceTest {
 	@Test
 	public void shouldDeleteTileById() {
 		int found = this.tileService.getTiles().size();
-		assertThat(found).isEqualTo(0);
 		
 		Tile tile = new Tile();
 		tile.setStartingSide("blue");;
@@ -59,10 +58,10 @@ public class TileServiceTest {
 		this.tileService.save(tile);
 		Integer id = tile.getId();
 		
-		assertThat(this.tileService.getTiles().size()).isEqualTo(1);
+		assertThat(this.tileService.getTiles().size()).isEqualTo(found + 1);
 		
 		this.tileService.deleteTileById(id);
-		assertThat(this.tileService.getTiles().size()).isEqualTo(0);
+		assertThat(this.tileService.getTiles().size()).isEqualTo(found);
 				
 	}
 }

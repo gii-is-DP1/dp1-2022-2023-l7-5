@@ -15,16 +15,24 @@ ScoreBoardRepository repo;
 		this.repo = repo;
 	}
 	
-	List<ScoreBoard> getScoreBoard() {
-		return repo.findAll();
+	List<ScoreBoard> getScoreBoards() {
+		return repo.findAll();    
 	}
 	
 	public ScoreBoard getScoreBoardById(Integer id) {
-		return repo.findById(id).get();
-	}
+    	return repo.findById(id).get();
+    }
+    
+    public void deleteScoreBoardById(Integer id) {
+    	repo.deleteById(id);
+    }
 	
-    public void save(ScoreBoard scores) {
+	public void save(ScoreBoard scores) {
     	repo.save(scores);
     }
+	    
+	public List<ScoreBoard> getScoreboardsById(Integer id) {
+	    return repo.getScoreboardsByGameId(id);
+	}
 	
 }

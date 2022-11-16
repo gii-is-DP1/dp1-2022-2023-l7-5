@@ -27,21 +27,21 @@ public class ScoreBoardController {
     }
     @Transactional(readOnly = true)
     @GetMapping("/ScoreBoardsListing")
-    public ModelAndView showScoreBoard() {
+    public ModelAndView showScoreBoards() {
     	ModelAndView mav = new ModelAndView(ScoreBoard_LISTING_VIEW);
-    	mav.addObject("scoreboard", service.getScoreBoard());
+    	mav.addObject("scoreboard", service.getScoreBoards());
     	return mav;
     }
     
-    /*@Transactional()
+    @Transactional()
     @GetMapping("/{id}/delete")
     public ModelAndView deleteScoreBoard(@PathVariable int id){
         service.deleteScoreBoardById(id);        
         return showScoreBoards();
-    }*/
+    }
     
     @Transactional(readOnly = true)
-    @GetMapping("/{id}/edit")
+    @GetMapping("/{id}//edit")
     public ModelAndView editScoreboard(@PathVariable int id){
     	ScoreBoard scoreboard = service.getScoreBoardById(id);        
         ModelAndView result = new ModelAndView(ScoreBoard_FORM);
@@ -51,14 +51,14 @@ public class ScoreBoardController {
     
     @Transactional
     @PostMapping("/{id}/edit")
-    public ModelAndView saveScoreBoard(@PathVariable int id, @Valid ScoreBoard scoreboard, BindingResult br){
+    public ModelAndView saveTile(@PathVariable int id, @Valid ScoreBoard scoreboard, BindingResult br){
     	if (br.hasErrors()) {
     		return new ModelAndView(ScoreBoard_FORM, br.getModel());
     	}
     	ScoreBoard scoreboardToBeUpdated=service.getScoreBoardById(id);
         BeanUtils.copyProperties(scoreboard,scoreboardToBeUpdated,"id");
         service.save(scoreboardToBeUpdated);
-        return showScoreBoard();
+        return showScoreBoards();
     }
     
     @Transactional(readOnly = true)
@@ -77,7 +77,7 @@ public class ScoreBoardController {
     		return new ModelAndView(ScoreBoard_FORM, br.getModel());
     	}
         service.save(scoreboard);
-        ModelAndView result=showScoreBoard();
+        ModelAndView result=showScoreBoards();
         result.addObject("message", "The scoreboard was created successfully");
         return result;
     }

@@ -11,6 +11,7 @@
         <thead>
         <tr>
             <th>Id</th>
+            <th>Username</th>
             <th>Played Games</th>
             <th>Matches</th>
             <th>Wins</th>
@@ -22,6 +23,9 @@
             <tr>
                 <td>
                     <c:out value="${profile.id}"/>
+                </td>
+                <td>
+                    <c:out value="${profile.user.username}"/>
                 </td>
                 <td>
                     <c:out value="${profile.playedGames}"/>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="players">
@@ -10,27 +11,29 @@
     <table id="playersTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Username</th>
             <th>Email</th>
-            <th></th>
+            <th>Password</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${players}" var="player">
             <tr>
                 <td>
-                    <c:out value="${player.id}"/>
-                </td>
-                <td>
                     <c:out value="${player.username}"/>
                 </td>
                 <td>
                     <c:out value="${player.email}"/>
                 </td>
-				<td>
-					<a href="<c:url value="/players/${player.id}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-				</td>
+                <td>
+                    <c:out value="${player.password}"/>
+                </td>
+                <sec:authorize access="hasAnyAuthority('admin')">
+					<td>
+						<a href="<c:url value="/players/${player.username}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+					</td>
+				</sec:authorize>
             </tr>
         </c:forEach>
         </tbody>
