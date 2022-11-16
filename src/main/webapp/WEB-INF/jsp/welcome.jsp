@@ -108,7 +108,7 @@
 		</a>
     </div>
     <div style ="text-align: center">
-    	<a href="/player/${username}/edit"
+    	<a href="/player/${username}"
 	    	style = "
 	    		box-shadow:inset 0px 1px 0px 0px #fff6af;
 	    		text-align: center;

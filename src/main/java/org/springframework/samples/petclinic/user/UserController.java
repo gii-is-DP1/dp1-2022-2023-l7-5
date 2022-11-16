@@ -1,13 +1,11 @@
 package org.springframework.samples.petclinic.user;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -20,9 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserController {
 
-	private static final String VIEWS_PLAYER_CREATE_FORM = "users/createPlayerForm";
-	private final String  PLAYERS_LISTING_VIEW = "/players/PlayersListing";
-
+	private final String VIEWS_PLAYER_CREATE_FORM = "users/createPlayerForm";
+	private final String PLAYERS_LISTING_VIEW = "/players/PlayersListing";
+	private final String PLAYERS_DETAIL = "players/PlayerDetails";
+	
 	private final UserService userService;
 	
 	private final AuthoritiesService authService;
@@ -93,6 +92,11 @@ public class UserController {
 		}
 	}
 	
-	
+	@GetMapping(value = "/player/{username}")
+	public String viewUser(@PathVariable("username") String username, Model model) {
+		User user = this.userService.findUser(username).get();
+		model.addAttribute(user);
+		return PLAYERS_DETAIL;
+	}
 
 }

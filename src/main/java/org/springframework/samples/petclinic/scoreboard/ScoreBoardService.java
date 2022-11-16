@@ -15,26 +15,24 @@ ScoreBoardRepository repo;
 		this.repo = repo;
 	}
 	
-	ScoreBoard getScoreBoard() {
-		return repo.findAll().get(0);    //Solo hay un marcador entonces no se como coger el único
+	List<ScoreBoard> getScoreBoards() {
+		return repo.findAll();    
 	}
 	
-	/*public ScoreBoard getScoreBoardById(Integer id) {
+	public ScoreBoard getScoreBoardById(Integer id) {
     	return repo.findById(id).get();
     }
     
     public void deleteScoreBoardById(Integer id) {
     	repo.deleteById(id);
-    }*/
+    }
 	
-	//No veo más sentido que actualizar
-    
-    public void save(ScoreBoard scores) {
+	public void save(ScoreBoard scores) {
     	repo.save(scores);
     }
-    
-    public List<ScoreBoard> getScoreboardsById(Integer id) {
-    	return repo.getScoreboardsByGameId(id);
-    }
+	    
+	public List<ScoreBoard> getScoreboardsById(Integer id) {
+	    return repo.getScoreboardsByGameId(id);
+	}
 	
 }
