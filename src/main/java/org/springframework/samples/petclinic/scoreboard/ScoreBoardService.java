@@ -27,12 +27,12 @@ ScoreBoardRepository repo;
     	repo.deleteById(id);
     }
 	
-	    public void save(ScoreBoard scores) {
+	public void save(ScoreBoard scores) {
     	repo.save(scores);
     }
-    
-    public List<ScoreBoard> getScoreboardsById(Integer id) {
-    	return repo.getScoreboardsByGameId(id);
-    }
+	    
+	public List<ScoreBoard> getScoreboardsById(Integer id) {
+	    return repo.getScoreboardsByGameId(id);
+	}
 	
 }
