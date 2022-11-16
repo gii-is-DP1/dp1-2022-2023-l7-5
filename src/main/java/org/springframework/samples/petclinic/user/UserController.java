@@ -51,6 +51,7 @@ public class UserController {
 		else {
 			user.setEnabled(true);
 			auth.setUser(user);
+			auth.setAuthority("player");
 			this.userService.saveUser(user);
 			this.authService.saveAuthorities(auth);
 			return "redirect:/";
