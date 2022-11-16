@@ -54,13 +54,13 @@ public class UserServiceTests {
 		user.setEnabled(true);
 		this.userService.saveUser(user);
 				
-//		Authorities autho = new Authorities();
-//		autho.setUser(user);
-//		autho.setAuthority("44444");
-//		this.authoService.saveAuthorities(autho);
 		String username = user.getUsername();
 		
-		assertThat(this.userService.findUser(username).get()).isEqualTo(user);
+		assertThat(this.userService.findUser(username).get().getUsername()).isEqualTo(user.getUsername());
+		assertThat(this.userService.findUser(username).get().getEmail()).isEqualTo(user.getEmail());
+		assertThat(this.userService.findUser(username).get().getPassword()).isEqualTo(user.getPassword());
+
+
 	}
 	
 	@Test
@@ -73,11 +73,7 @@ public class UserServiceTests {
 		user.setPassword("password");
 		user.setEnabled(true);
 		this.userService.saveUser(user);
-				
-//		Authorities autho = new Authorities();
-//		autho.setUser(user);
-//		autho.setAuthority("55555");
-//		this.authoService.saveAuthorities(autho);
+	
 		String username = user.getUsername();
 		
 		assertThat(this.userService.findAllUsers().size()).isEqualTo(found+1);
