@@ -11,8 +11,11 @@
         <thead>
         <tr>
             <th>Id</th>
-            <th>Empty Cell</th>
-            <th>Blocked Cell</th>
+            <th>Position</th>
+            <th>Is Flipped</th>
+            <th>Is Blocked</th>
+            <th>Adjacents</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -22,10 +25,16 @@
                     <c:out value="${cell.id}"/>
                 </td>
                 <td>
-                    <c:out value="${cell.emptyCell}"/>
+                    <c:out value="${cell.position}"/>
                 </td>
                 <td>
-                    <c:out value="${cell.blockedCell}"/>
+                    <c:out value="${cell.isFlipped}"/>
+                </td>
+                <td>
+                    <c:out value="${cell.isBlocked}"/>
+                </td>
+                <td>
+                    <c:out value="${cell.adjacents}"/>
                 </td>
 				<td>
 					<a href="<c:url value="/cells/${cell.id}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>

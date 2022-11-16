@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.cell;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +24,6 @@ public class Cell extends BaseEntity{
 	@NotNull
 	private Boolean isBlocked;
 	
-	@OneToMany
+	@ManyToMany
 	private List<Cell> adjacents;
 }
