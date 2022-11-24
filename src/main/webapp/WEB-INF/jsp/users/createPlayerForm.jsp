@@ -12,7 +12,7 @@
     </h2>
     <form:form modelAttribute="user" class="form-horizontal" id="add-player-form">
         <div class="form-group has-feedback">
-            <c:if test="${!user.enabled}"><petclinic:inputField label="Username" name="username"/></c:if>
+            <petclinic:inputField label="Username" name="username"/>
             <petclinic:inputField label="E-mail" name="email"/>
             <petclinic:inputField label="Password" name="password"/>
         </div>

@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.samples.petclinic.profile.Profile;
@@ -24,13 +25,17 @@ import lombok.Setter;
 @Table(name = "users")
 public class User{
 	@Id
+	@NotNull
+	@NotBlank
 	String username;
 	
 	@NotNull
 	@Email
+	@NotBlank
 	private String email;
 	
 	@NotNull
+	@NotBlank
 	String password;
 	
 	boolean enabled;

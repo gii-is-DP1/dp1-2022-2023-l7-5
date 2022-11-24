@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <th>Number of Players</th>
-            <td><c:out value="${game.numberOfPlayers}"/></td>
+            <td><c:out value="${game.numberCurrentPlayers}/${game.numberOfPlayers}"/></td>
         </tr>
     </table>
     <br/>

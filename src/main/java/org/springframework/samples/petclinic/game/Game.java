@@ -35,7 +35,11 @@ public class Game extends BaseEntity {
 	private Boolean finished;
 	
 	@NotNull
-	@Column(name = "number_of_players")
+	@Column(name = "number_current_players")
+	private Integer numberCurrentPlayers;
+	
+	@NotNull
+	@Column(name = "number_max_players")
 	private Integer numberOfPlayers;
 	
 	@NotNull
