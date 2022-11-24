@@ -14,8 +14,9 @@
             <div class="form-group has-feedback"> 
                 <petclinic:selectField name="mode" label="Mode" names="${modes}" size="3"/>
                 <petclinic:selectField name="numberOfPlayers" label="Number of players" names="${nplayers}" size="4"/>
-                <petclinic:inputField label="Finished" name="finished"/>
-                <petclinic:inputField label="Date of Creation" name="dateOfCreation"/>
+                <petclinic:inputHidden label="Finished" name="numberCurrentPlayers"/>
+                <petclinic:inputHidden label="Finished" name="finished"/>
+                <petclinic:inputHidden label="Date of Creation" name="dateOfCreation"/>
                 
             </div>
             <div class="form-group">

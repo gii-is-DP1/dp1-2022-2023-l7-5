@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.game;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -10,6 +11,8 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
+import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.user.User;
@@ -33,6 +36,8 @@ public class GameController {
 	private final String  GAMES_LISTING_VIEW = "games/GamesListing";
     private final String  GAMES_FORM = "games/createOrUpdateGameForm";
     private final String  GAME_DETAIL = "games/gameDetails";
+    private final String  JOIN_LISTING_VIEW = "games/joinGamesListing";
+
 
     List<String> modes = List.of("COMPETITIVE", "SOLO", "SURVIVAL");
     List<Integer> nPlayers = List.of(1, 2, 3, 4);
@@ -94,6 +99,7 @@ public class GameController {
     @GetMapping("/new")
     public String createGame(ModelMap model) {
     	Game game = new Game();
+    	game.setNumberCurrentPlayers(1);
     	game.setFinished(false);
     	game.setDateOfCreation(LocalDate.now());
     	model.addAttribute(game);
@@ -129,7 +135,7 @@ public class GameController {
     		}
     	}
         service.save(game);
-        initPlayerToGame(principal.getName(), game);
+        service.initPlayerToGame(principal.getName(), game);
         ModelAndView result = showGameDetails(model, game.getId(), response);
         result.addObject("message", "The game was created successfully.");
         return new ModelAndView("redirect:/games/"+game.getId()+"/view");
@@ -142,7 +148,7 @@ public class GameController {
     	if (game.getMode().charAt(0) == 'C') {
     		response.addHeader("Refresh", "5");
     	}
-    	List<ScoreBoard> sbs = scoreboardService.getScoreboardsById(id);
+    	List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
     	ModelAndView result = new ModelAndView(GAME_DETAIL);
     	result.addObject("game", game);
     	result.addObject("scoreboards", sbs);
@@ -150,14 +156,25 @@ public class GameController {
     }
     
     @Transactional
-    public void initPlayerToGame(String username, Game game) {
-    	ScoreBoard sb = new ScoreBoard();
-    	User user = userService.findUser(username).get();
-    	sb.setOrden(1);
-    	sb.setScore(0);
-    	sb.setUser(user);
-    	sb.setGame(game);
-    	scoreboardService.save(sb);
+    @GetMapping("/join/{id}/{username}")
+    public ModelAndView joinPlayerToGame(@PathVariable int id, @PathVariable String username) {
+    	Game game = service.getGameById(id);
+    	try {
+			service.joinPlayerToGame(username, game);
+		} catch (TooManyPlayers e) {
+			e.printStackTrace();
+		} catch (NotThisTypeOfGame e) {
+			e.printStackTrace();
+		}
+        return new ModelAndView("redirect:/games/"+game.getId()+"/view");
     }
     
+    @GetMapping("/join")
+    public ModelAndView joinGameListing(Principal principal) {
+    	ModelAndView mav = new ModelAndView(JOIN_LISTING_VIEW);
+    	List<Game> games = service.getGames().stream().filter(g -> g.getMode().charAt(0) == 'C' && !g.getFinished()).collect(Collectors.toList());
+    	mav.addObject("games", games);
+    	mav.addObject("username", principal.getName());
+    	return mav;
+    }
 }

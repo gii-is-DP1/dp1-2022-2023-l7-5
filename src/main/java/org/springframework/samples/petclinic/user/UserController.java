@@ -44,9 +44,11 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/users/new")
-	public String processCreationForm(@Valid User user, Authorities auth, BindingResult result) {
-		if (result.hasErrors()) {
-			return VIEWS_PLAYER_CREATE_FORM;
+	public ModelAndView processCreationForm(@Valid User user, Authorities auth, BindingResult br) {
+		if (br.hasErrors()) {
+			ModelAndView result = new ModelAndView(VIEWS_PLAYER_CREATE_FORM, br.getModel());
+			result.addObject(user);
+			return result;
 		}
 		else {
 			user.setEnabled(true);
@@ -54,7 +56,7 @@ public class UserController {
 			auth.setAuthority("player");
 			this.userService.saveUser(user);
 			this.authService.saveAuthorities(auth);
-			return "redirect:/";
+			return new ModelAndView("redirect:/");
 		}
 	}
 	
@@ -68,10 +70,10 @@ public class UserController {
     }
 	
 	@Transactional()
-    @GetMapping("users/{id}/delete")
+    @GetMapping("users/{username}/delete")
     public ModelAndView deleteUser(@PathVariable("username") String username){
         userService.deleteUser(username);        
-        return showPlayers();
+        return new ModelAndView("redirect:/users");
     }
 	
 	@GetMapping(value = "/player/{username}/edit")

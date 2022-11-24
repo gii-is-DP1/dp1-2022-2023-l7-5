@@ -31,7 +31,7 @@
                 </td>
                 <sec:authorize access="hasAnyAuthority('admin')">
 					<td>
-						<a href="<c:url value="/players/${player.username}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+						<a href="<c:url value="/users/${player.username}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 					</td>
 				</sec:authorize>
             </tr>

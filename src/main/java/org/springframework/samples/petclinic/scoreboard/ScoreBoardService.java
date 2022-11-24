@@ -31,7 +31,7 @@ ScoreBoardRepository repo;
     	repo.save(scores);
     }
 	    
-	public List<ScoreBoard> getScoreboardsById(Integer id) {
+	public List<ScoreBoard> getScoreboardsByGameId(Integer id) {
 	    return repo.getScoreboardsByGameId(id);
 	}
 	
