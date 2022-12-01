@@ -110,5 +110,4 @@ public class GameService {
     	repository.save(game);
     	userService.saveUser(user);
     }
-    
 }
