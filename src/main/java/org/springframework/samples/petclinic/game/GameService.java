@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.cell.Cell;
@@ -88,11 +89,27 @@ public class GameService {
     @Transactional
     public void initGame(Integer id) {
     	Game game = getGameById(id);
+    	this.tileService.createAllTiles();
     	List<Tile> bag = this.tileService.getTiles();
     	game.setBag(bag);
     	List<Cell> cells = this.cellService.getCells();
     	game.setCells(cells);
     	this.repository.save(game);
+    }
+    
+    @Transactional
+    public void stealTokenn(Game game, User user) {
+    	int size = game.getBag().size();
+    	//Random random = new Random(System.currentTimeMillis());
+    	//Tile tile = game.getBag().get(random.nextInt(size));
+    	Tile tile = game.getBag().get(0);
+    	List<Tile> tiles = user.getTiles();
+    	tiles.add(tile);
+    	user.setTiles(tiles);
+    	game.getBag().remove(tile);
+    	repository.save(game);
+    	userService.saveUser(user);
+    	
     }
     
 }

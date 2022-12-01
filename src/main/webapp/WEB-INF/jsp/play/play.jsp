@@ -28,4 +28,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	
+		<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
+	
 </petclinic:layout>

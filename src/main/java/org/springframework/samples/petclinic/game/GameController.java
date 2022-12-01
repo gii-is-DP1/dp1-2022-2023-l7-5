@@ -136,9 +136,10 @@ public class GameController {
             	return mav;
     		}
     	}
+    	service.save(game);
+    	service.initGame(game.getId());
         service.save(game);
         service.initPlayerToGame(principal.getName(), game);
-    	service.initGame(game.getId());
         ModelAndView result = showGameDetails(model, game.getId(), response);
         result.addObject("message", "The game was created successfully.");
         return new ModelAndView("redirect:/games/"+game.getId()+"/view");
@@ -186,8 +187,16 @@ public class GameController {
     	Game game = service.getGameById(id);
     	List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
     	ModelAndView mav = new ModelAndView(PLAY_GAME);
-    	System.out.println(sbs);
     	mav.addObject("scoreboards", sbs);
+    	mav.addObject("game", game);
     	return mav;
+    }
+    
+    @GetMapping("/{id}/play/stealToken")
+    public ModelAndView stealToken(@PathVariable int id, Principal principal) {
+    	Game game = service.getGameById(id);
+    	User user = userService.findUser(principal.getName()).get();
+    	service.stealTokenn(game, user);
+    	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
     }
 }
