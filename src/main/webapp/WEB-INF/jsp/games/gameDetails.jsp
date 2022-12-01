@@ -40,7 +40,7 @@
         </c:forEach>
     </table>
     <div style ="text-align: center">
-    	<a style ="font-size: 46px; color: #FCDC04;" href="<spring:url value="/" htmlEscape="true" />"> Play!</a>
+    	<a style ="font-size: 46px; color: #FCDC04;" href="<spring:url value="/games/${game.id}/play" />"> Play!</a>
     </div>
     
 </petclinic:layout>
