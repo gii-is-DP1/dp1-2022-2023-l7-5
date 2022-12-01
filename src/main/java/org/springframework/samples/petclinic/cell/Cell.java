@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.samples.petclinic.model.BaseEntity;
+import org.springframework.samples.petclinic.tile.Tile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +24,10 @@ public class Cell extends BaseEntity{
 	private Boolean isFlipped;
 	@NotNull
 	private Boolean isBlocked;
+	
+	@OneToOne(optional = true)
+	
+	private Tile tile;
 	
 	@ManyToMany
 	private List<Cell> adjacents;

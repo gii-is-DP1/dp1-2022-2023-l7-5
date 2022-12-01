@@ -20,13 +20,6 @@ INSERT INTO authorities(id,username,authority) VALUES (15,'alematcap','player');
 INSERT INTO users(username,email,password,enabled) VALUES ('angel','angel@gmail.com','4ng3l',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (16,'angel','player');
 
-INSERT INTO tile(id, starting_side, filled_side) VALUES (1, 'purple', 'purple');
-INSERT INTO tile(id, starting_side, filled_side) VALUES (2, 'red', 'red');
-INSERT INTO tile(id, starting_side, filled_side) VALUES (3, 'blue', 'blue');
-INSERT INTO tile(id, starting_side, filled_side) VALUES (4, 'yellow', 'yellow');
-INSERT INTO tile(id, starting_side, filled_side) VALUES (5, 'green', 'green');
-INSERT INTO tile(id, starting_side, filled_side) VALUES (6, 'orange', 'orange');
-
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (11, false, false, 11);
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (12, false, false, 12);
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (13, false, false, 13);
