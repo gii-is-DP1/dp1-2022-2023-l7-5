@@ -54,6 +54,7 @@ public class UserService {
 		return (List<User>) userRepository.findAll();
 	}
 	
+	@Transactional
 	public void deleteUser(String username) {
 		userRepository.deleteById(username);
 	}

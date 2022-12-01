@@ -24,7 +24,7 @@ public class CellService {
 		this.repo = repo;
 	}
 	
-	List<Cell> getCells() {
+	public List<Cell> getCells() {
 		return repo.findAll();
 	}
 	

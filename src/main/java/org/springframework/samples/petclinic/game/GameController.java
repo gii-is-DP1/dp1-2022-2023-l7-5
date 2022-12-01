@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.game;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,7 @@ public class GameController {
     private final String  GAMES_FORM = "games/createOrUpdateGameForm";
     private final String  GAME_DETAIL = "games/gameDetails";
     private final String  JOIN_LISTING_VIEW = "games/joinGamesListing";
+    private final String PLAY_GAME = "play/play";
 
 
     List<String> modes = List.of("COMPETITIVE", "SOLO", "SURVIVAL");
@@ -136,6 +138,7 @@ public class GameController {
     	}
         service.save(game);
         service.initPlayerToGame(principal.getName(), game);
+    	service.initGame(game.getId());
         ModelAndView result = showGameDetails(model, game.getId(), response);
         result.addObject("message", "The game was created successfully.");
         return new ModelAndView("redirect:/games/"+game.getId()+"/view");
@@ -175,6 +178,16 @@ public class GameController {
     	List<Game> games = service.getGames().stream().filter(g -> g.getMode().charAt(0) == 'C' && !g.getFinished()).collect(Collectors.toList());
     	mav.addObject("games", games);
     	mav.addObject("username", principal.getName());
+    	return mav;
+    }
+    
+    @GetMapping("/{id}/play")
+    public ModelAndView playGame(@PathVariable int id) {
+    	Game game = service.getGameById(id);
+    	List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
+    	ModelAndView mav = new ModelAndView(PLAY_GAME);
+    	System.out.println(sbs);
+    	mav.addObject("scoreboards", sbs);
     	return mav;
     }
 }
