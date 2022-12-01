@@ -16,6 +16,7 @@ import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.model.BaseEntity;
 //import org.springframework.samples.petclinic.player.Player;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
+import org.springframework.samples.petclinic.tile.Tile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -53,4 +54,7 @@ public class Game extends BaseEntity {
 	
 	@OneToMany
 	private List<Cell> cells;
+	
+	@OneToMany
+	private List<Tile> bag;
 }

@@ -13,7 +13,7 @@ public class TileService {
 		this.repo = repo;
 	}
 	
-	List<Tile> getTiles() {
+	public List<Tile> getTiles() {
 		return repo.findAll();
 	}
 	
