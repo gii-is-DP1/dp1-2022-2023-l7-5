@@ -109,7 +109,6 @@ public class GameService {
     	game.getBag().remove(tile);
     	repository.save(game);
     	userService.saveUser(user);
-    	
     }
     
 }
