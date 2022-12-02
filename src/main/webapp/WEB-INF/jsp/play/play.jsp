@@ -6,29 +6,43 @@
 
 <petclinic:layout pageName="play">
 
-	<h2>Play</h2>
-	
-	<table id="playGame"class="table table-striped">
+	<h1 
+    	style ="
+    		text-align: center;
+    		font-size: 64px">
+    	Play!
+    </h1>
+
+	<c:forEach items="${scoreboards }" var="scoreboard">
+	<h2>${scoreboard.user.username }</h2>
+	<table id="userGame"class="table table-striped">
 		<thead>
 		<tr>
-			<th>Username</th>
-			<th>Tiles</th>
+			<th>Tiles Starting Side</th>
+			<c:if test="${username == scoreboard.user.username }">
+				<th>Tiles Filled Side</th>
+			</c:if>
 		</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${scoreboards}" var="scoreboard">
+		<c:forEach items="${scoreboard.user.tiles }" var="tile">
 			<tr>
 				<td>
-					<c:out value="${scoreboard.user.username}"/>
+					<c:out value="${tile.startingSide }"/>
 				</td>
-				<td>
-					<c:out value="${scoreboard.user.tiles }"/>
-				</td>
+				<c:if test="${username == scoreboard.user.username }">
+					<td>
+						<c:out value="${tile.filledSide }"/>
+					</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
-	
-		<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
-	
+	<c:if test="${username == scoreboard.user.username }">
+		<c:if test="${!game.bag.isEmpty()}">
+			<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
+		</c:if>
+	</c:if>
+	</c:forEach>
 </petclinic:layout>

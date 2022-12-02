@@ -140,6 +140,7 @@ public class GameController {
     	service.initGame(game.getId());
         service.save(game);
         service.initPlayerToGame(principal.getName(), game);
+    	service.initGame(game.getId());
         ModelAndView result = showGameDetails(model, game.getId(), response);
         result.addObject("message", "The game was created successfully.");
         return new ModelAndView("redirect:/games/"+game.getId()+"/view");
@@ -183,12 +184,16 @@ public class GameController {
     }
     
     @GetMapping("/{id}/play")
-    public ModelAndView playGame(@PathVariable int id) {
+    public ModelAndView playGame(@PathVariable int id, HttpServletResponse response, Principal principal) {
     	Game game = service.getGameById(id);
+    	if (game.getMode().charAt(0) == 'C') {
+    		response.addHeader("Refresh", "1");
+    	}
     	List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
     	ModelAndView mav = new ModelAndView(PLAY_GAME);
     	mav.addObject("scoreboards", sbs);
     	mav.addObject("game", game);
+    	mav.addObject("username", principal.getName());
     	return mav;
     }
     

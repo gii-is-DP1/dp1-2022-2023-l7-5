@@ -100,9 +100,9 @@ public class GameService {
     @Transactional
     public void stealTokenn(Game game, User user) {
     	int size = game.getBag().size();
-    	//Random random = new Random(System.currentTimeMillis());
-    	//Tile tile = game.getBag().get(random.nextInt(size));
-    	Tile tile = game.getBag().get(0);
+    	Random random = new Random(System.currentTimeMillis());
+    	Tile tile = game.getBag().get(random.nextInt(size));
+    	//Tile tile = game.getBag().get(0);
     	List<Tile> tiles = user.getTiles();
     	tiles.add(tile);
     	user.setTiles(tiles);
