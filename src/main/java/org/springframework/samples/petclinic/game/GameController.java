@@ -136,6 +136,8 @@ public class GameController {
             	return mav;
     		}
     	}
+    	service.save(game);
+    	service.initGame(game.getId());
         service.save(game);
         service.initPlayerToGame(principal.getName(), game);
     	service.initGame(game.getId());
@@ -182,12 +184,24 @@ public class GameController {
     }
     
     @GetMapping("/{id}/play")
-    public ModelAndView playGame(@PathVariable int id) {
+    public ModelAndView playGame(@PathVariable int id, HttpServletResponse response, Principal principal) {
     	Game game = service.getGameById(id);
+    	if (game.getMode().charAt(0) == 'C') {
+    		response.addHeader("Refresh", "1");
+    	}
     	List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
     	ModelAndView mav = new ModelAndView(PLAY_GAME);
-    	System.out.println(sbs);
     	mav.addObject("scoreboards", sbs);
+    	mav.addObject("game", game);
+    	mav.addObject("username", principal.getName());
     	return mav;
+    }
+    
+    @GetMapping("/{id}/play/stealToken")
+    public ModelAndView stealToken(@PathVariable int id, Principal principal) {
+    	Game game = service.getGameById(id);
+    	User user = userService.findUser(principal.getName()).get();
+    	service.stealTokenn(game, user);
+    	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
     }
 }
