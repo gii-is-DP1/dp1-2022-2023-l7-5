@@ -39,7 +39,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	<c:if test="${username == scoreboard.user.username }">
+	<c:if test="${username == scoreboard.user.username}">
 		<c:if test="${!game.bag.isEmpty()}">
 			<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
 		</c:if>
