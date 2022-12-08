@@ -201,7 +201,7 @@ public class GameController {
     public ModelAndView stealToken(@PathVariable int id, Principal principal) {
     	Game game = service.getGameById(id);
     	User user = userService.findUser(principal.getName()).get();
-    	service.stealTokenn(game, user);
+    	service.stealToken(game, user);
     	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
     }
 }

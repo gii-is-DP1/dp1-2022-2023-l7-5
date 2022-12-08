@@ -1,8 +1,8 @@
 package org.springframework.samples.petclinic.cell;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +40,7 @@ public class CellService {
 		repo.save(cell);
 	}
 	
+	@Transactional
 	public void putTileOnCell(Integer cellId, Integer tileId) throws AlreadyTileOnCell {
 		Cell cell = repo.findById(cellId).get();
 		if (cell.getTile()==null) {
@@ -51,11 +52,12 @@ public class CellService {
 		}
 	}
 	
+	@Transactional
 	public Set<Cell> detectMatch(Integer cellId) {
 		Cell cell = repo.findById(cellId).get();
 		String color = cell.getTile().getStartingSide();
 		List<Cell> adjacents = cell.getAdjacents();
-		Set<Cell> match = new HashSet();
+		Set<Cell> match = new HashSet<Cell>();
 		match.add(cell);
 		for (Cell cellAdj : adjacents) {
 			if (cellAdj.getTile() == null) {
@@ -76,6 +78,7 @@ public class CellService {
 		return match;
 	}
 	
+	@Transactional
 	public Set<Cell> detectNextCellMatch(Cell cell, List<Cell> adjacents, Set<Cell> match, String color) {
 		for (Cell cellAdj : adjacents) {
 			if (cellAdj.getTile() == null) {
