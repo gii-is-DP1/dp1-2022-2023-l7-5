@@ -10,7 +10,6 @@
     <table id="achievements" class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Threshold</th>
             <th>Description</th>
@@ -18,11 +17,8 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${achievement}" var="achievement">
+        <c:forEach items="${achievements}" var="achievement">
             <tr>
-                <td>
-                    <c:out value="${achievement.id}"/>
-                </td>
                 <td>
                     <c:out value="${achievement.name}"/>
                 </td>
@@ -32,9 +28,12 @@
                 <td>
                     <c:out value="${achievement.description}"/>
                 </td>
-                <td>
-                    <c:out value="${achievement.badgeImage}"/>
-                </td>
+               <td><c:if test="${achievement.badgeImage == '' }">none </c:if> <c:if
+						test="${achievement.badgeImage != '' }">
+						<spring:url value="${achievement.badgeImage}" var="image"/>
+						<img class="img-responsive" src="${image}" width="80"
+							height="80" />
+					</c:if></td>
 				<td>
 					<a href="<c:url value="/achievements/${achievement.id}/delete/"/>"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 				</td>

@@ -27,9 +27,9 @@
             <input type="hidden" name="id" value="${achievement.id}"/>
             <div class="form-group has-feedback">
             <h3>Badge Image</h3>
-                <c:if test="${achievement.badgeimage == ''}">none</c:if>
-                <c:if test="${achievement.badgeimage != ''}">
-                	<spring:url value="${achievement.badgeimage~}" var="badgeImage"></spring:url>
+                <c:if test="${achievement.badgeImage == ''}">none</c:if>
+                <c:if test="${achievement.badgeImage != ''}">
+                	<spring:url value="${achievement.badgeImage~}" var="badgeImage"></spring:url>
                 	<img class="img-responsive" src="${badgeImage}" width="80" height="80">
                 </c:if>
           	<h3>Threshold</h3>

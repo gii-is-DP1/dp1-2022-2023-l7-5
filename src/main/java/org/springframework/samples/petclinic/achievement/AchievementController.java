@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.achievement;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,8 @@ public class AchievementController {
 	@GetMapping(value= "/AchievementsListing")
 	public ModelAndView showAchievements() {
 		ModelAndView mav= new ModelAndView(ACHIEVEMENTS_LISTING_VIEW);
-		mav.addObject("achievements", service.getAchievements());
+		List<Achievement> a = service.getAchievements();
+		mav.addObject("achievements", a);
 		return mav;
 	}
 	

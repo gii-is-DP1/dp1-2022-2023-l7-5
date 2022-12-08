@@ -147,3 +147,10 @@ INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (52, 43);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 52);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 43);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 44);
+
+INSERT INTO achievement(id,name, badge_image, threshold, description) VALUES (1, 'Baby Bee','https://media.istockphoto.com/illustrations/happy-baby-bee-illustration-id92717135?k=6&m=92717135&s=170667a&w=0&h=rT8nF4gaMA1bjExYyX4jTlTERmNtuVhVihHE5bmavIc=', 2.0, 'Enter your first game');
+INSERT INTO achievement(id,name, badge_image, threshold, description) VALUES (2, 'BumbleBee','https://th.bing.com/th/id/OIP.oJ3oz0uzEgtj_ev6HkXIYQHaFR?pid=ImgDet&rs=1', 2.0, 'Play 5 Games');
+INSERT INTO achievement(id,name, badge_image, threshold, description) VALUES (3, 'Queen Bee','https://th.bing.com/th/id/R.05085dceb44cdf2855c5dc277dd3721c?rik=u0Ft5NRpNJMLwQ&riu=http%3a%2f%2fwww.clipartbest.com%2fcliparts%2fncB%2fEG4%2fncBEG4B7i.jpg&ehk=Zt%2bDJz7mNMTYNW5sDIiV9GH8m7NxOJALbmuUjkZAEpc%3d&risl=&pid=ImgRaw&r=0', 2.0, 'Play 10 Games');
+INSERT INTO achievement(id,name, badge_image, threshold, description) VALUES (4, 'Queen of the Hive','https://th.bing.com/th/id/R.a0585fed6ea86756e29f60072beee908?rik=%2bImp2dAcp0WH1A&pid=ImgRaw&r=0', 2.0, 'Win your first game');
+INSERT INTO achievement(id,name, badge_image, threshold, description) VALUES (5, 'Shameless Thief','https://th.bing.com/th/id/OIP.QzqEbxDqzlBH2-WAxCFbaQHaHa?w=209&h=209&c=7&r=0&o=5&pid=1.7', 2.0, 'Steal your first tile');
+
