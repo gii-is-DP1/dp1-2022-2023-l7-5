@@ -35,17 +35,11 @@ public class WelcomeController {
 		if (tileService.getTiles().size()==0) {
 			tileService.createAllTiles();
 		}
-		try {
-			cellService.putTileOnCell(11, 1);
-			cellService.putTileOnCell(31, 2);
-			cellService.putTileOnCell(21, 3);
-			cellService.detectMatch(11);
-			for (Cell adjacent : cellService.detectMatch(11)) {
-				System.out.println(adjacent.getId() + adjacent.getTile().getStartingSide());
-			}
-		} catch (AlreadyTileOnCell e) {
-			e.printStackTrace();
+		System.out.println(cellService.detectMatch(11));
+		for (Cell adjacent : cellService.detectMatch(11)) {
+			System.out.println(adjacent.getId() + adjacent.getTile().getStartingSide());
 		}
+		
 		return mav;
 	}
 }

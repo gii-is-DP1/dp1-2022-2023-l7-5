@@ -1,8 +1,8 @@
 package org.springframework.samples.petclinic.cell;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +40,7 @@ public class CellService {
 		repo.save(cell);
 	}
 	
+	@Transactional
 	public void putTileOnCell(Integer cellId, Integer tileId) throws AlreadyTileOnCell {
 		Cell cell = repo.findById(cellId).get();
 		if (cell.getTile()==null) {
@@ -51,31 +52,35 @@ public class CellService {
 		}
 	}
 	
+	@Transactional
 	public Set<Cell> detectMatch(Integer cellId) {
 		Cell cell = repo.findById(cellId).get();
-		String color = cell.getTile().getStartingSide();
-		List<Cell> adjacents = cell.getAdjacents();
-		Set<Cell> match = new HashSet();
-		match.add(cell);
-		for (Cell cellAdj : adjacents) {
-			if (cellAdj.getTile() == null) {
-				continue;
-			} else if (cellAdj.getTile().getFilledSide() != color &&
-					cellAdj.getTile().getStartingSide() != color) {
-				continue;
-			} else {
-				if (cellAdj.getIsFlipped() && cellAdj.getTile().getFilledSide() == color) {
-					match.add(cellAdj);
-					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
-				} else if (!cellAdj.getIsFlipped() && cellAdj.getTile().getStartingSide() == color) {
-					match.add(cellAdj);
-					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
+		Set<Cell> match = new HashSet<Cell>();
+		if(cell.getTile()!=null) {
+			String color = cell.getTile().getStartingSide();
+			List<Cell> adjacents = cell.getAdjacents();
+			match.add(cell);
+			for (Cell cellAdj : adjacents) {
+				if (cellAdj.getTile() == null) {
+					continue;
+				} else if (cellAdj.getTile().getFilledSide() != color &&
+						cellAdj.getTile().getStartingSide() != color) {
+					continue;
+				} else {
+					if (cellAdj.getIsFlipped() && cellAdj.getTile().getFilledSide() == color) {
+						match.add(cellAdj);
+						match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
+					} else if (!cellAdj.getIsFlipped() && cellAdj.getTile().getStartingSide() == color) {
+						match.add(cellAdj);
+						match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
+					}
 				}
 			}
 		}
 		return match;
 	}
 	
+	@Transactional
 	public Set<Cell> detectNextCellMatch(Cell cell, List<Cell> adjacents, Set<Cell> match, String color) {
 		for (Cell cellAdj : adjacents) {
 			if (cellAdj.getTile() == null) {
