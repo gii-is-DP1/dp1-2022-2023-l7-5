@@ -220,6 +220,6 @@ public class GameController {
     public ModelAndView playTile(@PathVariable int id, Principal principal, @PathVariable("tileId") int tileId, @PathVariable("cellId") int cellId) throws AlreadyTileOnCell {
     	User user = userService.findUser(principal.getName()).get();
     	this.service.playTile(cellId, tileId, user);
-    	return new ModelAndView("redirect:/games/"+id+"/play/test/"+cellId);
+    	return new ModelAndView("redirect:/games/"+id+"/play/");
     }
 }
