@@ -7,6 +7,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
+import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
@@ -89,7 +90,9 @@ public class GameService {
     @Transactional
     public void initGame(Integer id) {
     	Game game = getGameById(id);
-    	this.tileService.createAllTiles();
+    	if(this.tileService.getTiles().isEmpty()) {
+    		this.tileService.createAllTiles();
+    	}
     	List<Tile> bag = this.tileService.getTiles();
     	game.setBag(bag);
     	List<Cell> cells = this.cellService.getCells();
@@ -98,16 +101,24 @@ public class GameService {
     }
     
     @Transactional
-    public void stealTokenn(Game game, User user) {
+    public void stealToken(Game game, User user) {
     	int size = game.getBag().size();
     	Random random = new Random(System.currentTimeMillis());
     	Tile tile = game.getBag().get(random.nextInt(size));
-    	//Tile tile = game.getBag().get(0);
     	List<Tile> tiles = user.getTiles();
     	tiles.add(tile);
     	user.setTiles(tiles);
     	game.getBag().remove(tile);
     	repository.save(game);
+    	userService.saveUser(user);
+    }
+    
+    @Transactional(rollbackFor = {AlreadyTileOnCell.class})
+    public void playTile(Integer cellId, Integer tileId, User user) throws AlreadyTileOnCell {
+    	this.cellService.putTileOnCell(cellId, tileId);
+    	List<Tile> tiles = user.getTiles();
+    	tiles.remove(this.tileService.getTileById(tileId));
+    	user.setTiles(tiles);
     	userService.saveUser(user);
     }
 }

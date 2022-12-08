@@ -12,6 +12,7 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
@@ -194,6 +195,8 @@ public class GameController {
     	mav.addObject("scoreboards", sbs);
     	mav.addObject("game", game);
     	mav.addObject("username", principal.getName());
+    	mav.addObject("cells", game.getCells());
+    	System.out.println(game.getCells());
     	return mav;
     }
     
@@ -201,7 +204,14 @@ public class GameController {
     public ModelAndView stealToken(@PathVariable int id, Principal principal) {
     	Game game = service.getGameById(id);
     	User user = userService.findUser(principal.getName()).get();
-    	service.stealTokenn(game, user);
+    	service.stealToken(game, user);
     	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
+    }
+    
+    @GetMapping("/{id}/play/playTile/{tileId}/{cellId}")
+    public ModelAndView playTile(@PathVariable int id, Principal principal, @PathVariable("tileId") int tileId, @PathVariable("cellId") int cellId) throws AlreadyTileOnCell {
+    	User user = userService.findUser(principal.getName()).get();
+    	this.service.playTile(cellId, tileId, user);
+    	return new ModelAndView("redirect:/games/"+id+"/play");
     }
 }
