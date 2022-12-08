@@ -205,7 +205,6 @@ public class GameController {
     		String cellid = "cell" + String.valueOf(cell.getId());
         	mav.addObject(cellid , cell);
     	}
-    	System.out.println(game.getCells());
     	return mav;
     }
     
