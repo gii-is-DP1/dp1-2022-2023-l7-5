@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
+import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
@@ -110,7 +111,6 @@ public class GameService {
     	int size = game.getBag().size();
     	Random random = new Random(System.currentTimeMillis());
     	Tile tile = game.getBag().get(random.nextInt(size));
-    	//Tile tile = game.getBag().get(0);
     	List<Tile> tiles = user.getTiles();
     	tiles.add(tile);
     	user.setTiles(tiles);
@@ -119,6 +119,7 @@ public class GameService {
     	userService.saveUser(user);
     }
     
+
     @Transactional 
     public void initSolitarieGame(Game game) {
     	Set<String> colors = new HashSet<String>();
@@ -144,5 +145,14 @@ public class GameService {
         	cellService.save(corner);
         	repository.save(game);
     	}
+    }
+    
+    @Transactional(rollbackFor = {AlreadyTileOnCell.class})
+    public void playTile(Integer cellId, Integer tileId, User user) throws AlreadyTileOnCell {
+    	this.cellService.putTileOnCell(cellId, tileId);
+    	List<Tile> tiles = user.getTiles();
+    	tiles.remove(this.tileService.getTileById(tileId));
+    	user.setTiles(tiles);
+    	userService.saveUser(user);
     }
 }

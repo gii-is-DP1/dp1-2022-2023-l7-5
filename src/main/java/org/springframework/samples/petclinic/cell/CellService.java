@@ -55,23 +55,25 @@ public class CellService {
 	@Transactional
 	public Set<Cell> detectMatch(Integer cellId) {
 		Cell cell = repo.findById(cellId).get();
-		String color = cell.getTile().getStartingSide();
-		List<Cell> adjacents = cell.getAdjacents();
 		Set<Cell> match = new HashSet<Cell>();
-		match.add(cell);
-		for (Cell cellAdj : adjacents) {
-			if (cellAdj.getTile() == null) {
-				continue;
-			} else if (cellAdj.getTile().getFilledSide() != color &&
-					cellAdj.getTile().getStartingSide() != color) {
-				continue;
-			} else {
-				if (cellAdj.getIsFlipped() && cellAdj.getTile().getFilledSide() == color) {
-					match.add(cellAdj);
-					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
-				} else if (!cellAdj.getIsFlipped() && cellAdj.getTile().getStartingSide() == color) {
-					match.add(cellAdj);
-					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
+		if(cell.getTile()!=null) {
+			String color = cell.getTile().getStartingSide();
+			List<Cell> adjacents = cell.getAdjacents();
+			match.add(cell);
+			for (Cell cellAdj : adjacents) {
+				if (cellAdj.getTile() == null) {
+					continue;
+				} else if (cellAdj.getTile().getFilledSide() != color &&
+						cellAdj.getTile().getStartingSide() != color) {
+					continue;
+				} else {
+					if (cellAdj.getIsFlipped() && cellAdj.getTile().getFilledSide() == color) {
+						match.add(cellAdj);
+						match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
+					} else if (!cellAdj.getIsFlipped() && cellAdj.getTile().getStartingSide() == color) {
+						match.add(cellAdj);
+						match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
+					}
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,9 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.cell.Cell;
+import org.springframework.samples.petclinic.cell.CellService;
+import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
@@ -47,12 +51,14 @@ public class GameController {
     private GameService service;
     private ScoreBoardService scoreboardService;
     private UserService userService;
+    private CellService cellSercive;
     
     @Autowired
-    public GameController(GameService service, ScoreBoardService scoreBoardService,  UserService userService) {
+    public GameController(GameService service, ScoreBoardService scoreBoardService,  UserService userService, CellService cellService) {
     	this.service = service;
     	this.scoreboardService = scoreBoardService;
     	this.userService = userService;
+    	this.cellSercive = cellService;
     }
     
     @GetMapping("")
@@ -194,6 +200,12 @@ public class GameController {
     	mav.addObject("scoreboards", sbs);
     	mav.addObject("game", game);
     	mav.addObject("username", principal.getName());
+    	mav.addObject("cells", game.getCells());
+    	for (Cell cell : game.getCells()) {
+    		String cellid = "cell" + String.valueOf(cell.getId());
+        	mav.addObject(cellid , cell);
+    	}
+    	System.out.println(game.getCells());
     	return mav;
     }
     
@@ -203,5 +215,12 @@ public class GameController {
     	User user = userService.findUser(principal.getName()).get();
     	service.stealToken(game, user);
     	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
+    }
+    
+    @GetMapping("/{id}/play/playTile/{tileId}/{cellId}")
+    public ModelAndView playTile(@PathVariable int id, Principal principal, @PathVariable("tileId") int tileId, @PathVariable("cellId") int cellId) throws AlreadyTileOnCell {
+    	User user = userService.findUser(principal.getName()).get();
+    	this.service.playTile(cellId, tileId, user);
+    	return new ModelAndView("redirect:/games/"+id+"/play/test/"+cellId);
     }
 }
