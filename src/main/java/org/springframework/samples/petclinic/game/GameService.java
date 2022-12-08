@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.achievement.Achievement;
@@ -114,4 +115,16 @@ public class GameService {
     	this.repository.save(game);
     }
     
+    @Transactional
+    public void stealTokenn(Game game, User user) {
+    	int size = game.getBag().size();
+    	Random random = new Random(System.currentTimeMillis());
+    	Tile tile = game.getBag().get(random.nextInt(size));
+    	List<Tile> tiles = user.getTiles();
+    	tiles.add(tile);
+    	user.setTiles(tiles);
+    	game.getBag().remove(tile);
+    	repository.save(game);
+    	userService.saveUser(user);
+    }
 }
