@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.achievement.Achievement;
+import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,15 +23,17 @@ public class UserController {
 	private final String VIEWS_PLAYER_CREATE_FORM = "users/createPlayerForm";
 	private final String PLAYERS_LISTING_VIEW = "/players/PlayersListing";
 	private final String PLAYERS_DETAIL = "players/PlayerDetails";
+	private final String PLAYER_ACHIEVEMENTS = "players/PlayerAchievements";
 	
 	private final UserService userService;
-	
 	private final AuthoritiesService authService;
+	private final AchievementService achService;
 
 	@Autowired
-	public UserController(UserService userService, AuthoritiesService authService) {
+	public UserController(UserService userService, AuthoritiesService authService, AchievementService achService) {
 		this.userService = userService;
 		this.authService = authService;
+		this.achService = achService;
 	}
 
 	@GetMapping(value = "/users/new")
@@ -100,6 +104,16 @@ public class UserController {
 		User user = this.userService.findUser(username).get();
 		model.addAttribute(user);
 		return PLAYERS_DETAIL;
+	}
+	
+	@GetMapping(value = "/player/{username}/achievements")
+	public ModelAndView viewUserAchievements(@PathVariable("username") String username, Model model) {
+		ModelAndView mav = new ModelAndView(PLAYER_ACHIEVEMENTS);
+		User user = this.userService.findUser(username).get();
+		List<Achievement> achievements = achService.getAchievements();
+		mav.addObject("user",user);
+		mav.addObject("achievements",achievements);
+		return mav;
 	}
 
 }

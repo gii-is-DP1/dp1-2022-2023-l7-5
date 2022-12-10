@@ -124,6 +124,9 @@ public class GameService {
     	tiles.add(tile);
     	user.setTiles(tiles);
     	game.getBag().remove(tile);
+    	Profile p = user.getProfile();
+    	p.setSteals(p.getSteals()+1);
+    	achievementServ.updateAchievements(p);
     	repository.save(game);
     	userService.saveUser(user);
     }

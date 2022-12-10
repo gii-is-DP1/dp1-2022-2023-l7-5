@@ -46,11 +46,12 @@ public class AchievementService {
 		profileServ.save(p);
 
 	}
-	
+
 	public void createAchievements() {
-		
+
 		Achievement a = new Achievement();
-		a.setBadgeImage("https://media.istockphoto.com/illustrations/happy-baby-bee-illustration-id92717135?k=6&m=92717135&s=170667a&w=0&h=rT8nF4gaMA1bjExYyX4jTlTERmNtuVhVihHE5bmavIc=");
+		a.setBadgeImage(
+				"https://media.istockphoto.com/illustrations/happy-baby-bee-illustration-id92717135?k=6&m=92717135&s=170667a&w=0&h=rT8nF4gaMA1bjExYyX4jTlTERmNtuVhVihHE5bmavIc=");
 		a.setName("Baby Bee");
 		a.setDescription("Enter your first game");
 		a.setThreshold(2.);
@@ -79,7 +80,7 @@ public class AchievementService {
 		a5.setDescription("Steal your first tile");
 		a5.setThreshold(2.);
 		repo.save(a5);
-		
+
 	}
 
 	public void giveFirstAchieve(Profile p) {
@@ -88,35 +89,48 @@ public class AchievementService {
 		giveAchievement(p, a);
 
 	}
-	
 
 	public void updateAchievements(Profile p) {
 
-		if (p.getPlayedGames() >= 5) {
+		if (p.getPlayedGames() == 5) {
 
 			Achievement a = repo.findById(2).get();
-			giveAchievement(p, a);
+			if (profileServ.hasAchievement(a, p) == false) {
 
+				giveAchievement(p, a);
+
+			}
 		}
 
-		if (p.getPlayedGames() >= 10) {
+		if (p.getPlayedGames() == 10) {
 
 			Achievement a = repo.findById(3).get();
-			giveAchievement(p, a);
+			if (profileServ.hasAchievement(a, p) == false) {
+
+				giveAchievement(p, a);
+
+			}
 
 		}
 
-		if (p.getWins() >= 1) {
+		if (p.getWins() == 1) {
 
 			Achievement a = repo.findById(4).get();
-			giveAchievement(p, a);
+			if (profileServ.hasAchievement(a, p) == false) {
+
+				giveAchievement(p, a);
+
+			}
 
 		}
 		if (p.getSteals() >= 1) {
 
 			Achievement a = repo.findById(5).get();
-			giveAchievement(p, a);
+			if (profileServ.hasAchievement(a, p) == false) {
 
+				giveAchievement(p, a);
+
+			}
 		}
 
 	}

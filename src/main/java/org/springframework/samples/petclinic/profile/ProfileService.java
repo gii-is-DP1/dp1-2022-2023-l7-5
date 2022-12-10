@@ -60,5 +60,11 @@ public class ProfileService {
 		
 	}
 	
+	public Boolean hasAchievement(Achievement a, Profile p) {
+		
+		return p.getAchievements().contains(a);
+		
+	}
+	
 	
 }
