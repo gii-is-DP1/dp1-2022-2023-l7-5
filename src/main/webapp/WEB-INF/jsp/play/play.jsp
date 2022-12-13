@@ -27,7 +27,7 @@
   							${cell11.id}
   							</c:if>
   							<c:if test="${cell11.isFlipped}">
-  							${cell11.tile.filledSide.toUpperCase}
+  							F${cell11.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell11.isFlipped}">
   							${cell11.tile.startingSide}
@@ -43,7 +43,7 @@
   							${cell12.id}
   							</c:if>
   							<c:if test="${cell12.isFlipped}">
-  							${cell12.tile.filledSide.toUpperCase}
+  							F${cell12.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell12.isFlipped}">
   							${cell12.tile.startingSide}
@@ -58,7 +58,7 @@
   							${cell13.id}
   							</c:if>
   							<c:if test="${cell13.isFlipped}">
-  							${cell13.tile.filledSide.toUpperCase}
+  							F${cell13.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell13.isFlipped}">
   							${cell13.tile.startingSide}
@@ -72,7 +72,7 @@
   							${cell21.id}
   							</c:if>
   							<c:if test="${cell21.isFlipped}">
-  							${cell21.tile.filledSide.toUpperCase}
+  							F${cell21.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell21.isFlipped}">
   							${cell21.tile.startingSide}
@@ -86,7 +86,7 @@
   							${cell22.id}
   							</c:if>
   							<c:if test="${cell22.isFlipped}">
-  							${cell22.tile.filledSide.toUpperCase}
+  							F${cell22.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell13.isFlipped}">
   							${cell22.tile.startingSide}
@@ -100,7 +100,7 @@
   							${cell23.id}
   							</c:if>
   							<c:if test="${cell23.isFlipped}">
-  							${cell23.tile.filledSide.toUpperCase}
+  							F${cell23.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell23.isFlipped}">
   							${cell23.tile.startingSide}
@@ -114,7 +114,7 @@
   							${cell24.id}
   							</c:if>
   							<c:if test="${cell24.isFlipped}">
-  							${cell24.tile.filledSide.toUpperCase}
+  							F${cell24.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell24.isFlipped}">
   							${cell24.tile.startingSide}
@@ -128,7 +128,7 @@
   							${cell31.id}
   							</c:if>
   							<c:if test="${cell31.isFlipped}">
-  							${cell31.tile.filledSide.toUpperCase}
+  							F${cell31.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell31.isFlipped}">
   							${cell31.tile.startingSide}
@@ -142,7 +142,7 @@
   							${cell32.id}
   							</c:if>
   							<c:if test="${cell32.isFlipped}">
-  							${cell32.tile.filledSide.toUpperCase}
+  							F${cell32.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell32.isFlipped}">
   							${cell32.tile.startingSide}
@@ -156,7 +156,7 @@
   							${cell33.id}
   							</c:if>
   							<c:if test="${cell33.isFlipped}">
-  							${cell33.tile.filledSide.toUpperCase}
+  							F${cell33.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell33.isFlipped}">
   							${cell33.tile.startingSide}
@@ -170,7 +170,7 @@
   							${cell34.id}
   							</c:if>
   							<c:if test="${cell34.isFlipped}">
-  							${cell34.tile.filledSide.toUpperCase}
+  							F${cell34.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell34.isFlipped}">
   							${cell34.tile.startingSide}
@@ -184,7 +184,7 @@
   							${cell35.id}
   							</c:if>
   							<c:if test="${cell35.isFlipped}">
-  							${cell35.tile.filledSide.toUpperCase}
+  							F${cell35.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell35.isFlipped}">
   							${cell35.tile.startingSide}
@@ -198,7 +198,7 @@
   							${cell41.id}
   							</c:if>
   							<c:if test="${cell41.isFlipped}">
-  							${cell41.tile.filledSide.toUpperCase}
+  							F${cell41.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell41.isFlipped}">
   							${cell41.tile.startingSide}
@@ -212,7 +212,7 @@
   							${cell42.id}
   							</c:if>
   							<c:if test="${cell42.isFlipped}">
-  							${cell42.tile.filledSide.toUpperCase}
+  							F${cell42.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell42.isFlipped}">
   							${cell42.tile.startingSide}
@@ -226,7 +226,7 @@
   							${cell43.id}
   							</c:if>
   							<c:if test="${cell43.isFlipped}">
-  							${cell43.tile.filledSide.toUpperCase}
+  							F${cell43.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell43.isFlipped}">
   							${cell43.tile.startingSide}
@@ -240,7 +240,7 @@
   							${cell44.id}
   							</c:if>
   							<c:if test="${cell44.isFlipped}">
-  							${cell44.tile.filledSide.toUpperCase}
+  							F${cell44.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell44.isFlipped}">
   							${cell44.tile.startingSide}
@@ -254,7 +254,7 @@
   							${cell51.id}
   							</c:if>
   							<c:if test="${cell51.isFlipped}">
-  							${cell51.tile.filledSide.toUpperCase}
+  							F${cell51.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell51.isFlipped}">
   							${cell51.tile.startingSide}
@@ -268,7 +268,7 @@
   							${cell52.id}
   							</c:if>
   							<c:if test="${cell52.isFlipped}">
-  							${cell52.tile.filledSide.toUpperCase}
+  							F${cell52.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell52.isFlipped}">
   							${cell52.tile.startingSide}
@@ -282,7 +282,7 @@
   							${cell53.id}
   							</c:if>
   							<c:if test="${cell53.isFlipped}">
-  							${cell53.tile.filledSide.toUpperCase}
+  							F${cell53.tile.filledSide}
   							</c:if>
   							<c:if test="${!cell53.isFlipped}">
   							${cell53.tile.startingSide}

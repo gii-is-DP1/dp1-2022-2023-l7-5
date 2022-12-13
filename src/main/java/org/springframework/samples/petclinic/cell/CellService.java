@@ -77,6 +77,9 @@ public class CellService {
 				}
 			}
 		}
+		if (match.size() >= 3) {
+			resolveMatch(match);
+		}
 		return match;
 	}
 	
@@ -98,4 +101,17 @@ public class CellService {
 		}
 		return match;
 	}
+	
+	public void resolveMatch(Set<Cell> match) {
+			for (Cell cell : match) {
+				if (cell.getIsFlipped()) {
+					cell.setTile(null);
+				}
+				cell.setIsFlipped(!cell.getIsFlipped());
+				repo.save(cell);
+			}
+			for (Cell cell : repo.findAll()) {
+				detectMatch(cell.getId());
+			}
+		}
 }
