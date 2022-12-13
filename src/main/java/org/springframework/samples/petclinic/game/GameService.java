@@ -8,11 +8,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.achievement.Achievement;
+import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
+import org.springframework.samples.petclinic.profile.Profile;
+import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.tile.Tile;
@@ -36,6 +40,10 @@ public class GameService {
 	UserService userService;
 	@Autowired
 	ScoreBoardService scoreboardService;
+	@Autowired
+	ProfileService profileService;
+	@Autowired
+	AchievementService achievementServ;
 
 	@Autowired GameService(GameRepository repository) {
 		this.repository = repository;
@@ -62,12 +70,18 @@ public class GameService {
     	game.setNumberCurrentPlayers(1);
     	repository.save(game);
     	ScoreBoard sb = new ScoreBoard();
-    	User user = userService.findUser(username).get();
-    	sb.setOrden(1);
-    	sb.setScore(0);
-    	sb.setUser(user);
-    	sb.setGame(game);
-    	scoreboardService.save(sb);
+		User user = userService.findUser(username).get();
+		Integer currentPlayers = game.getNumberCurrentPlayers();
+		game.setNumberCurrentPlayers(currentPlayers + 1);
+		repository.save(game);
+		sb.setOrden(game.getNumberCurrentPlayers());
+		sb.setScore(0);
+		sb.setUser(user);
+		sb.setGame(game);
+		scoreboardService.save(sb);
+		if (user.getProfile() == null) {
+			profileService.initProfile(user);
+		}  
     }
     
     @Transactional(rollbackFor = {TooManyPlayers.class, NotThisTypeOfGame.class})
@@ -87,6 +101,10 @@ public class GameService {
     		sb.setUser(user);
     		sb.setGame(game);
     		scoreboardService.save(sb);
+    		if (user.getProfile() == null) {
+    			profileService.initProfile(user);
+    		} 
+    		
     	}
     }
     
@@ -115,6 +133,9 @@ public class GameService {
     	tiles.add(tile);
     	user.setTiles(tiles);
     	game.getBag().remove(tile);
+    	Profile p = user.getProfile();
+    	p.setSteals(p.getSteals()+1);
+    	achievementServ.updateAchievements(p);
     	repository.save(game);
     	userService.saveUser(user);
     }
@@ -170,5 +191,23 @@ public class GameService {
     	this.userService.saveUser(user);
     	repository.save(game);
     	initSolitarieGame(game);
+    }
+    
+    @Transactional
+    public void finishGame(Game game, User user) {
+    	game.setFinished(true);
+    	user.setTiles(null);
+    	List<Cell> cells = game.getCells();
+    	for(Cell c : cells) {
+    		c.setTile(null);
+    		c.setIsFlipped(false);
+    		this.cellService.save(c);
+    	}
+    	game.setCells(null);
+    	game.setBag(null);
+    	repository.save(game);
+    	Profile p = user.getProfile();
+    	p.setPlayedGames(p.getPlayedGames()+1);
+    	achievementServ.updateAchievements(p);
     }
 }

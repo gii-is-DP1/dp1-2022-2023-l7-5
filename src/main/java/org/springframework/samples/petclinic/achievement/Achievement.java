@@ -19,4 +19,6 @@ public class Achievement extends NamedEntity{
 	private String description;
 	@NotNull
 	private String badgeImage;
+	@NotNull
+	private String blockedImage;
 }

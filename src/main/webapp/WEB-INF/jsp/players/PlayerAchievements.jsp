@@ -28,15 +28,20 @@
                 <td>
                     <c:out value="${achievement.description}"/>
                 </td>
-               <td><c:if test="${achievement.badgeImage == '' }">none </c:if> <c:if
+               <td><c:if test= "${user.profile.achievements.contains(achievement)}"> 
+               <c:if test="${achievement.badgeImage == '' }">none </c:if>
+               <c:if
 						test="${achievement.badgeImage != '' }">
 						<spring:url value="${achievement.badgeImage}" var="image"/>
 						<img class="img-responsive" src="${image}" width="80"
 							height="80" />
-					</c:if></td>
-				<td>
-					<a href="<c:url value="/achievements/${achievement.id}/delete/"/>"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-				</td>
+				</c:if>
+				</c:if>
+				<c:if test= "${!user.profile.achievements.contains(achievement)}">
+				<spring:url value="${achievement.blockedImage}" var="image"/>
+						<img class="img-responsive" src="${image}" width="80"
+							height="80" />
+				</c:if></td>
             </tr>
         </c:forEach>
         </tbody>
