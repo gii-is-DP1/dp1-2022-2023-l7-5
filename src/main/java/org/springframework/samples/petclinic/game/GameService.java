@@ -155,4 +155,20 @@ public class GameService {
     	user.setTiles(tiles);
     	userService.saveUser(user);
     }
+    
+    @Transactional
+    public void restartGame(Game game, User user) {
+    	user.setTiles(new ArrayList<>());
+    	List<Cell> cells = game.getCells();
+    	for(Cell c : cells) {
+    		c.setTile(null);
+    		c.setIsFlipped(false);
+    		this.cellService.save(c);
+    	}
+    	game.setBag(this.tileService.getTiles());
+    	game.setFinished(false);
+    	this.userService.saveUser(user);
+    	repository.save(game);
+    	initSolitarieGame(game);
+    }
 }

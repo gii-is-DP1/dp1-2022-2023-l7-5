@@ -290,6 +290,8 @@
   							</h1></div></td>
 		</tr>
 	</table>
+	
+	<a class="btn btn-default" href="/games/${id }/play/restartGame">Restart</a>
 
 	<c:forEach items="${scoreboards }" var="scoreboard">
 	<h2>${scoreboard.user.username }</h2>
