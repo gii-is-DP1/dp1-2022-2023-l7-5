@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
+import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,8 @@ public class GameController {
     private final String  GAME_DETAIL = "games/gameDetails";
     private final String  JOIN_LISTING_VIEW = "games/joinGamesListing";
     private final String PLAY_GAME = "play/play";
+    private final String RESTART_GAME = "games/restartGame";
+    private final String FINISH_GAME = "games/finishGame";
 
 
     List<String> modes = List.of("COMPETITIVE", "SOLO", "SURVIVAL");
@@ -205,6 +208,12 @@ public class GameController {
     		String cellid = "cell" + String.valueOf(cell.getId());
         	mav.addObject(cellid , cell);
     	}
+    	User user = userService.findUser(principal.getName()).get();
+    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
+    	if(full || (game.getBag().isEmpty() && user.getTiles().isEmpty())) {
+    		return new ModelAndView("redirect:/games/{id}/play/finishGame");
+    	}
+    	
     	return mav;
     }
     
@@ -222,4 +231,35 @@ public class GameController {
     	this.service.playTile(cellId, tileId, user);
     	return new ModelAndView("redirect:/games/"+id+"/play/");
     }
+    
+    @GetMapping("{id}/play/restartGame")
+    public ModelAndView restartGame(@PathVariable int id, Principal principal) {
+    	ModelAndView mav = new ModelAndView(RESTART_GAME);
+    	Game game = service.getGameById(id);
+    	User user = userService.findUser(principal.getName()).get();
+    	mav.addObject("game", game);
+    	mav.addObject("user", user);
+    	return mav;
+    }
+    
+    @GetMapping("{id}/play/restart")
+    public ModelAndView restart(@PathVariable int id, Principal principal) {
+    	Game game = service.getGameById(id);
+    	User user = userService.findUser(principal.getName()).get();
+    	this.service.restartGame(game, user);
+    	this.service.save(game);
+    	return new ModelAndView("redirect:/games/"+id+"/play");
+    }
+    
+   @GetMapping("{id}/play/finishGame")
+   public ModelAndView finishGame(@PathVariable int id, Principal principal) {
+	   ModelAndView mav = new ModelAndView(FINISH_GAME);
+	   Game game = service.getGameById(id);
+   	   User user = userService.findUser(principal.getName()).get();
+	   this.service.finishGame(game, user);
+	   mav.addObject("game", game);
+	   mav.addObject("user", user);
+	   return mav;
+   }
+    
 }
