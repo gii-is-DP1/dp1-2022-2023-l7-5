@@ -71,10 +71,8 @@ public class GameService {
     	repository.save(game);
     	ScoreBoard sb = new ScoreBoard();
 		User user = userService.findUser(username).get();
-		Integer currentPlayers = game.getNumberCurrentPlayers();
-		game.setNumberCurrentPlayers(currentPlayers + 1);
 		repository.save(game);
-		sb.setOrden(game.getNumberCurrentPlayers());
+		sb.setOrden(1);
 		sb.setScore(0);
 		sb.setUser(user);
 		sb.setGame(game);
@@ -95,16 +93,12 @@ public class GameService {
     		User user = userService.findUser(username).get();
     		Integer currentPlayers = game.getNumberCurrentPlayers();
     		game.setNumberCurrentPlayers(currentPlayers + 1);
-    		repository.save(game);
     		sb.setOrden(game.getNumberCurrentPlayers());
     		sb.setScore(0);
     		sb.setUser(user);
     		sb.setGame(game);
     		scoreboardService.save(sb);
-    		if (user.getProfile() == null) {
-    			profileService.initProfile(user);
-    		} 
-    		
+    		repository.save(game);
     	}
     }
     
