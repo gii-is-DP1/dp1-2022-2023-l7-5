@@ -67,8 +67,8 @@ public class GameService {
     
     @Transactional
     public void initPlayerToGame(String username, Game game) {
-    	game.setNumberCurrentPlayers(1);
-    	repository.save(game);
+    	/*game.setNumberCurrentPlayers(1);
+    	repository.save(game);*/
     	ScoreBoard sb = new ScoreBoard();
 		User user = userService.findUser(username).get();
 		Integer currentPlayers = game.getNumberCurrentPlayers();
