@@ -209,6 +209,9 @@ public class GameController {
         	mav.addObject(cellid , cell);
     	}
     	User user = userService.findUser(principal.getName()).get();
+    	mav.addObject("user", user);
+    	ScoreBoard sb = sbs.stream().filter(i -> i.getUser().getUsername().equals(user.getUsername())).findFirst().get();
+    	mav.addObject("handCondition", user.getTiles().size() >= sb.getScore());
     	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
     	if(full || (game.getBag().isEmpty() && user.getTiles().isEmpty())) {
     		return new ModelAndView("redirect:/games/{id}/play/finishGame");
@@ -256,9 +259,11 @@ public class GameController {
 	   ModelAndView mav = new ModelAndView(FINISH_GAME);
 	   Game game = service.getGameById(id);
    	   User user = userService.findUser(principal.getName()).get();
-	   this.service.finishGame(game, user);
+   	   List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
+   	   this.service.finishGame(game, user);
 	   mav.addObject("game", game);
 	   mav.addObject("user", user);
+	   mav.addObject("scoreboards", sbs);
 	   return mav;
    }
     

@@ -175,8 +175,8 @@ public class GameService {
     	tiles.remove(this.tileService.getTileById(tileId));
     	user.setTiles(tiles);
     	userService.saveUser(user);
-    	Set<Cell> match = this.cellService.detectMatch(cellId);
-
+    	Set<Cell> match = this.cellService.detectMatch(cellId, user);
+    	
     }
     
     @Transactional
