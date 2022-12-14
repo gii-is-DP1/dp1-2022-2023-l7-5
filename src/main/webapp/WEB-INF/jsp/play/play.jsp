@@ -296,7 +296,7 @@
 	
 	<c:forEach items="${scoreboards }" var="scoreboard">
 	<h2>${scoreboard.user.username }</h2>
-	<h2> Puntuacion: ${scoreboard.score }</h2>
+	<h2> Puntuación: ${scoreboard.score }</h2>
 	<table id="userGame"class="table table-striped">
 		<thead>
 		<tr>
