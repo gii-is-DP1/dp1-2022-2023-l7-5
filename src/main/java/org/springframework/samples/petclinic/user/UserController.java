@@ -37,21 +37,19 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/users/new")
-	public String initCreationForm(Map<String, Object> model) {
+	public ModelAndView initCreationForm() {
+		ModelAndView result = new ModelAndView(VIEWS_PLAYER_CREATE_FORM);
 		User user = new User();
 		Authorities auth = new Authorities();
-		user.setEnabled(false);
-		auth.setAuthority("player");
-		model.put("user", user);
-		model.put("auth", auth);
-		return VIEWS_PLAYER_CREATE_FORM;
+		result.addObject("user", user);
+		result.addObject("auth", auth);
+		return result;
 	}
 
 	@PostMapping(value = "/users/new")
-	public ModelAndView processCreationForm(@Valid User user, Authorities auth, BindingResult br) {
+	public ModelAndView processCreationForm(@Valid User user, @Valid Authorities auth, BindingResult br) {
 		if (br.hasErrors()) {
 			ModelAndView result = new ModelAndView(VIEWS_PLAYER_CREATE_FORM, br.getModel());
-			result.addObject(user);
 			return result;
 		}
 		else {
@@ -82,9 +80,9 @@ public class UserController {
 	
 	@GetMapping(value = "/player/{username}/edit")
 	public String initUpdateUserForm(@PathVariable("username") String username, Model model) {
-		User user = this.userService.findUser(username).get();
-		model.addAttribute(user);
-		return VIEWS_PLAYER_CREATE_FORM;
+			User user = this.userService.findUser(username).get();
+			model.addAttribute(user);
+			return VIEWS_PLAYER_CREATE_FORM;
 	}
 	
 	@PostMapping(value = "/player/{username}/edit")

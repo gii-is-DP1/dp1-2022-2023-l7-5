@@ -9,8 +9,10 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
+import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.tile.Tile;
 import org.springframework.samples.petclinic.tile.TileService;
+import org.springframework.samples.petclinic.user.User;
 
 
 @Service
@@ -19,6 +21,9 @@ public class CellService {
 	
 	@Autowired
 	TileService tileService;
+	
+	@Autowired
+	ScoreBoardService scoreBoardService;
 	
 	@Autowired CellService(CellRepository repo) {
 		this.repo = repo;
@@ -53,7 +58,7 @@ public class CellService {
 	}
 	
 	@Transactional
-	public Set<Cell> detectMatch(Integer cellId) {
+	public Set<Cell> detectMatch(Integer cellId, User user) {
 		Cell cell = repo.findById(cellId).get();
 		Set<Cell> match = new HashSet<Cell>();
 		if(cell.getTile()!=null) {
@@ -78,7 +83,8 @@ public class CellService {
 			}
 		}
 		if (match.size() >= 3) {
-			resolveMatch(match);
+			resolveMatch(match, user);
+			this.scoreBoardService.increaseScore(match.size()-2, user.getUsername());
 		}
 		return match;
 	}
@@ -99,19 +105,22 @@ public class CellService {
 				}
 			}
 		}
+		
 		return match;
 	}
-	
-	public void resolveMatch(Set<Cell> match) {
+
+	@Transactional
+	public void resolveMatch(Set<Cell> match, User user) {
 			for (Cell cell : match) {
 				if (cell.getIsFlipped()) {
 					cell.setTile(null);
+					this.scoreBoardService.increaseScore(1, user.getUsername());
 				}
 				cell.setIsFlipped(!cell.getIsFlipped());
 				repo.save(cell);
 			}
 			for (Cell cell : repo.findAll()) {
-				detectMatch(cell.getId());
+				detectMatch(cell.getId(), user);
 			}
 		}
 }

@@ -2,15 +2,19 @@ package org.springframework.samples.petclinic.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.cell.Cell;
+import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
+import org.springframework.samples.petclinic.tile.Tile;
+import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,12 @@ public class GameServiceTests {
 	
 	@Autowired
 	protected UserService userService;
+	
+	@Autowired
+	protected CellService cellService;
+	
+	@Autowired
+	protected TileService tileService;
 	
 	@Test
 	@Transactional
@@ -101,7 +111,7 @@ public class GameServiceTests {
 	}
 	
 	@Test
-	void shoulJoinPlayerToGame() {
+	void shouldJoinPlayerToGame() {
 		User user = new User();
 		user.setUsername("manuelEjemplo2");
 		user.setEmail("manuel.ejemplo@gmail.com");
@@ -135,8 +145,7 @@ public class GameServiceTests {
 		} catch (TooManyPlayers | NotThisTypeOfGame e) {
 			e.printStackTrace();
 		}
-		
 		assertThat(game.getNumberCurrentPlayers()).isEqualTo(2);
-		
 	}
+	
 }
