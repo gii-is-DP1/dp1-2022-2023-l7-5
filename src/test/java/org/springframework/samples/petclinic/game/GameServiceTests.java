@@ -9,9 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.cell.Cell;
+import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.tile.Tile;
+import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,12 @@ public class GameServiceTests {
 	
 	@Autowired
 	protected UserService userService;
+	
+	@Autowired
+	protected CellService cellService;
+	
+	@Autowired
+	protected TileService tileService;
 	
 	@Test
 	@Transactional
@@ -167,5 +176,41 @@ public class GameServiceTests {
 		
 		assertThat(game.getBag().size()).isEqualTo(contador - 1);
 		assertThat(user.getTiles().size()).isEqualTo(contador1 + 1);
+	}
+	
+	@Test
+	void shoulPlayTile() {
+	
+		User user = new User();
+		user.setTiles(new ArrayList<Tile>());
+		user.setUsername("bogdanEjemplo");
+		user.setEmail("bogdan.ejemplo@gmail.com");
+		user.setPassword("password");
+		user.setEnabled(true);
+		this.userService.saveUser(user);
+		String user1 = user.getUsername();
+		
+		Game game = new Game();
+		game.setMode("SOLO");
+		game.setFinished(false);
+		game.setNumberOfPlayers(1);	
+		game.setNumberCurrentPlayers(0);
+		game.setDateOfCreation(LocalDate.now());
+		this.gameService.save(game);
+		this.gameService.initPlayerToGame(user1, game);
+		this.gameService.initGame(game.getId());
+		
+		Cell cell = new Cell();
+		cell.setId(1);
+		cell.setPosition(1);
+		cell.setIsFlipped(false);
+		cell.setIsBlocked(false);
+		this.cellService.save(cell);
+		
+		Tile tile = new Tile();
+		tile.setStartingSide("red");;
+		tile.setFilledSide("blue");
+		this.tileService.save(tile);
+		
 	}
 }
