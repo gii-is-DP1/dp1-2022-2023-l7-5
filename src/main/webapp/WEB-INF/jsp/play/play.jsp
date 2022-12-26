@@ -293,8 +293,10 @@
 	
 	<a class="btn btn-default" href="/games/${id }/play/restartGame">Restart</a>
 
+	
 	<c:forEach items="${scoreboards }" var="scoreboard">
 	<h2>${scoreboard.user.username }</h2>
+	<h2> Puntuación: ${scoreboard.score }</h2>
 	<table id="userGame"class="table table-striped">
 		<thead>
 		<tr>
@@ -339,7 +341,11 @@
 	</table>
 	<c:if test="${username == scoreboard.user.username}">
 		<c:if test="${!game.bag.isEmpty()}">
-			<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
+		<c:forEach items="${scoreboards }" var="scoreboard">
+			<c:if test="${handCondition }">
+				<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
+		 	</c:if>
+		 </c:forEach>
 		</c:if>
 	</c:if>
 	</c:forEach>
