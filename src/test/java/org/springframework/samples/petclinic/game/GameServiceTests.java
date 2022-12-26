@@ -186,7 +186,7 @@ public class GameServiceTests {
 		
 	}
 	
-	@Test
+	/*@Test
 	void shouldPlayTile() {
 		
 		Game game = new Game();
@@ -217,5 +217,5 @@ public class GameServiceTests {
 		
 		assertThat(game.getBag().size() == tilesInBag - 1);
 		
-	}
+	}*/
 }

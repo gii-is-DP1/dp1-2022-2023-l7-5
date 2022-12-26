@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.profile;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.achievement.Achievement;
@@ -64,6 +66,12 @@ public class ProfileService {
 		
 		return p.getAchievements().contains(a);
 		
+	}
+
+	public Boolean isMaxWinner(Profile p) {
+		
+		Comparator<Profile> cmp = Comparator.comparing(Profile::getWins);
+		return repo.findAll().stream().sorted(cmp).collect(Collectors.toList()).get(0) == p;
 	}
 	
 	

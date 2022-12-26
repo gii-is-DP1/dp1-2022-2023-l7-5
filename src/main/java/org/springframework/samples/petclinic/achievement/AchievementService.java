@@ -97,7 +97,28 @@ public class AchievementService {
 
 			}
 		}
+		
+		if (p.getMatches() >= 1) {
 
+			Achievement a = repo.findById(7).get();
+			if (profileServ.hasAchievement(a, p) == false) {
+
+				giveAchievement(p, a);
+
+			}
+		}
+		
+		if (profileServ.isMaxWinner(p)) {
+
+			Achievement a = repo.findById(6).get();
+			if (profileServ.hasAchievement(a, p) == false) {
+
+				giveAchievement(p, a);
+
+			}
+		}
+		
+		
 	}
 
 }
