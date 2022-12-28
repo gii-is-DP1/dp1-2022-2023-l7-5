@@ -20,8 +20,51 @@ INSERT INTO authorities(id,username,authority) VALUES (15,'alematcap','player');
 INSERT INTO users(username,email,password,enabled) VALUES ('angel','angel@gmail.com','4ng3l',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (16,'angel','player');
 
+
 INSERT INTO users(username,email,password,enabled) VALUES ('honey','honey@gmail.com','h0ney',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (17,'honey','player');
+INSERT INTO authorities(id,username,authority) VALUES (31,'honey','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('cmuller','cmuller@gmail.com','cmull3r',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (17,'cmuller','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('jonDoe','jonDoe@gmail.com','j0nD03',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (18,'jonDoe','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('janeDoe','janeDoe@gmail.com','j4n3D03',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (19,'janeDoe','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('curro','curro@gmail.com','curr0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (20,'curro','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('messi','messi@gmail.com','m3ss1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (21,'messi','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('elBichoCR7','elBichoCR7@gmail.com','3lB1ch0CR7',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (22,'elBichoCR7','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('miscoJones','miscojones@gmail.com','m1sc0J0n3s',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (23,'miscoJones','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('vendoOpelCorsa','vendoOpelCorsa@gmail.com','v3nd00p3lC0rsA',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (24,'vendoOpelCorsa','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('comproOpelCorsa','comproOpelCorsa@gmail.com','c0mpr00p3lC0rsA',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (25,'comproOpelCorsa','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('josepPedrerol','josepPedrerol@gmail.com','j0s3pP3dr3r0l',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (26,'josepPedrerol','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('jorgeDAlessandro','jorgeDAlessandro@gmail.com','j0rg3D4l3ss4ndr0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (27,'jorgeDAlessandro','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('alfredoDuro','alfredoDuro@gmail.com','4lfr3d0Dur0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (28,'alfredoDuro','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('tomasRoncero','tomasRoncero@gmail.com','t0m4sR0nc3r0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (29,'tomasRoncero','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('foreverAlone','foreverAlone@gmail.com','f0r3v3r4l0n3',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (30,'foreverAlone','player');
 
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (11, false, false, 11);
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (12, false, false, 12);
