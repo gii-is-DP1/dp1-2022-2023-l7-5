@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.profile;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -30,6 +31,6 @@ public class Profile extends BaseEntity{
 	@OneToOne(optional = false)
 	private User user;
 	
-	@OneToMany
+	@ManyToMany
 	private List<Achievement> achievements;
 }

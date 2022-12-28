@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,10 +13,14 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.cell.Cell;
+import org.springframework.samples.petclinic.cell.CellService;
+import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
+import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -39,6 +44,8 @@ public class GameController {
     private final String  GAME_DETAIL = "games/gameDetails";
     private final String  JOIN_LISTING_VIEW = "games/joinGamesListing";
     private final String PLAY_GAME = "play/play";
+    private final String RESTART_GAME = "games/restartGame";
+    private final String FINISH_GAME = "games/finishGame";
 
 
     List<String> modes = List.of("COMPETITIVE", "SOLO", "SURVIVAL");
@@ -47,12 +54,14 @@ public class GameController {
     private GameService service;
     private ScoreBoardService scoreboardService;
     private UserService userService;
+    private CellService cellSercive;
     
     @Autowired
-    public GameController(GameService service, ScoreBoardService scoreBoardService,  UserService userService) {
+    public GameController(GameService service, ScoreBoardService scoreBoardService,  UserService userService, CellService cellService) {
     	this.service = service;
     	this.scoreboardService = scoreBoardService;
     	this.userService = userService;
+    	this.cellSercive = cellService;
     }
     
     @GetMapping("")
@@ -194,6 +203,20 @@ public class GameController {
     	mav.addObject("scoreboards", sbs);
     	mav.addObject("game", game);
     	mav.addObject("username", principal.getName());
+    	mav.addObject("cells", game.getCells());
+    	for (Cell cell : game.getCells()) {
+    		String cellid = "cell" + String.valueOf(cell.getId());
+        	mav.addObject(cellid , cell);
+    	}
+    	User user = userService.findUser(principal.getName()).get();
+    	mav.addObject("user", user);
+    	ScoreBoard sb = sbs.stream().filter(i -> i.getUser().getUsername().equals(user.getUsername())).findFirst().get();
+    	mav.addObject("handCondition",(sb.getScore()==0 && user.getTiles().size()==0) || (user.getTiles().size() < sb.getScore()));
+    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
+    	if(full || (game.getBag().isEmpty() && user.getTiles().isEmpty())) {
+    		return new ModelAndView("redirect:/games/{id}/play/finishGame");
+    	}
+    	
     	return mav;
     }
     
@@ -201,7 +224,47 @@ public class GameController {
     public ModelAndView stealToken(@PathVariable int id, Principal principal) {
     	Game game = service.getGameById(id);
     	User user = userService.findUser(principal.getName()).get();
-    	service.stealTokenn(game, user);
+    	service.stealToken(game, user);
     	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
     }
+    
+    @GetMapping("/{id}/play/playTile/{tileId}/{cellId}")
+    public ModelAndView playTile(@PathVariable int id, Principal principal, @PathVariable("tileId") int tileId, @PathVariable("cellId") int cellId) throws AlreadyTileOnCell {
+    	User user = userService.findUser(principal.getName()).get();
+    	this.service.playTile(cellId, tileId, user, id);
+    	return new ModelAndView("redirect:/games/"+id+"/play/");
+    }
+    
+    @GetMapping("{id}/play/restartGame")
+    public ModelAndView restartGame(@PathVariable int id, Principal principal) {
+    	ModelAndView mav = new ModelAndView(RESTART_GAME);
+    	Game game = service.getGameById(id);
+    	User user = userService.findUser(principal.getName()).get();
+    	mav.addObject("game", game);
+    	mav.addObject("user", user);
+    	return mav;
+    }
+    
+    @GetMapping("{id}/play/restart")
+    public ModelAndView restart(@PathVariable int id, Principal principal) {
+    	Game game = service.getGameById(id);
+    	User user = userService.findUser(principal.getName()).get();
+    	this.service.restartGame(game, user);
+    	this.service.save(game);
+    	return new ModelAndView("redirect:/games/"+id+"/play");
+    }
+    
+   @GetMapping("{id}/play/finishGame")
+   public ModelAndView finishGame(@PathVariable int id, Principal principal) {
+	   ModelAndView mav = new ModelAndView(FINISH_GAME);
+	   Game game = service.getGameById(id);
+   	   User user = userService.findUser(principal.getName()).get();
+   	   List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
+   	   this.service.finishGame(game, user);
+	   mav.addObject("game", game);
+	   mav.addObject("user", user);
+	   mav.addObject("scoreboards", sbs);
+	   return mav;
+   }
+    
 }

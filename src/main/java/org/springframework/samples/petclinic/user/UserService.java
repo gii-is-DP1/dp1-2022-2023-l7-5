@@ -21,6 +21,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,8 +56,14 @@ public class UserService {
 		return (List<User>) userRepository.findAll();
 	}
 	
+	public Page<User> findAllUserPageable(Integer page, Integer size) {
+		return userRepository.getAllPaginated(PageRequest.of(page, size));
+	}
+	
 	@Transactional
 	public void deleteUser(String username) {
 		userRepository.deleteById(username);
 	}
+	
+	
 }

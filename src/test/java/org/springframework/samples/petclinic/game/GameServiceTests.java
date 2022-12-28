@@ -2,15 +2,22 @@ package org.springframework.samples.petclinic.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.cell.Cell;
+import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
+import org.springframework.samples.petclinic.tile.Tile;
+import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;
@@ -24,6 +31,12 @@ public class GameServiceTests {
 	
 	@Autowired
 	protected UserService userService;
+	
+	@Autowired
+	protected CellService cellService;
+	
+	@Autowired
+	protected TileService tileService;
 	
 	@Test
 	@Transactional
@@ -89,7 +102,7 @@ public class GameServiceTests {
 		Game game = new Game();
 		game.setMode("survival");
 		game.setFinished(true);
-		game.setNumberOfPlayers(4);
+		game.setNumberOfPlayers(1);
 		game.setNumberCurrentPlayers(0);
 		game.setDateOfCreation(LocalDate.now());
 		this.gameService.save(game);
@@ -101,7 +114,7 @@ public class GameServiceTests {
 	}
 	
 	@Test
-	void shoulJoinPlayerToGame() {
+	void shouldJoinPlayerToGame() {
 		User user = new User();
 		user.setUsername("manuelEjemplo2");
 		user.setEmail("manuel.ejemplo@gmail.com");
@@ -135,8 +148,77 @@ public class GameServiceTests {
 		} catch (TooManyPlayers | NotThisTypeOfGame e) {
 			e.printStackTrace();
 		}
-		
 		assertThat(game.getNumberCurrentPlayers()).isEqualTo(2);
+	}
+	
+	@Test
+	void shouldInitGame() {
+		
+		Game game = new Game();
+		game.setMode("survival");
+		game.setFinished(true);
+		game.setNumberOfPlayers(4);
+		game.setNumberCurrentPlayers(0);
+		game.setDateOfCreation(LocalDate.now());
+		this.gameService.save(game);
+		
+		
+		this.gameService.initGame(game.getId());
+		
+		assertThat(this.gameService.getGames().size()>0);
 		
 	}
+	
+	@Test
+	void shouldInitSolitarieGame() {
+		
+		Game game = new Game();
+		game.setMode("survival");
+		game.setFinished(true);
+		game.setNumberOfPlayers(4);
+		game.setNumberCurrentPlayers(0);
+		game.setDateOfCreation(LocalDate.now());
+		List<Tile> bag = this.tileService.getTiles();
+    	game.setBag(bag);
+		this.gameService.save(game);
+		
+		
+		this.gameService.initSolitarieGame(game);
+		
+		assertThat(this.gameService.getGames().size()>0);
+		
+	}
+	
+	/*@Test
+	void shouldPlayTile() {
+		
+		Game game = new Game();
+		game.setMode("survival");
+		game.setFinished(true);
+		game.setNumberOfPlayers(4);
+		game.setNumberCurrentPlayers(0);
+		game.setDateOfCreation(LocalDate.now());
+		List<Tile> bag = this.tileService.getTiles();
+    	game.setBag(bag);
+    	Integer tilesInBag = bag.size();
+		this.gameService.save(game);
+		
+		User user = new User();
+		user.setUsername("manuelEjemplo2");
+		user.setEmail("manuel.ejemplo@gmail.com");
+		user.setPassword("password");
+		user.setEnabled(true);
+		this.userService.saveUser(user);
+		
+		this.gameService.initSolitarieGame(game);
+		this.gameService.initPlayerToGame(user.getUsername(), game);
+		this.gameService.stealToken(game, user);
+		Integer tileId = user.getTiles().get(0).getId();
+		Integer cellId = game.getCells().stream().filter(cell -> cell.getTile()==null)
+				.collect(Collectors.toList()).get(0).getId();
+		this.gameService.playTile(cellId, tileId, user);
+		
+		assertThat(game.getBag().size() == tilesInBag - 1);
+		
+	}*/
 }

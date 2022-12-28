@@ -20,6 +20,52 @@ INSERT INTO authorities(id,username,authority) VALUES (15,'alematcap','player');
 INSERT INTO users(username,email,password,enabled) VALUES ('angel','angel@gmail.com','4ng3l',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (16,'angel','player');
 
+
+INSERT INTO users(username,email,password,enabled) VALUES ('honey','honey@gmail.com','h0ney',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (31,'honey','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('cmuller','cmuller@gmail.com','cmull3r',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (17,'cmuller','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('jonDoe','jonDoe@gmail.com','j0nD03',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (18,'jonDoe','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('janeDoe','janeDoe@gmail.com','j4n3D03',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (19,'janeDoe','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('curro','curro@gmail.com','curr0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (20,'curro','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('messi','messi@gmail.com','m3ss1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (21,'messi','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('elBichoCR7','elBichoCR7@gmail.com','3lB1ch0CR7',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (22,'elBichoCR7','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('miscoJones','miscojones@gmail.com','m1sc0J0n3s',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (23,'miscoJones','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('vendoOpelCorsa','vendoOpelCorsa@gmail.com','v3nd00p3lC0rsA',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (24,'vendoOpelCorsa','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('comproOpelCorsa','comproOpelCorsa@gmail.com','c0mpr00p3lC0rsA',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (25,'comproOpelCorsa','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('josepPedrerol','josepPedrerol@gmail.com','j0s3pP3dr3r0l',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (26,'josepPedrerol','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('jorgeDAlessandro','jorgeDAlessandro@gmail.com','j0rg3D4l3ss4ndr0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (27,'jorgeDAlessandro','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('alfredoDuro','alfredoDuro@gmail.com','4lfr3d0Dur0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (28,'alfredoDuro','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('tomasRoncero','tomasRoncero@gmail.com','t0m4sR0nc3r0',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (29,'tomasRoncero','player');
+
+INSERT INTO users(username,email,password,enabled) VALUES ('foreverAlone','foreverAlone@gmail.com','f0r3v3r4l0n3',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (30,'foreverAlone','player');
+
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (11, false, false, 11);
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (12, false, false, 12);
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (13, false, false, 13);
@@ -147,3 +193,14 @@ INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (52, 43);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 52);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 43);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 44);
+
+INSERT INTO profile(id, played_games, wins, steals, matches, user_username) VALUES (1, 0, 0, 0, 0, 'honey');
+
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (1, 'Baby Bee','https://media.istockphoto.com/illustrations/happy-baby-bee-illustration-id92717135?k=6&m=92717135&s=170667a&w=0&h=rT8nF4gaMA1bjExYyX4jTlTERmNtuVhVihHE5bmavIc=','https://i.imgur.com/wYoxz9e.png', 2.0, 'Enter your first game');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (2, 'BumbleBee','https://th.bing.com/th/id/OIP.oJ3oz0uzEgtj_ev6HkXIYQHaFR?pid=ImgDet&rs=1','https://i.imgur.com/cXppzV3.png', 2.0, 'Play 5 Games');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (3, 'Queen Bee','https://th.bing.com/th/id/R.05085dceb44cdf2855c5dc277dd3721c?rik=u0Ft5NRpNJMLwQ&riu=http%3a%2f%2fwww.clipartbest.com%2fcliparts%2fncB%2fEG4%2fncBEG4B7i.jpg&ehk=Zt%2bDJz7mNMTYNW5sDIiV9GH8m7NxOJALbmuUjkZAEpc%3d&risl=&pid=ImgRaw&r=0','https://i.imgur.com/UcPlCM5.png', 2.0, 'Play 10 Games');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (4, 'Queen of the Hive','https://th.bing.com/th/id/R.a0585fed6ea86756e29f60072beee908?rik=%2bImp2dAcp0WH1A&pid=ImgRaw&r=0','https://i.imgur.com/aNizNle.png',2.0, 'Win your first game');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (5, 'Shameless Thief','https://th.bing.com/th/id/OIP.QzqEbxDqzlBH2-WAxCFbaQHaHa?w=209&h=209&c=7&r=0&o=5&pid=1.7','https://i.imgur.com/uPdD7OP.png', 2.0, 'Steal your first tile');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (6, 'Empress Maya','https://www.nicepng.com/png/full/268-2687679_https-transparent-crown-cartoon-png.png','https://thumbs.dreamstime.com/b/padlock-vector-illustration-cartoon-46705097.jpg', 2.0, 'You are the player with more wins!!');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (7, 'Laytons apprentice','https://th.bing.com/th/id/R.8c2988e406c697e82bfda57565332915?rik=Xg9mxQtBIx2ZHQ&riu=http%3a%2f%2fclipart-library.com%2fnewhp%2f110-1106529_jigsaw-clip-art-puzzle-pieces-clipart.png&ehk=1DKbFX4LobuXAHQNRAr5NBGWOS98MqfLXlPCXg0lAA0%3d&risl=&pid=ImgRaw&r=0','https://thumbs.dreamstime.com/b/padlock-vector-illustration-cartoon-46705097.jpg', 2.0, 'Perform your first match');
+
