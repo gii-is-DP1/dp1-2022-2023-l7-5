@@ -211,7 +211,7 @@ public class GameController {
     	User user = userService.findUser(principal.getName()).get();
     	mav.addObject("user", user);
     	ScoreBoard sb = sbs.stream().filter(i -> i.getUser().getUsername().equals(user.getUsername())).findFirst().get();
-    	mav.addObject("handCondition", user.getTiles().size() >= sb.getScore());
+    	mav.addObject("handCondition",(sb.getScore()==0 && user.getTiles().size()==0) || (user.getTiles().size() < sb.getScore()));
     	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
     	if(full || (game.getBag().isEmpty() && user.getTiles().isEmpty())) {
     		return new ModelAndView("redirect:/games/{id}/play/finishGame");
@@ -231,7 +231,7 @@ public class GameController {
     @GetMapping("/{id}/play/playTile/{tileId}/{cellId}")
     public ModelAndView playTile(@PathVariable int id, Principal principal, @PathVariable("tileId") int tileId, @PathVariable("cellId") int cellId) throws AlreadyTileOnCell {
     	User user = userService.findUser(principal.getName()).get();
-    	this.service.playTile(cellId, tileId, user);
+    	this.service.playTile(cellId, tileId, user, id);
     	return new ModelAndView("redirect:/games/"+id+"/play/");
     }
     
