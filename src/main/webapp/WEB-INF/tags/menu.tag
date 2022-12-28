@@ -20,7 +20,7 @@
 					title="Admin Menu" dropdown="${true}">										
 						<ul class="dropdown-menu">
 							<li>
-								<a href="<c:url value="/users" />">Player listing</a>		
+								<a href="<c:url value="/users/page/0" />">Player listing</a>		
 							</li>
 							<li class="divider"></li>
 							<li>
