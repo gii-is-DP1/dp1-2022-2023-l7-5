@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
+import org.springframework.samples.petclinic.game.Game;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.tile.Tile;
 import org.springframework.samples.petclinic.tile.TileService;
@@ -58,7 +59,7 @@ public class CellService {
 	}
 	
 	@Transactional
-	public Set<Cell> detectMatch(Integer cellId, User user) {
+	public Set<Cell> detectMatch(Integer cellId, User user, Game game) {
 		Cell cell = repo.findById(cellId).get();
 		Set<Cell> match = new HashSet<Cell>();
 		if(cell.getTile()!=null) {
@@ -83,8 +84,8 @@ public class CellService {
 			}
 		}
 		if (match.size() >= 3) {
-			resolveMatch(match, user);
-			this.scoreBoardService.increaseScore(match.size()-2, user.getUsername());
+			resolveMatch(match, user, game);
+			this.scoreBoardService.increaseScore(match.size()-2, user.getUsername(), game);
 		}
 		return match;
 	}
@@ -110,17 +111,17 @@ public class CellService {
 	}
 
 	@Transactional
-	public void resolveMatch(Set<Cell> match, User user) {
+	public void resolveMatch(Set<Cell> match, User user, Game game) {
 			for (Cell cell : match) {
 				if (cell.getIsFlipped()) {
 					cell.setTile(null);
-					this.scoreBoardService.increaseScore(1, user.getUsername());
+					this.scoreBoardService.increaseScore(1, user.getUsername(), game);
 				}
 				cell.setIsFlipped(!cell.getIsFlipped());
 				repo.save(cell);
 			}
 			for (Cell cell : repo.findAll()) {
-				detectMatch(cell.getId(), user);
+				detectMatch(cell.getId(), user, game);
 			}
 		}
 }

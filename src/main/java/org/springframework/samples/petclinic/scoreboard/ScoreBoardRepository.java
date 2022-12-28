@@ -16,5 +16,7 @@ public interface ScoreBoardRepository extends CrudRepository<ScoreBoard, Integer
 	List<ScoreBoard> getScoreboardsByGameId(@Param("id") Integer id);
 	@Query("SELECT sb FROM ScoreBoard sb WHERE sb.user.username = :username")
 	ScoreBoard getScoreboardsByUser(@Param("username") String username);
+	@Query("SELECT sb FROM ScoreBoard sb WHERE sb.game.id = :id AND sb.user.username = :username")
+	ScoreBoard getScoreboardByGameIdByUser(@Param("username") String username, @Param("id") Integer id);
 }
 
