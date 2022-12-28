@@ -44,6 +44,7 @@ public class GameService {
 	ProfileService profileService;
 	@Autowired
 	AchievementService achievementServ;
+	
 
 	@Autowired GameService(GameRepository repository) {
 		this.repository = repository;
@@ -98,6 +99,9 @@ public class GameService {
     		sb.setUser(user);
     		sb.setGame(game);
     		scoreboardService.save(sb);
+    		if (user.getProfile() == null) {
+    			profileService.initProfile(user);
+    		}  
     		repository.save(game);
     	}
     }
@@ -129,6 +133,7 @@ public class GameService {
     	game.getBag().remove(tile);
     	Profile p = user.getProfile();
     	p.setSteals(p.getSteals()+1);
+    	p.setWins(p.getWins()+1);  //Esto para comprobar que funciona el Max Winner
     	achievementServ.updateAchievements(p);
     	repository.save(game);
     	userService.saveUser(user);
@@ -205,5 +210,6 @@ public class GameService {
     	Profile p = user.getProfile();
     	p.setPlayedGames(p.getPlayedGames()+1);
     	achievementServ.updateAchievements(p);
+    	profileService.updateGlobal();
     }
 }

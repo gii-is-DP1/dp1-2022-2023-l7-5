@@ -15,39 +15,40 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProfileService {
 	ProfileRepository repo;
-	
+
 	@Autowired
 	AchievementService achievementServ;
-	
+
 	@Autowired
 	UserService userServ;
-	
-	@Autowired ProfileService(ProfileRepository repo){
-		this.repo= repo;
+
+	@Autowired
+	ProfileService(ProfileRepository repo) {
+		this.repo = repo;
 	}
-	
-	List<Profile> getProfiles(){
-		
+
+	public List<Profile> getProfiles() {
+
 		return repo.findAll();
 	}
-	
+
 	public Profile getProfileById(Integer id) {
-		
+
 		return repo.findById(id).get();
 	}
-	
+
 	public void deleteProfileById(Integer id) {
-		
+
 		repo.deleteById(id);
 	}
-	
+
 	public void save(Profile profile) {
-		
+
 		repo.save(profile);
 	}
-	
+
 	public void initProfile(User u) {
-		
+
 		Profile p = new Profile();
 		p.setPlayedGames(0);
 		p.setMatches(0);
@@ -59,20 +60,55 @@ public class ProfileService {
 		repo.save(p);
 		u.setProfile(p);
 		userServ.saveUser(u);
-		
+
 	}
-	
+
 	public Boolean hasAchievement(Achievement a, Profile p) {
-		
+
 		return p.getAchievements().contains(a);
-		
+
 	}
 
 	public Boolean isMaxWinner(Profile p) {
-		
+
 		Comparator<Profile> cmp = Comparator.comparing(Profile::getWins);
-		return repo.findAll().stream().sorted(cmp).collect(Collectors.toList()).get(0) == p;
+		return repo.findAll().stream().sorted(cmp.reversed()).collect(Collectors.toList()).get(0) == p;
 	}
-	
-	
+
+	public Boolean isMaxThief(Profile p) {
+
+		Comparator<Profile> cmp = Comparator.comparing(Profile::getSteals);
+		return repo.findAll().stream().sorted(cmp.reversed()).filter(p1 -> p1.getUser().getUsername() != "honey").collect(Collectors.toList()).get(0) == p;
+	}
+
+	public Boolean isMaxMatcher(Profile p) {
+
+		Comparator<Profile> cmp = Comparator.comparing(Profile::getMatches);
+		return repo.findAll().stream().sorted(cmp.reversed()).filter(p1 -> p1.getUser().getUsername() != "honey").collect(Collectors.toList()).get(0) == p;
+	}
+
+	public Boolean isMaxOlder(Profile p) {
+
+		Comparator<Profile> cmp = Comparator.comparing(Profile::getPlayedGames);
+		return repo.findAll().stream().sorted(cmp.reversed()).filter(p1 -> p1.getUser().getUsername() != "honey").collect(Collectors.toList()).get(0) == p;
+	}
+
+	public void updateGlobal() {
+
+		Profile global = getProfileById(1);
+		global.setMatches(repo.findAll().stream().filter(p -> p.getId() != 1).map(Profile::getMatches)
+				.collect(Collectors.summingInt(Integer::intValue)));
+		global.setSteals(repo.findAll().stream().filter(p -> p.getId() != 1).map(Profile::getSteals)
+				.collect(Collectors.summingInt(Integer::intValue)));
+		global.setPlayedGames(repo.findAll().stream().filter(p -> p.getId() != 1).map(Profile::getPlayedGames)
+				.collect(Collectors.summingInt(Integer::intValue)));
+
+	}
+
+	public void deleteAchievement(Achievement a, Profile p) {
+
+		p.getAchievements().remove(a);
+
+	}
+
 }

@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
+import org.springframework.samples.petclinic.profile.Profile;
+import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.tile.Tile;
 import org.springframework.samples.petclinic.tile.TileService;
@@ -24,6 +27,12 @@ public class CellService {
 	
 	@Autowired
 	ScoreBoardService scoreBoardService;
+	
+	@Autowired
+	AchievementService achievementServ;
+	
+	@Autowired
+	ProfileService profileService;
 	
 	@Autowired CellService(CellRepository repo) {
 		this.repo = repo;
@@ -111,6 +120,9 @@ public class CellService {
 
 	@Transactional
 	public void resolveMatch(Set<Cell> match, User user) {
+			Profile p = user.getProfile();
+			p.setMatches(p.getMatches() + 1);
+			achievementServ.updateAchievements(p);
 			for (Cell cell : match) {
 				if (cell.getIsFlipped()) {
 					cell.setTile(null);

@@ -2,12 +2,15 @@ package org.springframework.samples.petclinic.user;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.achievement.Achievement;
 import org.springframework.samples.petclinic.achievement.AchievementService;
+import org.springframework.samples.petclinic.profile.Profile;
+import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -24,16 +27,19 @@ public class UserController {
 	private final String PLAYERS_LISTING_VIEW = "/players/PlayersListing";
 	private final String PLAYERS_DETAIL = "players/PlayerDetails";
 	private final String PLAYER_ACHIEVEMENTS = "players/PlayerAchievements";
+	private final String GLOBAL = "global";
 	
 	private final UserService userService;
 	private final AuthoritiesService authService;
 	private final AchievementService achService;
+	private final ProfileService pService;
 
 	@Autowired
-	public UserController(UserService userService, AuthoritiesService authService, AchievementService achService) {
+	public UserController(UserService userService, AuthoritiesService authService, AchievementService achService, ProfileService pService) {
 		this.userService = userService;
 		this.authService = authService;
 		this.achService = achService;
+		this.pService = pService;
 	}
 
 	@GetMapping(value = "/users/new")
@@ -102,6 +108,29 @@ public class UserController {
 		User user = this.userService.findUser(username).get();
 		model.addAttribute(user);
 		return PLAYERS_DETAIL;
+	}
+	
+	@GetMapping(value = "/player/honey")
+	public ModelAndView viewGlobal(Model model) {
+		
+		ModelAndView mav = new ModelAndView(GLOBAL);
+		User user = this.userService.findUser("honey").get();
+		user.setProfile(pService.getProfileById(1));
+		Profile pWinner = this.pService.getProfiles().stream().filter(p -> pService.isMaxWinner(p)).collect(Collectors.toList()).get(0);
+		User u1 = pWinner.getUser();
+		Profile pSteals = this.pService.getProfiles().stream().filter(p -> pService.isMaxThief(p)).collect(Collectors.toList()).get(0);
+		User u2 = pSteals.getUser();
+		Profile pMatches = this.pService.getProfiles().stream().filter(p -> pService.isMaxMatcher(p)).collect(Collectors.toList()).get(0);
+		User u3 = pMatches.getUser();
+		Profile pPlayedGames = this.pService.getProfiles().stream().filter(p -> pService.isMaxOlder(p)).collect(Collectors.toList()).get(0);
+		User u4 = pPlayedGames.getUser();
+		mav.addObject("user",user);
+		mav.addObject("user1",u1);
+		mav.addObject("user2",u2);
+		mav.addObject("user3",u3);
+		mav.addObject("user4",u4);
+
+		return mav;
 	}
 	
 	@GetMapping(value = "/player/{username}/achievements")

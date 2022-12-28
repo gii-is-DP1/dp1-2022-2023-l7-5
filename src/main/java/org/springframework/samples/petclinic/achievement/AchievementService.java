@@ -112,10 +112,17 @@ public class AchievementService {
 
 			Achievement a = repo.findById(6).get();
 			if (profileServ.hasAchievement(a, p) == false) {
-
+				
 				giveAchievement(p, a);
 
 			}
+		}
+		
+		if (!profileServ.isMaxWinner(p) && profileServ.hasAchievement(repo.findById(6).get(), p)) {
+
+			profileServ.deleteAchievement(repo.findById(6).get(), p);
+			
+			
 		}
 		
 		
