@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.samples.petclinic.achievement.Achievement;
 import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class UserController {
 	private final String PLAYERS_DETAIL = "players/PlayerDetails";
 	private final String PLAYER_ACHIEVEMENTS = "players/PlayerAchievements";
 	
+	private final Integer PAGE_SIZE = 10;
+			
 	private final UserService userService;
 	private final AuthoritiesService authService;
 	private final AchievementService achService;
@@ -63,10 +66,14 @@ public class UserController {
 	}
 	
 	@Transactional(readOnly = true)
-    @GetMapping("/users")
-    public ModelAndView showPlayers() {
+    @GetMapping("/users/page/{page}")
+    public ModelAndView showPlayers(@PathVariable("page") Integer page) {
     	ModelAndView mav = new ModelAndView(PLAYERS_LISTING_VIEW);
-    	List<User> users = userService.findAllUsers();
+    	Page<User> pageUser = userService.findAllUserPageable(page, PAGE_SIZE);
+    	List<User> users = pageUser.getContent();
+    	mav.addObject("next", pageUser.hasNext());
+    	mav.addObject("previous", pageUser.hasPrevious());
+    	mav.addObject("page", page);
     	mav.addObject("players", users);
     	return mav;
     }

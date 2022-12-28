@@ -38,5 +38,13 @@
         </c:forEach>
         </tbody>
     </table>
+    <div style="float:right">
+	    <c:if test="${previous}">
+	  		<a class="btn btn-default" href="/users/page/${page - 1}">Previous Page</a>
+	  	</c:if>
+	    <c:if test="${next}">
+	  		<a class="btn btn-default" href="/users/page/${page + 1}">Next Page</a>
+	  	</c:if>
+    </div>
     <a class="btn btn-default" href="/users/new">Create new player</a>
 </petclinic:layout >
