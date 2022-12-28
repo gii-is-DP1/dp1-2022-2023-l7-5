@@ -169,13 +169,14 @@ public class GameService {
     }
     
     @Transactional(rollbackFor = {AlreadyTileOnCell.class})
-    public void playTile(Integer cellId, Integer tileId, User user) throws AlreadyTileOnCell {
+    public void playTile(Integer cellId, Integer tileId, User user, Integer gameId) throws AlreadyTileOnCell {
     	this.cellService.putTileOnCell(cellId, tileId);
     	List<Tile> tiles = user.getTiles();
     	tiles.remove(this.tileService.getTileById(tileId));
     	user.setTiles(tiles);
     	userService.saveUser(user);
-    	Set<Cell> match = this.cellService.detectMatch(cellId, user);
+    	Game game = repository.findById(gameId).get();
+    	Set<Cell> match = this.cellService.detectMatch(cellId, user, game);
     	
     }
     
@@ -190,6 +191,9 @@ public class GameService {
     	}
     	game.setBag(this.tileService.getTiles());
     	game.setFinished(false);
+    	ScoreBoard sb = this.scoreboardService.getScoreBoardByUser(user.getUsername());
+    	sb.setScore(0);
+    	this.scoreboardService.save(sb);
     	this.userService.saveUser(user);
     	repository.save(game);
     	initSolitarieGame(game);
