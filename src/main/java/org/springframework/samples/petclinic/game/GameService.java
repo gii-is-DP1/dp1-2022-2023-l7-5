@@ -185,7 +185,7 @@ public class GameService {
     	}
     	game.setBag(this.tileService.getTiles());
     	game.setFinished(false);
-    	ScoreBoard sb = this.scoreboardService.getScoreBoardByUser(user.getUsername());
+    	ScoreBoard sb = this.scoreboardService.getScoreBoardByGameIdByUser(user.getUsername(), game.getId());
     	sb.setScore(0);
     	this.scoreboardService.save(sb);
     	this.userService.saveUser(user);
