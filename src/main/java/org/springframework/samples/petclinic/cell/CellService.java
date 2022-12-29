@@ -64,6 +64,9 @@ public class CellService {
 		Set<Cell> match = new HashSet<Cell>();
 		if(cell.getTile()!=null) {
 			String color = cell.getTile().getStartingSide();
+			if (cell.getIsFlipped()) {
+				color = cell.getTile().getFilledSide();
+			}
 			List<Cell> adjacents = cell.getAdjacents();
 			match.add(cell);
 			for (Cell cellAdj : adjacents) {
@@ -106,7 +109,6 @@ public class CellService {
 				}
 			}
 		}
-		
 		return match;
 	}
 

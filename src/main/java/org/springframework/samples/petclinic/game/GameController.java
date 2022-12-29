@@ -45,6 +45,7 @@ public class GameController {
     private final String  JOIN_LISTING_VIEW = "games/joinGamesListing";
     private final String PLAY_GAME = "play/play";
     private final String RESTART_GAME = "games/restartGame";
+    private final String WON_GAME = "games/wonGame";
     private final String FINISH_GAME = "games/finishGame";
 
 
@@ -213,10 +214,16 @@ public class GameController {
     	ScoreBoard sb = sbs.stream().filter(i -> i.getUser().getUsername().equals(user.getUsername())).findFirst().get();
     	mav.addObject("handCondition",(sb.getScore()==0 && user.getTiles().size()==0) || (user.getTiles().size() < sb.getScore()));
     	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
-    	if(full || (game.getBag().isEmpty() && user.getTiles().isEmpty())) {
-    		return new ModelAndView("redirect:/games/{id}/play/finishGame");
-    	}
+    	Boolean empty = game.getCells().stream().allMatch(c -> c.getTile() == null);
     	
+    	if (game.getMode().charAt(0) == 'S') {
+    		if (empty) {
+        		return new ModelAndView("redirect:/games/{id}/play/wonGame");
+        	} else if(full || (game.getBag().isEmpty() && user.getTiles().isEmpty())) {
+        		return new ModelAndView("redirect:/games/{id}/play/finishGame");
+        	} 
+    	}
+    
     	return mav;
     }
     
@@ -257,6 +264,19 @@ public class GameController {
    @GetMapping("{id}/play/finishGame")
    public ModelAndView finishGame(@PathVariable int id, Principal principal) {
 	   ModelAndView mav = new ModelAndView(FINISH_GAME);
+	   Game game = service.getGameById(id);
+   	   User user = userService.findUser(principal.getName()).get();
+   	   List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
+   	   this.service.finishGame(game, user);
+	   mav.addObject("game", game);
+	   mav.addObject("user", user);
+	   mav.addObject("scoreboards", sbs);
+	   return mav;
+   }
+   
+   @GetMapping("{id}/play/wonGame")
+   public ModelAndView wonGame(@PathVariable int id, Principal principal) {
+	   ModelAndView mav = new ModelAndView(WON_GAME);
 	   Game game = service.getGameById(id);
    	   User user = userService.findUser(principal.getName()).get();
    	   List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
