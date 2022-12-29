@@ -98,8 +98,13 @@ public class GameService {
     		sb.setUser(user);
     		sb.setGame(game);
     		scoreboardService.save(sb);
+    		if (user.getProfile() == null) {
+    			profileService.initProfile(user);
+    		}  
     		repository.save(game);
     	}
+    	
+    	
     }
     
     @Transactional
@@ -112,6 +117,7 @@ public class GameService {
     	game.setBag(bag);
     	List<Cell> cells = this.cellService.getCells();
     	game.setCells(cells);
+    	game.setTurn(1);
     	this.repository.save(game);
     	if (game.getMode().charAt(0)=='S') {
     		initSolitarieGame(game);
@@ -209,5 +215,17 @@ public class GameService {
     	Profile p = user.getProfile();
     	p.setPlayedGames(p.getPlayedGames()+1);
     	achievementServ.updateAchievements(p);
+    }
+    
+    @Transactional
+    public void incrementTurn(Game game) {
+    	Integer t = game.getTurn();
+    	if(t==game.getNumberCurrentPlayers()) {
+    		t = 1;
+    	} else {
+    		t++;
+    	}
+    	game.setTurn(t);
+    	repository.save(game);
     }
 }
