@@ -232,7 +232,7 @@ public class GameController {
     	}
     	if (game.getMode().charAt(0) == 'C') {
     		if(full || (game.getBag().isEmpty() && emptyHands)) {
-    			ModelAndView finishedCompetitive = new ModelAndView("redirect:/games/{id}/play/finishCompetitiveGame");
+    			ModelAndView finishedCompetitive = new ModelAndView("redirect:/games/{id}/play/finishGame");
     			finishedCompetitive.addObject("game", game);
     			finishedCompetitive.addObject("scoreboards", sbs);
         		return finishedCompetitive;
