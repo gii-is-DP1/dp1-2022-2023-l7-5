@@ -44,6 +44,7 @@ public class GameController {
     private final String  GAME_DETAIL = "games/gameDetails";
     private final String  JOIN_LISTING_VIEW = "games/joinGamesListing";
     private final String PLAY_GAME = "play/play";
+    private final String PLAY_GAME_COMPETITIVE = "play/playCompetitive";
     private final String RESTART_GAME = "games/restartGame";
     private final String WON_GAME = "games/wonGame";
     private final String FINISH_GAME = "games/finishGame";
@@ -197,10 +198,16 @@ public class GameController {
     public ModelAndView playGame(@PathVariable int id, HttpServletResponse response, Principal principal) {
     	Game game = service.getGameById(id);
     	if (game.getMode().charAt(0) == 'C') {
-    		response.addHeader("Refresh", "1");
+    		response.addHeader("Refresh", "5");
     	}
     	List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
-    	ModelAndView mav = new ModelAndView(PLAY_GAME);
+    	ModelAndView mav = null;
+    	String mode = game.getMode();
+    	if(mode.charAt(0) == 'C') {
+    		mav = new ModelAndView(PLAY_GAME_COMPETITIVE);
+    	} else {
+    		mav = new ModelAndView(PLAY_GAME);
+    	}
     	mav.addObject("scoreboards", sbs);
     	mav.addObject("game", game);
     	mav.addObject("username", principal.getName());
@@ -232,6 +239,7 @@ public class GameController {
     	Game game = service.getGameById(id);
     	User user = userService.findUser(principal.getName()).get();
     	service.stealToken(game, user);
+    	this.service.incrementTurn(game);
     	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
     }
     
@@ -239,6 +247,8 @@ public class GameController {
     public ModelAndView playTile(@PathVariable int id, Principal principal, @PathVariable("tileId") int tileId, @PathVariable("cellId") int cellId) throws AlreadyTileOnCell {
     	User user = userService.findUser(principal.getName()).get();
     	this.service.playTile(cellId, tileId, user, id);
+    	Game game = service.getGameById(id);
+    	this.service.incrementTurn(game);
     	return new ModelAndView("redirect:/games/"+id+"/play/");
     }
     
