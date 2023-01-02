@@ -222,15 +222,22 @@ public class GameController {
     	mav.addObject("handCondition",(sb.getScore()==0 && user.getTiles().size()==0) || (user.getTiles().size() < sb.getScore()));
     	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
     	Boolean empty = game.getCells().stream().allMatch(c -> c.getTile() == null);
-    	
+		Boolean emptyHands = sbs.stream().map(s -> s.getUser()).allMatch(u -> u.getTiles().isEmpty());
     	if (game.getMode().charAt(0) == 'S') {
     		if (empty) {
         		return new ModelAndView("redirect:/games/{id}/play/wonGame");
-        	} else if(full || (game.getBag().isEmpty() && user.getTiles().isEmpty())) {
+        	} else if(full || (game.getBag().isEmpty() && emptyHands)) {
         		return new ModelAndView("redirect:/games/{id}/play/finishGame");
         	} 
     	}
-    
+    	if (game.getMode().charAt(0) == 'C') {
+    		if(full || (game.getBag().isEmpty() && emptyHands)) {
+    			ModelAndView finishedCompetitive = new ModelAndView("redirect:/games/{id}/play/finishCompetitiveGame");
+    			finishedCompetitive.addObject("game", game);
+    			finishedCompetitive.addObject("scoreboards", sbs);
+        		return finishedCompetitive;
+        	} 
+    	}
     	return mav;
     }
     
