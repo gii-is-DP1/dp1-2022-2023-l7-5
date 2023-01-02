@@ -5,7 +5,6 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="play">
-
 	<h1 
     	style ="
     		text-align: center;
@@ -290,8 +289,6 @@
   							</h1></div></td>
 		</tr>
 	</table>
-	
-	
 	<c:forEach items="${scoreboards }" var="scoreboard">
 	<h2>${scoreboard.user.username }</h2>
 	<h2> Puntuación: ${scoreboard.score }</h2>
@@ -305,7 +302,6 @@
 			<c:if test="${username == scoreboard.user.username }">
 				<th>Actions</th>
 			</c:if>
-			
 		</tr>
 		</thead>
 		<tbody>
@@ -318,7 +314,6 @@
 					<td>
 						<c:out value="${tile.filledSide }"/>
 					</td>
-				
 				<td>
 					<c:if test="${scoreboard.orden ==  game.turn}">
 						<petclinic:menuItem active="${name eq 'play'}" url="/"
@@ -341,12 +336,11 @@
 		</tbody>
 	</table>
 	<c:if test="${username == scoreboard.user.username}">
-		<c:if test="${!game.bag.isEmpty()}">
-		
-			<c:if test="${scoreboard.orden ==  game.turn}">
+		<c:if test="${scoreboard.orden ==  game.turn}">
+			<c:if test="${!game.bag.isEmpty()}">
 				<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
 		 	</c:if>
-		 
+		 	<a class="btn btn-default" href="/games/${game.id}/play/skipTurn"> Skip Turn</a>
 		</c:if>
 	</c:if>
 	</c:forEach>

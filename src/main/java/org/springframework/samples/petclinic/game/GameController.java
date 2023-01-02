@@ -240,7 +240,7 @@ public class GameController {
     	User user = userService.findUser(principal.getName()).get();
     	service.stealToken(game, user);
     	this.service.incrementTurn(game);
-    	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
+    	return new ModelAndView("redirect:/games/"+id+"/play");
     }
     
     @GetMapping("/{id}/play/playTile/{tileId}/{cellId}")
@@ -250,6 +250,13 @@ public class GameController {
     	Game game = service.getGameById(id);
     	this.service.incrementTurn(game);
     	return new ModelAndView("redirect:/games/"+id+"/play/");
+    }
+    
+    @GetMapping("{id}/play/skipTurn")
+    public ModelAndView skipTurn(@PathVariable int id) {
+ 	   Game game = service.getGameById(id);
+ 	   this.service.incrementTurn(game);
+ 	  return new ModelAndView("redirect:/games/"+id+"/play");
     }
     
     @GetMapping("{id}/play/restartGame")
@@ -296,5 +303,5 @@ public class GameController {
 	   mav.addObject("scoreboards", sbs);
 	   return mav;
    }
-    
+   
 }
