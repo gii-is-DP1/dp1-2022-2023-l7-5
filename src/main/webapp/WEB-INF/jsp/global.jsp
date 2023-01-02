@@ -22,32 +22,110 @@
 			<td><c:out value="${user.profile.playedGames}" /></td>
 		</tr>
 	</table>
-	
-	
+
+
 	<br />
 	<br />
 	<br />
-	
+
 	<h2>Hall of Fame</h2>
 
 
 	<table class="table table-striped">
 		<tr>
 			<th>Max Wins</th>
-			<td><c:out value="${user1.profile.wins} ${user1.username}" /></td>
+			<td><c:out value="${user1.profile.wins}" /></td>
+			<td><c:out value="${user1.username}" /></td>
 		</tr>
 		<tr>
 			<th>Max Matches</th>
-			<td><c:out value="${user2.profile.matches} ${user2.username}" /></td>
+			<td><c:out value="${user4.profile.matches}" /></td>
+			<td><c:out value="${user4.username}" /></td>
 		</tr>
 		<tr>
 			<th>Max Steals</th>
-			<td><c:out value="${user3.profile.steals} ${user3.username}" /></td>
+			<td><c:out value="${user2.profile.steals}" /></td>
+			<td><c:out value="${user2.username}" /></td>
 		</tr>
 		<tr>
 			<th>Max Games</th>
-			<td><c:out value="${user4.profile.playedGames} ${user4.username}" /></td>
+			<td><c:out value="${user3.profile.playedGames}" /></td>
+			<td><c:out value="${user3.username}" /></td>
 		</tr>
 	</table>
+
+	<h2>Rankings</h2>
+
+	<table id="ranking" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Wins</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<td><c:forEach items="${wins}" var="w">
+					<tr>
+						<td width = 25%><c:out value="${w.wins}" /></td>
+						<td width = 25%><c:out value="${w.user.username}" /></td>
+					</tr>
+				</c:forEach>
+			</td>
+		</tbody>
+	</table>
 	
+	<table id="ranking" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Steals</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<td><c:forEach items="${steals}" var="s">
+					<tr>
+						<td width = 25%><c:out value="${s.steals}" /></td>
+						<td width = 25%><c:out value="${s.user.username}" /></td>
+					</tr>
+				</c:forEach>
+			</td>
+		</tbody>
+	</table>
+	
+	<table id="ranking" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Played Games</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<td><c:forEach items="${playedGames}" var="p">
+					<tr>
+						<td width = 25%><c:out value="${p.playedGames}" /></td>
+						<td width = 25%><c:out value="${p.user.username}" /></td>
+					</tr>
+				</c:forEach>
+			</td>
+		</tbody>
+	</table>
+	
+	<table id="ranking" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Matches</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<td><c:forEach items="${matches}" var="m">
+					<tr>
+						<td width = 25%><c:out value="${m.matches}" /></td>
+						<td width = 25%><c:out value="${m.user.username}" /></td>
+					</tr>
+				</c:forEach>
+			</td>
+		</tbody>
+	</table>
+
 </petclinic:layout>

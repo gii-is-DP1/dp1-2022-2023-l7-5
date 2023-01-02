@@ -118,7 +118,7 @@ public class AchievementService {
 			}
 		}
 		
-		if (!profileServ.isMaxWinner(p) && profileServ.hasAchievement(repo.findById(6).get(), p)) {
+		if (profileServ.isMaxWinner(p) == false && profileServ.hasAchievement(repo.findById(6).get(), p)) {
 
 			profileServ.deleteAchievement(repo.findById(6).get(), p);
 			
@@ -135,7 +135,7 @@ public class AchievementService {
 			}
 		}
 		
-		if (!profileServ.isMaxThief(p) && profileServ.hasAchievement(repo.findById(7).get(), p)) {
+		if (profileServ.isMaxThief(p) == false && profileServ.hasAchievement(repo.findById(8).get(), p)) {
 
 			profileServ.deleteAchievement(repo.findById(8).get(), p);
 			
@@ -152,7 +152,7 @@ public class AchievementService {
 			}
 		}
 		
-		if (!profileServ.isMaxOlder(p) && profileServ.hasAchievement(repo.findById(9).get(), p)) {
+		if (profileServ.isMaxOlder(p) == false && profileServ.hasAchievement(repo.findById(9).get(), p)) {
 
 			profileServ.deleteAchievement(repo.findById(9).get(), p);
 			
@@ -169,7 +169,7 @@ public class AchievementService {
 			}
 		}
 		
-		if (!profileServ.isMaxMatcher(p) && profileServ.hasAchievement(repo.findById(10).get(), p)) {
+		if (profileServ.isMaxMatcher(p) == false && profileServ.hasAchievement(repo.findById(10).get(), p)) {
 
 			profileServ.deleteAchievement(repo.findById(10).get(), p);
 			

@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.user;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -121,21 +122,35 @@ public class UserController {
 	public ModelAndView viewGlobal(Model model) {
 		
 		ModelAndView mav = new ModelAndView(GLOBAL);
+		
 		User user = this.userService.findUser("honey").get();
 		user.setProfile(pService.getProfileById(1));
-		Profile pWinner = this.pService.getProfiles().stream().filter(p -> pService.isMaxWinner(p)).collect(Collectors.toList()).get(0);
-		User u1 = pWinner.getUser();
-		Profile pSteals = this.pService.getProfiles().stream().filter(p -> pService.isMaxThief(p)).collect(Collectors.toList()).get(0);
-		User u2 = pSteals.getUser();
-		Profile pMatches = this.pService.getProfiles().stream().filter(p -> pService.isMaxMatcher(p)).collect(Collectors.toList()).get(0);
-		User u3 = pMatches.getUser();
-		Profile pPlayedGames = this.pService.getProfiles().stream().filter(p -> pService.isMaxOlder(p)).collect(Collectors.toList()).get(0);
-		User u4 = pPlayedGames.getUser();
+		
+		Comparator<Profile> Cwins = Comparator.comparing(Profile::getWins);
+		List<Profile> wins = pService.getProfiles().stream().sorted(Cwins.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u1 = wins.get(0).getUser();
+		
+		Comparator<Profile> Csteals = Comparator.comparing(Profile::getSteals);
+		List<Profile> steals = pService.getProfiles().stream().sorted(Csteals.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u2 = steals.get(0).getUser();
+		
+		Comparator<Profile> CplayedGames = Comparator.comparing(Profile::getPlayedGames);
+		List<Profile> playedGames = pService.getProfiles().stream().sorted(CplayedGames.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u3 = playedGames.get(0).getUser();
+		
+		Comparator<Profile> Cmatches = Comparator.comparing(Profile::getMatches);
+		List<Profile> matches = pService.getProfiles().stream().sorted(Cmatches.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u4 = matches.get(0).getUser();
+		
 		mav.addObject("user",user);
 		mav.addObject("user1",u1);
 		mav.addObject("user2",u2);
 		mav.addObject("user3",u3);
 		mav.addObject("user4",u4);
+		mav.addObject("wins", wins);
+		mav.addObject("steals", steals);
+		mav.addObject("playedGames", playedGames);
+		mav.addObject("matches", matches);
 
 		return mav;
 	}
