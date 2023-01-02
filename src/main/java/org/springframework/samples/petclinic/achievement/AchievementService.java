@@ -125,6 +125,56 @@ public class AchievementService {
 			
 		}
 		
+		if (profileServ.isMaxThief(p)) {
+
+			Achievement a = repo.findById(8).get();
+			if (profileServ.hasAchievement(a, p) == false) {
+				
+				giveAchievement(p, a);
+
+			}
+		}
+		
+		if (!profileServ.isMaxThief(p) && profileServ.hasAchievement(repo.findById(7).get(), p)) {
+
+			profileServ.deleteAchievement(repo.findById(8).get(), p);
+			
+			
+		}
+		
+		if (profileServ.isMaxOlder(p)) {
+
+			Achievement a = repo.findById(9).get();
+			if (profileServ.hasAchievement(a, p) == false) {
+				
+				giveAchievement(p, a);
+
+			}
+		}
+		
+		if (!profileServ.isMaxOlder(p) && profileServ.hasAchievement(repo.findById(9).get(), p)) {
+
+			profileServ.deleteAchievement(repo.findById(9).get(), p);
+			
+			
+		}
+		
+		if (profileServ.isMaxMatcher(p)) {
+
+			Achievement a = repo.findById(10).get();
+			if (profileServ.hasAchievement(a, p) == false) {
+				
+				giveAchievement(p, a);
+
+			}
+		}
+		
+		if (!profileServ.isMaxMatcher(p) && profileServ.hasAchievement(repo.findById(10).get(), p)) {
+
+			profileServ.deleteAchievement(repo.findById(10).get(), p);
+			
+			
+		}
 		
 	}
 

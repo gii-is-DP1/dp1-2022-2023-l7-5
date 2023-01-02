@@ -48,29 +48,6 @@
 			<td><c:out value="${user.profile.playedGames}"/></td>
 		</tr>
 	</table>
-	<a class="btn btn-default" href="/users/new">See my achievements</a>
-
-
-	<table class="table table-striped">
-		<tr>
-			<th>Wins</th>
-			<td><c:out value="${user.profile.wins}" /></td>
-		</tr>
-		<tr>
-			<th>Matches</th>
-			<td><c:out value="${user.profile.matches}" /></td>
-		</tr>
-		<tr>
-			<th>Steals</th>
-			<td><c:out value="${user.profile.steals}" /></td>
-		</tr>
-		<tr>
-			<th>Games</th>
-			<td><c:out value="${user.profile.playedGames}" /></td>
-		</tr>
-	</table>
-
-
 	<br />
 	<h2>Achievements</h2>
 
