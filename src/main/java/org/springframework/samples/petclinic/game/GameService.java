@@ -214,6 +214,7 @@ public class GameService {
     	Profile p = user.getProfile();
     	p.setPlayedGames(p.getPlayedGames()+1);
     	achievementServ.updateAchievements(p);
+    	achievementServ.updateGlobalAchievements();
     	profileService.updateGlobal();
     }
 }

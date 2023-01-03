@@ -72,25 +72,25 @@ public class ProfileService {
 	public Boolean isMaxWinner(Profile p) {
 
 		Comparator<Profile> cmp = Comparator.comparing(Profile::getWins);
-		return repo.findAll().stream().sorted(cmp.reversed()).collect(Collectors.toList()).get(0) == p;
+		return repo.findAll().stream().sorted(cmp.reversed()).collect(Collectors.toList()).get(0).getId() == p.getId();
 	}
 
 	public Boolean isMaxThief(Profile p) {
 
 		Comparator<Profile> cmp = Comparator.comparing(Profile::getSteals);
-		return repo.findAll().stream().sorted(cmp.reversed()).filter(p1 -> p1.getUser().getUsername() != "honey").collect(Collectors.toList()).get(0) == p;
+		return repo.findAll().stream().sorted(cmp.reversed()).collect(Collectors.toList()).get(0).getId() == p.getId();
 	}
 
 	public Boolean isMaxMatcher(Profile p) {
 
 		Comparator<Profile> cmp = Comparator.comparing(Profile::getMatches);
-		return repo.findAll().stream().sorted(cmp.reversed()).filter(p1 -> p1.getUser().getUsername() != "honey").collect(Collectors.toList()).get(0) == p;
+		return repo.findAll().stream().sorted(cmp.reversed()).collect(Collectors.toList()).get(0).getId() == p.getId();
 	}
 
 	public Boolean isMaxOlder(Profile p) {
 
 		Comparator<Profile> cmp = Comparator.comparing(Profile::getPlayedGames);
-		return repo.findAll().stream().sorted(cmp.reversed()).filter(p1 -> p1.getUser().getUsername() != "honey").collect(Collectors.toList()).get(0) == p;
+		return repo.findAll().stream().sorted(cmp.reversed()).collect(Collectors.toList()).get(0).getId() == p.getId();
 	}
 
 	public void updateGlobal() {
