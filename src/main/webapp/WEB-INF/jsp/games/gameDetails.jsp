@@ -40,7 +40,9 @@
         </c:forEach>
     </table>
     <div style ="text-align: center">
-    	<a style ="font-size: 46px; color: #FCDC04;" href="<spring:url value="/games/${game.id}/play" />"> Play!</a>
+    	<c:if test="${game.numberCurrentPlayers == game.numberOfPlayers || game.numberCurrentPlayers > 1 }">
+    		<a style ="font-size: 46px; color: #FCDC04;" href="<spring:url value="/games/${game.id}/play" />"> Play!</a>
+		</c:if>    
     </div>
     
 </petclinic:layout>
