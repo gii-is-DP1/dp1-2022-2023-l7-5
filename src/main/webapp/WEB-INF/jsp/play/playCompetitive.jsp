@@ -5,7 +5,6 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="play">
-
 	<h1 
     	style ="
     		text-align: center;
@@ -290,11 +289,6 @@
   							</h1></div></td>
 		</tr>
 	</table>
-	
-	<a class="btn btn-default" href="/games/${id }/play/restartGame">Restart</a>
-	<a class="btn btn-default" href="/games/${id }/play/finishGame">Finish</a>
-
-	
 	<c:forEach items="${scoreboards }" var="scoreboard">
 	<h2>${scoreboard.user.username }</h2>
 	<h2> Puntuación: ${scoreboard.score }</h2>
@@ -308,7 +302,6 @@
 			<c:if test="${username == scoreboard.user.username }">
 				<th>Actions</th>
 			</c:if>
-			
 		</tr>
 		</thead>
 		<tbody>
@@ -321,32 +314,33 @@
 					<td>
 						<c:out value="${tile.filledSide }"/>
 					</td>
-				</c:if>
 				<td>
-					<petclinic:menuItem active="${name eq 'play'}" url="/"
-					title="Play" dropdown="${true}">
-						<ul class="dropdown-menu">
-							<c:forEach items="${cells }" var="cell">
-								<c:if test="${cell.tile == null }">
-									<li>
-										<a href="<c:url value="/games/${game.id }/play/playTile/${tile.id}/${cell.id}" />" >${cell.id } </a>
-									</li>
-								</c:if>
-							</c:forEach>
-						</ul>
-					</petclinic:menuItem>
+					<c:if test="${scoreboard.orden ==  game.turn}">
+						<petclinic:menuItem active="${name eq 'play'}" url="/"
+						title="Play" dropdown="${true}">
+							<ul class="dropdown-menu">
+								<c:forEach items="${cells }" var="cell">
+									<c:if test="${cell.tile == null }">
+										<li>
+											<a href="<c:url value="/games/${game.id }/play/playTile/${tile.id}/${cell.id}" />" >${cell.id } </a>
+										</li>
+									</c:if>
+								</c:forEach>
+							</ul>
+						</petclinic:menuItem>
+					</c:if>
 				</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
 	<c:if test="${username == scoreboard.user.username}">
-		<c:if test="${!game.bag.isEmpty()}">
-		<c:forEach items="${scoreboards }" var="scoreboard">
-			<c:if test="${handCondition }">
+		<c:if test="${scoreboard.orden ==  game.turn}">
+			<c:if test="${!game.bag.isEmpty()}">
 				<a class="btn btn-default" href="/games/${game.id}/play/stealToken"> Steal Token</a>
 		 	</c:if>
-		 </c:forEach>
+		 	<a class="btn btn-default" href="/games/${game.id}/play/skipTurn"> Skip Turn</a>
 		</c:if>
 	</c:if>
 	</c:forEach>

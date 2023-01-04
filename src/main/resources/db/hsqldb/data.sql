@@ -20,6 +20,10 @@ INSERT INTO authorities(id,username,authority) VALUES (15,'alematcap','player');
 INSERT INTO users(username,email,password,enabled) VALUES ('angel','angel@gmail.com','4ng3l',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (16,'angel','player');
 
+
+INSERT INTO users(username,email,password,enabled) VALUES ('honey','honey@gmail.com','h0ney',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (31,'honey','player');
+
 INSERT INTO users(username,email,password,enabled) VALUES ('cmuller','cmuller@gmail.com','cmull3r',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (17,'cmuller','player');
 
@@ -190,9 +194,15 @@ INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 52);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 43);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 44);
 
+INSERT INTO profile(id, played_games, wins, steals, matches, user_username) VALUES (1, 0, 0, 0, 0, 'honey');
+
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (1, 'Baby Bee','https://media.istockphoto.com/illustrations/happy-baby-bee-illustration-id92717135?k=6&m=92717135&s=170667a&w=0&h=rT8nF4gaMA1bjExYyX4jTlTERmNtuVhVihHE5bmavIc=','https://i.imgur.com/wYoxz9e.png', 2.0, 'Enter your first game');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (2, 'BumbleBee','https://th.bing.com/th/id/OIP.oJ3oz0uzEgtj_ev6HkXIYQHaFR?pid=ImgDet&rs=1','https://i.imgur.com/cXppzV3.png', 2.0, 'Play 5 Games');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (3, 'Queen Bee','https://th.bing.com/th/id/R.05085dceb44cdf2855c5dc277dd3721c?rik=u0Ft5NRpNJMLwQ&riu=http%3a%2f%2fwww.clipartbest.com%2fcliparts%2fncB%2fEG4%2fncBEG4B7i.jpg&ehk=Zt%2bDJz7mNMTYNW5sDIiV9GH8m7NxOJALbmuUjkZAEpc%3d&risl=&pid=ImgRaw&r=0','https://i.imgur.com/UcPlCM5.png', 2.0, 'Play 10 Games');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (4, 'Queen of the Hive','https://th.bing.com/th/id/R.a0585fed6ea86756e29f60072beee908?rik=%2bImp2dAcp0WH1A&pid=ImgRaw&r=0','https://i.imgur.com/aNizNle.png',2.0, 'Win your first game');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (5, 'Shameless Thief','https://th.bing.com/th/id/OIP.QzqEbxDqzlBH2-WAxCFbaQHaHa?w=209&h=209&c=7&r=0&o=5&pid=1.7','https://i.imgur.com/uPdD7OP.png', 2.0, 'Steal your first tile');
-
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (6, 'Empress Maya','https://www.nicepng.com/png/full/268-2687679_https-transparent-crown-cartoon-png.png','https://imgur.com/Vsrkoe1.png', 2.0, 'You are the player with more wins!!');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (7, 'Laytons apprentice','https://th.bing.com/th/id/R.8c2988e406c697e82bfda57565332915?rik=Xg9mxQtBIx2ZHQ&riu=http%3a%2f%2fclipart-library.com%2fnewhp%2f110-1106529_jigsaw-clip-art-puzzle-pieces-clipart.png&ehk=1DKbFX4LobuXAHQNRAr5NBGWOS98MqfLXlPCXg0lAA0%3d&risl=&pid=ImgRaw&r=0','https://imgur.com/n8Fow3j.png', 2.0, 'Perform your first match');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (8, 'Robin Hood','https://imgur.com/OMfg2r0.png','https://imgur.com/vGmQWOe.png', 2.0, 'You are the player with more steals!!');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (9, 'Veteran Bee','https://imgur.com/rnt4hYX.png','https://imgur.com/3orausb.png', 2.0, 'You are the player with more games!!');
+INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (10, 'Matcher Bee','https://imgur.com/s13z1Rv.png','https://imgur.com/j8p1Xk5.png', 2.0, 'You are the player with more matches!!');

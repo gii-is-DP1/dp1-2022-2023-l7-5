@@ -44,6 +44,7 @@ public class GameService {
 	ProfileService profileService;
 	@Autowired
 	AchievementService achievementServ;
+	
 
 	@Autowired GameService(GameRepository repository) {
 		this.repository = repository;
@@ -67,8 +68,8 @@ public class GameService {
     
     @Transactional
     public void initPlayerToGame(String username, Game game) {
-    	game.setNumberCurrentPlayers(1);
-    	repository.save(game);
+    	/*game.setNumberCurrentPlayers(1);
+    	repository.save(game);*/
     	ScoreBoard sb = new ScoreBoard();
 		User user = userService.findUser(username).get();
 		repository.save(game);
@@ -98,8 +99,13 @@ public class GameService {
     		sb.setUser(user);
     		sb.setGame(game);
     		scoreboardService.save(sb);
+    		if (user.getProfile() == null) {
+    			profileService.initProfile(user);
+    		}  
     		repository.save(game);
     	}
+    	
+    	
     }
     
     @Transactional
@@ -112,6 +118,7 @@ public class GameService {
     	game.setBag(bag);
     	List<Cell> cells = this.cellService.getCells();
     	game.setCells(cells);
+    	game.setTurn(1);
     	this.repository.save(game);
     	if (game.getMode().charAt(0)=='S') {
     		initSolitarieGame(game);
@@ -129,6 +136,7 @@ public class GameService {
     	game.getBag().remove(tile);
     	Profile p = user.getProfile();
     	p.setSteals(p.getSteals()+1);
+    	p.setWins(p.getWins()+1);  //Esto para comprobar que funciona el Max Winner
     	achievementServ.updateAchievements(p);
     	repository.save(game);
     	userService.saveUser(user);
@@ -206,8 +214,24 @@ public class GameService {
     	game.setCells(null);
     	game.setBag(null);
     	repository.save(game);
+    	this.userService.saveUser(user);
     	Profile p = user.getProfile();
     	p.setPlayedGames(p.getPlayedGames()+1);
     	achievementServ.updateAchievements(p);
+    	achievementServ.updateGlobalAchievements();
+    	profileService.updateGlobal();
+    	this.profileService.save(p);
+    }
+    
+    @Transactional
+    public void incrementTurn(Game game) {
+    	Integer t = game.getTurn();
+    	if(t==game.getNumberCurrentPlayers()) {
+    		t = 1;
+    	} else {
+    		t++;
+    	}
+    	game.setTurn(t);
+    	repository.save(game);
     }
 }
