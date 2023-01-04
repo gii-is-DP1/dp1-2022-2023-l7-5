@@ -206,3 +206,89 @@ INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, descripti
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (8, 'Robin Hood','https://imgur.com/OMfg2r0.png','https://imgur.com/vGmQWOe.png', 2.0, 'You are the player with more steals!!');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (9, 'Veteran Bee','https://imgur.com/rnt4hYX.png','https://imgur.com/3orausb.png', 2.0, 'You are the player with more games!!');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (10, 'Matcher Bee','https://imgur.com/s13z1Rv.png','https://imgur.com/j8p1Xk5.png', 2.0, 'You are the player with more matches!!');
+
+--Blue
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Green
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Orange
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Purple
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Red
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Yellow
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/eBtkb5g.png?1');
+
+--Blue
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vuJZUUw.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Green
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/kWun3bJ.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Orange
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/vVsXSra.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Purple
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/WwELeLW.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Red
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/9G8Pe0A.png?1', 'https://imgur.com/eBtkb5g.png?1');
+--Yellow
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/Z1BhNUR.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/LFHtM1A.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/v9XOBYk.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/K0e5pCB.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/QPPiSyd.png?1');
+INSERT INTO tile(starting_side, filled_side) VALUES ('https://imgur.com/lPCw0o5.png?1', 'https://imgur.com/eBtkb5g.png?1');
