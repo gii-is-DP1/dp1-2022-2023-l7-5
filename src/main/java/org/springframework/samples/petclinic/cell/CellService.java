@@ -97,9 +97,23 @@ public class CellService {
 				}
 			}
 		}
+		
+		Boolean cluster = true;
+		Set<Cell> matchCopy = new HashSet<>();
+		matchCopy.addAll(match);
+		for (Cell mt : match) {
+			Set<Cell> others = matchCopy;
+			others.remove(mt);
+			cluster = cluster && mt.getAdjacents().containsAll(others);
+		}
 		if (match.size() >= 3) {
-			resolveMatch(match, user, game);
-			this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
+			if (!(game.getMode().charAt(1) == 'U') || match.size() > 3) {
+				resolveMatch(match, user, game);
+				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
+			} else if (!cluster) {
+				resolveMatch(match, user, game);
+				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
+			}
 		}
 		return match;
 	}

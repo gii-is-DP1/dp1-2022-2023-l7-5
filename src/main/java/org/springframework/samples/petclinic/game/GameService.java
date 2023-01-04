@@ -178,8 +178,7 @@ public class GameService {
     	user.setTiles(tiles);
     	userService.saveUser(user);
     	Game game = repository.findById(gameId).get();
-    	Set<Cell> match = this.cellService.detectMatch(cellId, user, game);
-    	
+    	this.cellService.detectMatch(cellId, user, game);
     }
     
     @Transactional
