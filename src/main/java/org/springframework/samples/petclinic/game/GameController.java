@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.game;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,17 +38,18 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/games")
 public class GameController {
 	
-	private final String  PLAY_SELECT = "games/play";
-	private final String  GAME_JOIN = "games/joinGame";
-	private final String  GAMES_LISTING_VIEW = "games/GamesListing";
-    private final String  GAMES_FORM = "games/createOrUpdateGameForm";
-    private final String  GAME_DETAIL = "games/gameDetails";
-    private final String  JOIN_LISTING_VIEW = "games/joinGamesListing";
+	private final String PLAY_SELECT = "games/play";
+	private final String GAME_JOIN = "games/joinGame";
+	private final String GAMES_LISTING_VIEW = "games/GamesListing";
+    private final String GAMES_FORM = "games/createOrUpdateGameForm";
+    private final String GAME_DETAIL = "games/gameDetails";
+    private final String JOIN_LISTING_VIEW = "games/joinGamesListing";
     private final String PLAY_GAME = "play/play";
     private final String PLAY_GAME_COMPETITIVE = "play/playCompetitive";
     private final String RESTART_GAME = "games/restartGame";
     private final String WON_GAME = "games/wonGame";
     private final String FINISH_GAME = "games/finishGame";
+    private final String FINISH_GAME_COMPETITIVE = "games/finishGameCompetitive";
 
 
     List<String> modes = List.of("COMPETITIVE", "SOLO", "SURVIVAL");
@@ -248,7 +250,7 @@ public class GameController {
     	User user = userService.findUser(principal.getName()).get();
     	service.stealToken(game, user);
     	this.service.incrementTurn(game);
-    	return new ModelAndView("redirect:/games/"+game.getId()+"/play");
+    	return new ModelAndView("redirect:/games/"+id+"/play");
     }
     
     @GetMapping("/{id}/play/playTile/{tileId}/{cellId}")
@@ -258,6 +260,13 @@ public class GameController {
     	Game game = service.getGameById(id);
     	this.service.incrementTurn(game);
     	return new ModelAndView("redirect:/games/"+id+"/play/");
+    }
+    
+    @GetMapping("{id}/play/skipTurn")
+    public ModelAndView skipTurn(@PathVariable int id) {
+ 	   Game game = service.getGameById(id);
+ 	   this.service.incrementTurn(game);
+ 	  return new ModelAndView("redirect:/games/"+id+"/play");
     }
     
     @GetMapping("{id}/play/restartGame")
@@ -281,10 +290,22 @@ public class GameController {
     
    @GetMapping("{id}/play/finishGame")
    public ModelAndView finishGame(@PathVariable int id, Principal principal) {
-	   ModelAndView mav = new ModelAndView(FINISH_GAME);
 	   Game game = service.getGameById(id);
    	   User user = userService.findUser(principal.getName()).get();
    	   List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
+	   ModelAndView mav = null;
+	   if(game.getMode().charAt(0) == 'C') {
+		   mav = new ModelAndView(FINISH_GAME_COMPETITIVE);
+		   List<ScoreBoard> sbsSorted = sbs.stream()
+				   .sorted(Comparator.comparingInt(ScoreBoard::getScore)
+						   .thenComparing(Comparator.comparing(ScoreBoard::getOrden))
+						   .reversed())
+				   .collect(Collectors.toList());
+		   mav.addObject("winner", sbsSorted.get(0).getUser());
+		   mav.addObject("sbssorted", sbsSorted);
+	   } else {
+		   mav = new ModelAndView(FINISH_GAME);
+	   }
    	   this.service.finishGame(game, user);
 	   mav.addObject("game", game);
 	   mav.addObject("user", user);
@@ -304,5 +325,5 @@ public class GameController {
 	   mav.addObject("scoreboards", sbs);
 	   return mav;
    }
-    
+   
 }

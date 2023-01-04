@@ -214,11 +214,13 @@ public class GameService {
     	game.setCells(null);
     	game.setBag(null);
     	repository.save(game);
+    	this.userService.saveUser(user);
     	Profile p = user.getProfile();
     	p.setPlayedGames(p.getPlayedGames()+1);
     	achievementServ.updateAchievements(p);
     	achievementServ.updateGlobalAchievements();
     	profileService.updateGlobal();
+    	this.profileService.save(p);
     }
     
     @Transactional
