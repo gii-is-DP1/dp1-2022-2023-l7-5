@@ -120,8 +120,10 @@ public class GameService {
     	game.setCells(cells);
     	game.setTurn(1);
     	this.repository.save(game);
-    	if (game.getMode().charAt(0)=='S') {
+    	if (game.getMode().charAt(2)=='L') {
     		initSolitarieGame(game);
+    	} else if(game.getMode().charAt(1)=='U') {
+    		initSurvivalGame(game);
     	}
     }
     
@@ -142,6 +144,17 @@ public class GameService {
     	userService.saveUser(user);
     }
     
+    @Transactional
+    public void deleteTilesSurvival(Game game) {
+        for(Tile t: tileService.getTiles()) {
+            String starting = t.getStartingSide();
+            String filled = t.getFilledSide();
+            if(starting == filled) {
+            	game.getBag().remove(t);
+                repository.save(game);
+            }
+        }
+    }
 
     @Transactional 
     public void initSolitarieGame(Game game) {
@@ -168,6 +181,39 @@ public class GameService {
         	cellService.save(corner);
         	repository.save(game);
     	}
+    }
+    
+    @Transactional
+    public void initSurvivalGame(Game game) {
+    	deleteTilesSurvival(game);
+        Set<String> colors = new HashSet<String>();
+        List<String> colorsString = List.of("red", "blue", "green", "purple", "orange", "yellow");
+        colors.addAll(colorsString);
+        List<Cell> cells = cellService.getCells();
+        List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
+
+        repository.save(game);
+        for(Cell corner : corners) {
+            Tile tile = null;
+            while(tile == null) {
+                int size = game.getBag().size();
+                Random random = new Random(System.currentTimeMillis());
+                tile = game.getBag().get(random.nextInt(size));
+                if (colors.contains(tile.getFilledSide())) {
+                    continue;
+                } else {
+                    tile = null;
+                }
+            }
+
+            colors.remove(tile.getFilledSide());
+            game.getBag().remove(tile);
+            corner.setTile(tile);
+            cellService.save(corner);
+            corner.setIsFlipped(true);
+            cellService.save(corner);
+            repository.save(game);
+        }
     }
     
     @Transactional(rollbackFor = {AlreadyTileOnCell.class})
