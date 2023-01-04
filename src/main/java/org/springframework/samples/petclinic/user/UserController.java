@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.user;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.samples.petclinic.achievement.Achievement;
 import org.springframework.samples.petclinic.achievement.AchievementService;
+import org.springframework.samples.petclinic.profile.Profile;
+import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -25,18 +29,21 @@ public class UserController {
 	private final String PLAYERS_LISTING_VIEW = "/players/PlayersListing";
 	private final String PLAYERS_DETAIL = "players/PlayerDetails";
 	private final String PLAYER_ACHIEVEMENTS = "players/PlayerAchievements";
+	private final String GLOBAL = "global";
 	
 	private final Integer PAGE_SIZE = 10;
 			
 	private final UserService userService;
 	private final AuthoritiesService authService;
 	private final AchievementService achService;
+	private final ProfileService pService;
 
 	@Autowired
-	public UserController(UserService userService, AuthoritiesService authService, AchievementService achService) {
+	public UserController(UserService userService, AuthoritiesService authService, AchievementService achService, ProfileService pService) {
 		this.userService = userService;
 		this.authService = authService;
 		this.achService = achService;
+		this.pService = pService;
 	}
 
 	@GetMapping(value = "/users/new")
@@ -109,6 +116,43 @@ public class UserController {
 		User user = this.userService.findUser(username).get();
 		model.addAttribute(user);
 		return PLAYERS_DETAIL;
+	}
+	
+	@GetMapping(value = "/player/honey")
+	public ModelAndView viewGlobal(Model model) {
+		
+		ModelAndView mav = new ModelAndView(GLOBAL);
+		
+		User user = this.userService.findUser("honey").get();
+		user.setProfile(pService.getProfileById(1));
+		
+		Comparator<Profile> Cwins = Comparator.comparing(Profile::getWins);
+		List<Profile> wins = pService.getProfiles().stream().sorted(Cwins.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u1 = wins.get(0).getUser();
+		
+		Comparator<Profile> Csteals = Comparator.comparing(Profile::getSteals);
+		List<Profile> steals = pService.getProfiles().stream().sorted(Csteals.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u2 = steals.get(0).getUser();
+		
+		Comparator<Profile> CplayedGames = Comparator.comparing(Profile::getPlayedGames);
+		List<Profile> playedGames = pService.getProfiles().stream().sorted(CplayedGames.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u3 = playedGames.get(0).getUser();
+		
+		Comparator<Profile> Cmatches = Comparator.comparing(Profile::getMatches);
+		List<Profile> matches = pService.getProfiles().stream().sorted(Cmatches.reversed()).filter(p -> p.getUser().username!="honey").collect(Collectors.toList());;
+		User u4 = matches.get(0).getUser();
+		
+		mav.addObject("user",user);
+		mav.addObject("user1",u1);
+		mav.addObject("user2",u2);
+		mav.addObject("user3",u3);
+		mav.addObject("user4",u4);
+		mav.addObject("wins", wins);
+		mav.addObject("steals", steals);
+		mav.addObject("playedGames", playedGames);
+		mav.addObject("matches", matches);
+
+		return mav;
 	}
 	
 	@GetMapping(value = "/player/{username}/achievements")

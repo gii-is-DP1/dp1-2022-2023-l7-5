@@ -292,6 +292,7 @@
 	</table>
 	
 	<a class="btn btn-default" href="/games/${id }/play/restartGame">Restart</a>
+	<a class="btn btn-default" href="/games/${id }/play/finishGame">Finish</a>
 
 	
 	<c:forEach items="${scoreboards }" var="scoreboard">
