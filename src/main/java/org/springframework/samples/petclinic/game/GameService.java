@@ -187,7 +187,7 @@ public class GameService {
     public void initSurvivalGame(Game game) {
     	deleteTilesSurvival(game);
         Set<String> colors = new HashSet<String>();
-    	List<String> colorsString= List.of("'https://imgur.com/Z1BhNUR.png?1'", "https://imgur.com/LFHtM1A.png?1", "https://imgur.com/v9XOBYk.png?1", "https://imgur.com/K0e5pCB.png?1", "https://imgur.com/QPPiSyd.png?1", "https://imgur.com/eBtkb5g.png?1");
+        List<String> colorsString = List.of("red", "blue", "green", "purple", "orange", "yellow");
         colors.addAll(colorsString);
         List<Cell> cells = cellService.getCells();
         List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
