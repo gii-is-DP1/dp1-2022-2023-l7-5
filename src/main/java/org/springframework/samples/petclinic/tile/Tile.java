@@ -16,4 +16,8 @@ public class Tile extends BaseEntity {
 	private String startingSide;
 	@NotNull
 	private String filledSide;
+	@NotNull
+	private String startingSideColor;
+	@NotNull
+	private String filledSideColor;
 }
