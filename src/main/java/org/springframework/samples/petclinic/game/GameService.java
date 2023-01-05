@@ -144,8 +144,8 @@ public class GameService {
     @Transactional
     public void deleteTilesSurvival(Game game) {
         for(Tile t: tileService.getTiles()) {
-            String starting = t.getStartingSide();
-            String filled = t.getFilledSide();
+            String starting = t.getStartingSideColor();
+            String filled = t.getFilledSideColor();
             if(starting == filled) {
             	game.getBag().remove(t);
                 repository.save(game);
@@ -156,7 +156,7 @@ public class GameService {
     @Transactional 
     public void initSolitarieGame(Game game) {
     	Set<String> colors = new HashSet<String>();
-    	List<String> colorsString= List.of("https://imgur.com/vuJZUUw.png?1", "https://imgur.com/kWun3bJ.png?1", "https://imgur.com/vVsXSra.png?1", "https://imgur.com/WwELeLW.png?1", "https://imgur.com/9G8Pe0A.png?1", "https://imgur.com/lPCw0o5.png?1");
+        List<String> colorsString = List.of("red", "blue", "green", "purple", "orange", "yellow");
     	colors.addAll(colorsString);
     	List<Cell> cells = cellService.getCells();
     	List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
@@ -166,13 +166,13 @@ public class GameService {
             	int size = game.getBag().size();
             	Random random = new Random(System.currentTimeMillis());
                 tile = game.getBag().get(random.nextInt(size));
-                if (colors.contains(tile.getStartingSide())) {
+                if (colors.contains(tile.getStartingSideColor())) {
                 	continue;
                 } else {
                 	tile = null;
                 }
         	}
-        	colors.remove(tile.getStartingSide());
+        	colors.remove(tile.getStartingSideColor());
     		game.getBag().remove(tile);
         	corner.setTile(tile);
         	cellService.save(corner);
@@ -196,14 +196,14 @@ public class GameService {
                 int size = game.getBag().size();
                 Random random = new Random(System.currentTimeMillis());
                 tile = game.getBag().get(random.nextInt(size));
-                if (colors.contains(tile.getFilledSide())) {
+                if (colors.contains(tile.getFilledSideColor())) {
                     continue;
                 } else {
                     tile = null;
                 }
             }
 
-            colors.remove(tile.getFilledSide());
+            colors.remove(tile.getFilledSideColor());
             game.getBag().remove(tile);
             corner.setTile(tile);
             cellService.save(corner);
