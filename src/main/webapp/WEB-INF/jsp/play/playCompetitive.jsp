@@ -370,6 +370,7 @@
 							<img class="img-responsive" src="${image}" width="60" height="60" />
 					</td>
 				</c:if>
+				<c:if test="${username == scoreboard.user.username}">
 				<td>
 					<c:if test="${scoreboard.orden ==  game.turn}">
 						<petclinic:menuItem active="${name eq 'play'}" url="/"
@@ -384,9 +385,9 @@
 								</c:forEach>
 							</ul>
 						</petclinic:menuItem>
-					</c:if>
+						</c:if>
 				</td>
-				</c:if>
+				</c:if>	
 			</tr>
 		</c:forEach>
 		</tbody>

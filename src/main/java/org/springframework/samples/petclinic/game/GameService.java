@@ -191,7 +191,6 @@ public class GameService {
         colors.addAll(colorsString);
         List<Cell> cells = cellService.getCells();
         List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
-
         repository.save(game);
         for(Cell corner : corners) {
             Tile tile = null;
@@ -205,7 +204,6 @@ public class GameService {
                     tile = null;
                 }
             }
-
             colors.remove(tile.getFilledSideColor());
             game.getBag().remove(tile);
             corner.setTile(tile);
