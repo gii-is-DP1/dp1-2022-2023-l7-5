@@ -111,9 +111,6 @@ public class GameService {
     @Transactional
     public void initGame(Integer id) {
     	Game game = getGameById(id);
-    	if (tileService.getTiles().isEmpty()) {
-        	this.tileService.createAllTiles();
-    	}
     	List<Tile> bag = this.tileService.getTiles();
     	game.setBag(bag);
     	List<Cell> cells = this.cellService.getCells();
@@ -159,7 +156,7 @@ public class GameService {
     @Transactional 
     public void initSolitarieGame(Game game) {
     	Set<String> colors = new HashSet<String>();
-    	List<String> colorsString = List.of("red", "blue", "green", "purple", "orange", "yellow");
+    	List<String> colorsString= List.of("https://imgur.com/vuJZUUw.png?1", "https://imgur.com/kWun3bJ.png?1", "https://imgur.com/vVsXSra.png?1", "https://imgur.com/WwELeLW.png?1", "https://imgur.com/9G8Pe0A.png?1", "https://imgur.com/lPCw0o5.png?1");
     	colors.addAll(colorsString);
     	List<Cell> cells = cellService.getCells();
     	List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());

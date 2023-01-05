@@ -84,16 +84,12 @@ public class CellService {
 			for (Cell cellAdj : adjacents) {
 				if (cellAdj.getTile() == null) {
 					continue;
-				} else if (cellAdj.getTile().getFilledSide() != color && cellAdj.getTile().getStartingSide() != color) {
-					continue;
-				} else {
-					if (cellAdj.getIsFlipped() && cellAdj.getTile().getFilledSide() == color) {
-						match.add(cellAdj);
-						match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
-					} else if (!cellAdj.getIsFlipped() && cellAdj.getTile().getStartingSide() == color) {
-						match.add(cellAdj);
-						match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
-					}
+				} else if (cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getFilledSide())) {
+					match.add(cellAdj);
+					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
+				} else if (!cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getStartingSide())) {
+					match.add(cellAdj);
+					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
 				}
 			}
 		}
@@ -106,6 +102,7 @@ public class CellService {
 			others.remove(mt);
 			cluster = cluster && mt.getAdjacents().containsAll(others);
 		}
+
 		if (match.size() >= 3) {
 			if (!(game.getMode().charAt(1) == 'U') || match.size() > 3) {
 				resolveMatch(match, user, game);
@@ -123,17 +120,14 @@ public class CellService {
 		for (Cell cellAdj : adjacents) {
 			if (cellAdj.getTile() == null) {
 				continue;
-			} else if (cellAdj.getTile().getFilledSide() != color && cellAdj.getTile().getStartingSide() != color) {
-				continue;
-			} else {
-				if (cellAdj.getIsFlipped() && cellAdj.getTile().getFilledSide() == color) {
-					match.add(cellAdj);
-				} else if (!cellAdj.getIsFlipped() && cellAdj.getTile().getStartingSide() == color) {
-					match.add(cellAdj);
-				}
+			} else if (cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getFilledSide())) {
+				match.add(cellAdj);
+			} else if (!cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getStartingSide())) {
+				match.add(cellAdj);
 			}
 		}
 		return match;
+
 	}
 
 	@Transactional
@@ -153,5 +147,47 @@ public class CellService {
 		for (Cell cell : repo.findAll()) {
 			detectMatch(cell.getId(), user, game);
 		}
+	}
+	
+	@Transactional
+	public Boolean aux(String color, String colorAdj){
+		Boolean res= false;
+		// blue
+		if (color.equals("https://imgur.com/Z1BhNUR.png?1") && colorAdj.equals("https://imgur.com/vuJZUUw.png?1")
+			|| color == colorAdj ||
+			colorAdj.equals("https://imgur.com/Z1BhNUR.png?1") && color.equals("https://imgur.com/vuJZUUw.png?1")) {
+			res=true;
+		}
+		// green
+		else if (color.equals("https://imgur.com/LFHtM1A.png?1") && colorAdj.equals("https://imgur.com/kWun3bJ.png?1")
+				|| color == colorAdj ||
+				colorAdj.equals("https://imgur.com/LFHtM1A.png?1") && color.equals("https://imgur.com/kWun3bJ.png?1")) {
+			res=true;
+		}
+		// orange
+		else if (color.equals("https://imgur.com/v9XOBYk.png?1") && colorAdj.equals("https://imgur.com/vVsXSra.png?1")
+				|| color == colorAdj ||
+				colorAdj.equals("https://imgur.com/v9XOBYk.png?1") && color.equals("https://imgur.com/vVsXSra.png?1")) {
+			res=true;
+		}
+		// purple
+		else if (color.equals("https://imgur.com/K0e5pCB.png?1") && colorAdj.equals("https://imgur.com/WwELeLW.png?1")
+				|| color == colorAdj ||
+				colorAdj.equals("https://imgur.com/K0e5pCB.png?1") && color.equals("https://imgur.com/WwELeLW.png?1")) {
+			res=true;
+		}
+		// red
+		else if (color.equals("https://imgur.com/QPPiSyd.png?1") && colorAdj.equals("https://imgur.com/9G8Pe0A.png?1")
+				|| color == colorAdj ||
+				colorAdj.equals("https://imgur.com/QPPiSyd.png?1") && color.equals("https://imgur.com/9G8Pe0A.png?1")) {
+			res=true;
+		}
+		// yellow
+		else if (color.equals("https://imgur.com/eBtkb5g.png?1") && colorAdj.equals("https://imgur.com/lPCw0o5.png?1")
+				|| color == colorAdj ||
+				colorAdj.equals("https://imgur.com/eBtkb5g.png?1") && color.equals("https://imgur.com/lPCw0o5.png?1")) {
+			res=true;
+		}
+		return res;
 	}
 }
