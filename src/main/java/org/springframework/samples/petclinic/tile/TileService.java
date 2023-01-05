@@ -28,22 +28,4 @@ public class TileService {
     public void save(Tile tile) {
     	repo.save(tile);
     }
-    
-    public void createAllTiles() {
-    	List<String> colors = List.of("red", "blue", "purple", "green", "yellow", "orange");
-    	
-    	for (String startingColor : colors) {
-    		for (String filledColor : colors) {
-    			Tile tile = new Tile();
-        		tile.setStartingSide(startingColor);
-        		tile.setFilledSide(filledColor);
-        		Tile tileDup = new Tile();
-        		tileDup.setStartingSide(startingColor);
-        		tileDup.setFilledSide(filledColor);
-        		repo.save(tile);
-        		repo.save(tileDup);
-    		}
-    	}
-    }
-    
 }

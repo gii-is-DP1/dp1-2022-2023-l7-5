@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.game.Game;
 import org.springframework.samples.petclinic.user.UserService;
-import org.springframework.stereotype.Service;	
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;	
 
 @Service
 public class ScoreBoardService {
@@ -49,6 +50,7 @@ public class ScoreBoardService {
 		return repo.getScoreboardsByUser(username);
 	}
 	
+	@Transactional
 	public void increaseScore(Integer i, String username, Game game) {
 		ScoreBoard sb = repo.getScoreboardByGameIdByUser(username, game.getId());
 		sb.setScore(i + sb.getScore());
