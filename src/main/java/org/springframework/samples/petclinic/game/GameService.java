@@ -138,7 +138,7 @@ public class GameService {
     	game.getBag().remove(tile);
     	Profile p = user.getProfile();
     	p.setSteals(p.getSteals()+1);
-    	p.setWins(p.getWins()+1);  //Esto para comprobar que funciona el Max Winner
+    	//p.setWins(p.getWins()+1);  //Esto para comprobar que funciona el Max Winner
     	achievementServ.updateAchievements(p);
     	repository.save(game);
     	userService.saveUser(user);
@@ -263,7 +263,21 @@ public class GameService {
     	achievementServ.updateAchievements(p);
     	achievementServ.updateGlobalAchievements();
     	profileService.updateGlobal();
+    	ScoreBoard sb = game.getScoreboards().get(0);
+    	sb.setNewRecord(false);
+    	Integer puntuacion = sb.getScore();
+    	if (p.getRecord()==null) {
+    		p.setRecord(puntuacion);
+    		sb.setNewRecord(true);
+    	}
+    	else {
+    		if (puntuacion>p.getRecord()) {
+    			p.setRecord(puntuacion);
+    			sb.setNewRecord(true);
+    		}
+    	}
     	this.profileService.save(p);
+    	this.scoreboardService.save(sb);
     }
     
     @Transactional

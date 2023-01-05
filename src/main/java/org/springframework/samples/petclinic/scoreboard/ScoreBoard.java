@@ -34,4 +34,6 @@ public class ScoreBoard extends BaseEntity{
 	@ManyToOne
 	private Game game;
 	
+	private Boolean newRecord = false;
+	
 }

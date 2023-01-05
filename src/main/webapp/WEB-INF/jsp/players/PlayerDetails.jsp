@@ -47,6 +47,10 @@
 			<th>Games</th>
 			<td><c:out value="${user.profile.playedGames}"/></td>
 		</tr>
+		<tr>
+			<th>Record</th>
+			<td><c:out value="${user.profile.record}"/></td>
+		</tr>
 	</table>
 	<br />
 	<h2>Achievements</h2>
