@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.achievement.AchievementService;
@@ -109,10 +110,30 @@ public class CellService {
 				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
 			} else if (!cluster) {
 				resolveMatch(match, user, game);
+				blockEsquinas(match, game);
 				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
 			}
 		}
 		return match;
+	}
+	
+	@Transactional
+	private void blockEsquinas(Set<Cell> match, Game game) {
+		List<Cell> cells = this.repo.findAll();
+        List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
+        for (Cell corner : corners) {
+        	if(match.contains(corner)) {
+        		corner.setIsBlocked(true);
+        		corner.setTile(null);
+        		this.repo.save(corner);
+        		List<Cell> adjacents = corner.getAdjacents();
+        		for (Cell adjacent : adjacents) {
+        			adjacent.setIsBlocked(true);
+        			adjacent.setTile(null);
+            		this.repo.save(adjacent);
+        		}
+        	}
+        }
 	}
 
 	@Transactional
