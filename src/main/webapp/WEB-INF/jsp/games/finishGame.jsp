@@ -14,9 +14,10 @@
 </h1>
  <c:forEach items="${scoreboards }" var="scoreboard">
  	<h2> Score: ${scoreboard.score }</h2>
- 	<h2> Record : ${profile.record}</h2>
+ 	<c:if test="${game.mode == 'SURVIVAL'}"><h2> Record : ${profile.record}</h2>
  	<c:if test="${scoreBoard.newRecord == true}">
  		<h3>New Record!!!!</h3>
+ 	</c:if>
  	</c:if>
  </c:forEach>
  <a class="btn btn-default" href="/">Go home</a>

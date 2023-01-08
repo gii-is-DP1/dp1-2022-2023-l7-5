@@ -75,6 +75,6 @@
 	<spring:url value="/player/{username}/achievements" var="achUrl">
 		<spring:param name="username" value="${user.username}" />
 	</spring:url>
-	<a class="btn btn-default" href="${fn:escapeXml(achUrl)}">See my
+	<a class="btn btn-default" href="${fn:escapeXml(achUrl)}">See all
 		achievements</a>
 </petclinic:layout>
