@@ -226,7 +226,7 @@ public class GameController {
     	mav.addObject("user", user);
     	ScoreBoard sb = sbs.stream().filter(i -> i.getUser().getUsername().equals(user.getUsername())).findFirst().get();
     	mav.addObject("handCondition",(sb.getScore()==0 && user.getTiles().size()==0) || (user.getTiles().size() < sb.getScore()));
-    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
+    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null || c.getIsBlocked());
     	Boolean empty = game.getCells().stream().allMatch(c -> c.getTile() == null);
 		Boolean emptyHands = sbs.stream().map(s -> s.getUser()).allMatch(u -> u.getTiles().isEmpty());
     	if (game.getMode().charAt(0) == 'S') {

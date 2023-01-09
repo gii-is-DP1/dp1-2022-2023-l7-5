@@ -76,19 +76,19 @@ public class CellService {
 		Cell cell = repo.findById(cellId).get();
 		Set<Cell> match = new HashSet<Cell>();
 		if (cell.getTile() != null) {
-			String color = cell.getTile().getStartingSide();
+			String color = cell.getTile().getStartingSideColor();
 			if (cell.getIsFlipped()) {
-				color = cell.getTile().getFilledSide();
+				color = cell.getTile().getFilledSideColor();
 			}
 			List<Cell> adjacents = cell.getAdjacents();
 			match.add(cell);
 			for (Cell cellAdj : adjacents) {
 				if (cellAdj.getTile() == null) {
 					continue;
-				} else if (cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getFilledSide())) {
+				} else if (cellAdj.getIsFlipped() && color == cellAdj.getTile().getFilledSideColor()) {
 					match.add(cellAdj);
 					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
-				} else if (!cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getStartingSide())) {
+				} else if (!cellAdj.getIsFlipped() && color == cellAdj.getTile().getStartingSideColor()) {
 					match.add(cellAdj);
 					match = detectNextCellMatch(cellAdj, cellAdj.getAdjacents(), match, color);
 				}
@@ -103,14 +103,12 @@ public class CellService {
 			others.remove(mt);
 			cluster = cluster && mt.getAdjacents().containsAll(others);
 		}
-
 		if (match.size() >= 3) {
 			if (!(game.getMode().charAt(1) == 'U') || match.size() > 3) {
 				resolveMatch(match, user, game);
 				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
 			} else if (!cluster) {
 				resolveMatch(match, user, game);
-				blockEsquinas(match, game);
 				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
 			}
 		}
@@ -129,6 +127,7 @@ public class CellService {
         		List<Cell> adjacents = corner.getAdjacents();
         		for (Cell adjacent : adjacents) {
         			adjacent.setIsBlocked(true);
+        			adjacent.setIsFlipped(false);
         			adjacent.setTile(null);
             		this.repo.save(adjacent);
         		}
@@ -141,9 +140,9 @@ public class CellService {
 		for (Cell cellAdj : adjacents) {
 			if (cellAdj.getTile() == null) {
 				continue;
-			} else if (cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getFilledSide())) {
+			} else if (cellAdj.getIsFlipped() && color == cellAdj.getTile().getFilledSideColor()) {
 				match.add(cellAdj);
-			} else if (!cellAdj.getIsFlipped() && aux(color, cellAdj.getTile().getStartingSide())) {
+			} else if (!cellAdj.getIsFlipped() && color == cellAdj.getTile().getStartingSideColor()) {
 				match.add(cellAdj);
 			}
 		}
@@ -153,7 +152,6 @@ public class CellService {
 
 	@Transactional
 	public void resolveMatch(Set<Cell> match, User user, Game game) {
-
 		Profile p = user.getProfile();
 		p.setMatches(p.getMatches() + 1);
 		achievementServ.updateAchievements(p);
@@ -165,9 +163,11 @@ public class CellService {
 			cell.setIsFlipped(!cell.getIsFlipped());
 			repo.save(cell);
 		}
+		blockEsquinas(match, game);
 		for (Cell cell : repo.findAll()) {
 			detectMatch(cell.getId(), user, game);
 		}
+		
 	}
 	
 	@Transactional

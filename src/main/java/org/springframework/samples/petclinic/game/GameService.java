@@ -231,6 +231,7 @@ public class GameService {
 		for (Cell c : cells) {
 			c.setTile(null);
 			c.setIsFlipped(false);
+			c.setIsBlocked(false);
 			this.cellService.save(c);
 		}
 		game.setBag(this.tileService.getTiles());
@@ -240,7 +241,11 @@ public class GameService {
 		this.scoreboardService.save(sb);
 		this.userService.saveUser(user);
 		repository.save(game);
-		initSolitarieGame(game);
+		if (game.getMode().charAt(2) == 'L') {
+			initSolitarieGame(game);
+		} else if (game.getMode().charAt(1) == 'U') {
+			initSurvivalGame(game);
+		}
 	}
 
 	@Transactional
