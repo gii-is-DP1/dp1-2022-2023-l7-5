@@ -80,7 +80,7 @@ public class AchievementService {
 
 		}
 
-		if (p.getWins() == 1) {
+		if (p.getWins() >= 1) {
 
 			Achievement a = repo.findById(4).get();
 			if (profileServ.hasAchievement(a, p) == false) {

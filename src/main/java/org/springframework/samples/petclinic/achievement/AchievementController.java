@@ -37,10 +37,11 @@ public class AchievementController {
 	}
 	
 	@GetMapping(value= "/new")
-	public ModelAndView createAchievement(ModelMap mp) {
-		mp.addAttribute("achievement", new Achievement());
-		return null;
-		
+	public ModelAndView createAchievement() {
+		ModelAndView res = new ModelAndView(ACHIEVEMENTS_FORM);
+		Achievement a = new Achievement();
+		res.addObject(a);
+		return res;
 	}
 	
 	@PostMapping(path= "/new")
