@@ -17,6 +17,8 @@ import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
+import org.springframework.samples.petclinic.profile.Profile;
+import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.tile.Tile;
@@ -44,6 +46,9 @@ public class GameServiceTests {
 	@Autowired
 	protected ScoreBoardService scoreboardService;
 	
+	@Autowired
+	protected ProfileService profileService;
+	
 	public User createUser(String username) {
 		User user = new User();
 		user.setUsername(username);
@@ -61,6 +66,9 @@ public class GameServiceTests {
 		game.setNumberOfPlayers(1);
 		game.setDateOfCreation(LocalDate.now());
 		game.setNumberCurrentPlayers(0);
+		this.tileService.createAllTiles();
+		List<Tile> bag = this.tileService.getTiles();
+    	game.setBag(bag);
 		this.gameService.save(game);
 		return game;
 	}
@@ -138,45 +146,84 @@ public class GameServiceTests {
 	@Test
 	void shouldInitSolitarieGame() {
 		Game game = createGame("SURVIVAL");
-		this.tileService.createAllTiles();
-		List<Tile> bag = this.tileService.getTiles();
-    	game.setBag(bag);
-		this.gameService.save(game);
 		this.gameService.initSolitarieGame(game);
+		
+		List<Cell> cells = cellService.getCells();
+	     List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
+	     Boolean res = true;
+	     for(Cell corner : corners) {
+	    	 if(corner.getTile() == null){
+	    		 res = false;
+	    	 }
+	     }
 
+		assertThat(res && game.getBag().size() == 66);
+	}
+	
+	@Test
+	void shouldStealStoken() {
+		Game game = createGame("SURVIVAL");
+		User user = createUser("manuel");
+		user.setTiles(new ArrayList<>());
+		this.userService.saveUser(user);
+		this.profileService.initProfile(user);
+		this.userService.saveUser(user);
+		this.gameService.stealToken(game, user);
+		
+		Tile tile = user.getTiles().get(0);
+		
+		assertThat(!game.getBag().contains(tile));
+	}
+	
+	@Test
+	void shouldDeleteTilesSurvival() {
+		Game game = createGame("SURVIVAL");
+		this.gameService.deleteTilesSurvival(game);
+		
 		assertThat(game.getBag().size()<72);
 	}
 	
-	/*@Test
-	void shouldPlayTile() {
+	@Test
+	void shouldInitSurvivalGame() {
+		Game game = createGame("SURVIVAL");
+		this.gameService.initSurvivalGame(game);
 		
-		Game game = new Game();
-		game.setMode("survival");
-		game.setFinished(true);
-		game.setNumberOfPlayers(4);
-		game.setNumberCurrentPlayers(0);
-		game.setDateOfCreation(LocalDate.now());
-		List<Tile> bag = this.tileService.getTiles();
-    	game.setBag(bag);
-    	Integer tilesInBag = bag.size();
+		 List<Cell> cells = cellService.getCells();
+	     List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
+	     Boolean res = true;
+	     for(Cell corner : corners) {
+	    	 if(corner.getTile() == null && corner.getIsFlipped()){
+	    		 res = false;
+	    	 }
+	     }
+		
+		assertThat(res && game.getBag().size() == 66);
+	}
+	
+	@Test
+	void shouldFinishGame() {
+		Game game = createGame("SOLITARIO");
+		List<Cell> cells =this.cellService.getCells();
+		game.setCells(cells);
 		this.gameService.save(game);
-		
-		User user = new User();
-		user.setUsername("manuelEjemplo2");
-		user.setEmail("manuel.ejemplo@gmail.com");
-		user.setPassword("password");
-		user.setEnabled(true);
+		User user = createUser("Jorge");
+		user.setTiles(new ArrayList<>());
 		this.userService.saveUser(user);
+		this.profileService.initProfile(user);
+		this.userService.saveUser(user);
+		this.gameService.finishGame(game, user);
 		
-		this.gameService.initSolitarieGame(game);
-		this.gameService.initPlayerToGame(user.getUsername(), game);
-		this.gameService.stealToken(game, user);
-		Integer tileId = user.getTiles().get(0).getId();
-		Integer cellId = game.getCells().stream().filter(cell -> cell.getTile()==null)
-				.collect(Collectors.toList()).get(0).getId();
-		this.gameService.playTile(cellId, tileId, user);
-		
-		assertThat(game.getBag().size() == tilesInBag - 1);
-		
-	}*/
+		Boolean res = true;
+		for(Cell c : cells) {
+			if(!(c.getTile() == null && c.getIsFlipped() == false)) {
+				res = false;
+			}
+		}
+		if(!(user.getTiles() == null && user.getProfile().getPlayedGames() > 0)) {
+			res = false;
+		}
+		assertThat(res && game.getFinished());
+	}
+	
+	
 }

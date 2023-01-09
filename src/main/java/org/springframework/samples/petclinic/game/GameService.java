@@ -80,7 +80,9 @@ public class GameService {
 		scoreboardService.save(sb);
 		if (user.getProfile() == null) {
 			profileService.initProfile(user);
-		}  
+		}
+		repository.save(game);
+		this.userService.saveUser(user);
     }
     
     @Transactional(rollbackFor = {TooManyPlayers.class, NotThisTypeOfGame.class})
@@ -101,6 +103,7 @@ public class GameService {
     		scoreboardService.save(sb);
     		if (user.getProfile() == null) {
     			profileService.initProfile(user);
+    			
     		}  
     		repository.save(game);
     	}
@@ -138,7 +141,7 @@ public class GameService {
     	game.getBag().remove(tile);
     	Profile p = user.getProfile();
     	p.setSteals(p.getSteals()+1);
-    	p.setWins(p.getWins()+1);  //Esto para comprobar que funciona el Max Winner
+    	//p.setWins(p.getWins()+1);  //Esto para comprobar que funciona el Max Winner
     	achievementServ.updateAchievements(p);
     	repository.save(game);
     	userService.saveUser(user);
