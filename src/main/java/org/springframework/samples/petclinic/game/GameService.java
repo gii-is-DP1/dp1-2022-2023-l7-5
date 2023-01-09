@@ -296,4 +296,11 @@ public class GameService {
 		game.setTurn(t);
 		repository.save(game);
 	}
+	
+	@Transactional(readOnly = true)
+	public List<Game> getGamesByUser(User user) {
+		List<ScoreBoard> sbs = scoreboardService.getScoreBoardByUser(user.getUsername());
+		return sbs.stream().map(sb -> sb.getGame()).collect(Collectors.toList());
+	}
+	
 }

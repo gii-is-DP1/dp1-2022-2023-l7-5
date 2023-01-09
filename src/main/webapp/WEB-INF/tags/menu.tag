@@ -28,18 +28,6 @@
 							</li>	
 							<li class="divider"></li>
 							<li>
-								<a href="<c:url value="/cells/CellsListing" />">Cells listing</a>		
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="<c:url value="/tiles/TilesListing" />">Tiles listing</a>		
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="<c:url value="/profiles/ProfilesListing" />">Statistics listing</a>		
-							</li>
-							<li class="divider"></li>
-							<li>
 								<a href="<c:url value="/achievements/AchievementsListing" />">Achievements listing</a>		
 							</li>
 									

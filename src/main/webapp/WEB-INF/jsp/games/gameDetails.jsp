@@ -22,6 +22,10 @@
             <th>Number of Players</th>
             <td><c:out value="${game.numberCurrentPlayers}/${game.numberOfPlayers}"/></td>
         </tr>
+        <tr>
+            <th>Creator</th>
+            <td><c:out value="${creator.username}"/></td>
+        </tr>
     </table>
     <br/>
     <br/>
@@ -40,7 +44,7 @@
         </c:forEach>
     </table>
     <div style ="text-align: center">
-    	<c:if test="${game.numberCurrentPlayers == game.numberOfPlayers || game.numberCurrentPlayers > 1 }">
+    	<c:if test="${!game.finished && (game.numberCurrentPlayers == game.numberOfPlayers || game.numberCurrentPlayers > 1) }">
     		<a style ="font-size: 46px; color: #FCDC04;" href="<spring:url value="/games/${game.id}/play" />"> Play!</a>
 		</c:if>    
     </div>
