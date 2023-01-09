@@ -118,7 +118,6 @@ public class GameServiceTests {
 		game.setNumberOfPlayers(2);
 		this.gameService.save(game);
 		this.gameService.initPlayerToGame(username1, game);
-		
 		try {
 			this.gameService.joinPlayerToGame(username2, game);
 		} catch (TooManyPlayers | NotThisTypeOfGame e) {

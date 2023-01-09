@@ -59,4 +59,5 @@ public class Game extends BaseEntity {
 	private List<Tile> bag;
 	
 	private Integer turn;
+	
 }
