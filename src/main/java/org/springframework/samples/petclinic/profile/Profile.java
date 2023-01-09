@@ -27,6 +27,8 @@ public class Profile extends BaseEntity{
 	private Integer wins; 
 	@NotNull
 	private Integer steals;
+	
+	private Integer record;
 
 	@OneToOne(optional = false)
 	private User user;

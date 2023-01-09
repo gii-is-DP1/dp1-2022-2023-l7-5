@@ -23,6 +23,10 @@
   						height: 100px; width: 100px;"
   						id="11">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell11.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell11.tile == null}">
   								${cell11.id}
   							</c:if>
@@ -40,6 +44,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="12">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell12.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell12.tile == null}">
   								${cell12.id}
   							</c:if>
@@ -57,6 +65,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="13">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell13.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell13.tile == null}">
   								${cell13.id}
   							</c:if>
@@ -74,6 +86,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="21">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell21.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell21.tile == null}">
   								${cell21.id}
   							</c:if>
@@ -91,6 +107,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="22">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell22.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell22.tile == null}">
   								${cell22.id}
   							</c:if>
@@ -108,6 +128,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="23">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell23.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell23.tile == null}">
   								${cell23.id}
   							</c:if>
@@ -125,6 +149,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="24">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell24.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell24.tile == null}">
   								${cell24.id}
   							</c:if>
@@ -142,6 +170,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="31">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell31.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell31.tile == null}">
   								${cell31.id}
   							</c:if>
@@ -159,6 +191,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="32">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell32.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell32.tile == null}">
   								${cell32.id}
   							</c:if>
@@ -176,6 +212,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="33">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell33.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell33.tile == null}">
   								${cell33.id}
   							</c:if>
@@ -193,6 +233,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="34">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell34.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell34.tile == null}">
   								${cell34.id}
   							</c:if>
@@ -210,6 +254,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="35">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell35.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell35.tile == null}">
   								${cell35.id}
   							</c:if>
@@ -227,6 +275,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="41">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell41.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell41.tile == null}">
   								${cell41.id}
   							</c:if>
@@ -244,6 +296,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="42">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell42.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell42.tile == null}">
   								${cell42.id}
   							</c:if>
@@ -261,6 +317,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="43">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell43.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell43.tile == null}">
   								${cell43.id}
   							</c:if>
@@ -278,6 +338,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="44">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell44.isBlocked}">
+  								<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell44.tile == null}">
   								${cell44.id}
   							</c:if>
@@ -295,6 +359,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="51">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell51.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell51.tile == null}">
   								${cell51.id}
   							</c:if>
@@ -312,6 +380,10 @@
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="52">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell52.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell52.tile == null}">
   								${cell52.id}
   							</c:if>
@@ -323,12 +395,17 @@
 								<spring:url value="${cell52.tile.startingSide}" var="image"/>
 								<img class="img-responsive" src="${image}" width="120" height="120" />
 							</c:if>
+							
   							</h1></div>
   				<div style="background: darkgray;
 						-webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
   						clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);height: 100px; width: 100px;"
   						id="53">
   							<h1 style="text-align: center; padding: 9px 6px 6px 6px;">
+  							<c:if test="${cell53.isBlocked}">
+  							<spring:url value="https://i.imgur.com/7ES1cZx.png" var="image"/>
+								<img class="img-responsive" src="${image}" width="120" height="120" />
+  							</c:if>
   							<c:if test="${cell53.tile == null}">
   								${cell53.id}
   							</c:if>
@@ -383,9 +460,11 @@
 						<ul class="dropdown-menu">
 							<c:forEach items="${cells}" var="cell">
 								<c:if test="${cell.tile == null}">
-									<li>
-										<a href="<c:url value="/games/${game.id}/play/playTile/${tile.id}/${cell.id}" />" >${cell.id} </a>
-									</li>
+									<c:if test="${cell.isBlocked == false}">
+										<li>
+											<a href="<c:url value="/games/${game.id}/play/playTile/${tile.id}/${cell.id}" />" >${cell.id} </a>
+										</li>
+									</c:if>
 								</c:if>
 							</c:forEach>
 						</ul>

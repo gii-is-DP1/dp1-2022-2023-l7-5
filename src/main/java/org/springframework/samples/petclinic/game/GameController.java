@@ -14,11 +14,13 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
+import org.springframework.samples.petclinic.profile.Profile;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.tile.TileService;
@@ -59,13 +61,15 @@ public class GameController {
     private ScoreBoardService scoreboardService;
     private UserService userService;
     private CellService cellSercive;
+    private AchievementService achievementService;
     
     @Autowired
-    public GameController(GameService service, ScoreBoardService scoreBoardService,  UserService userService, CellService cellService) {
+    public GameController(GameService service, ScoreBoardService scoreBoardService,  UserService userService, CellService cellService, AchievementService achievementService) {
     	this.service = service;
     	this.scoreboardService = scoreBoardService;
     	this.userService = userService;
     	this.cellSercive = cellService;
+    	this.achievementService = achievementService;
     }
     
     @GetMapping("")
@@ -222,7 +226,7 @@ public class GameController {
     	mav.addObject("user", user);
     	ScoreBoard sb = sbs.stream().filter(i -> i.getUser().getUsername().equals(user.getUsername())).findFirst().get();
     	mav.addObject("handCondition",(sb.getScore()==0 && user.getTiles().size()==0) || (user.getTiles().size() < sb.getScore()));
-    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
+    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null || c.getIsBlocked());
     	Boolean empty = game.getCells().stream().allMatch(c -> c.getTile() == null);
 		Boolean emptyHands = sbs.stream().map(s -> s.getUser()).allMatch(u -> u.getTiles().isEmpty());
     	if (game.getMode().charAt(0) == 'S') {
@@ -301,7 +305,12 @@ public class GameController {
 						   .thenComparing(Comparator.comparing(ScoreBoard::getOrden))
 						   .reversed())
 				   .collect(Collectors.toList());
-		   mav.addObject("winner", sbsSorted.get(0).getUser());
+		   User winner = sbsSorted.get(0).getUser();
+		   Profile p = winner.getProfile();
+	   	   p.setWins(p.getWins()+1);
+	   	   userService.saveUser(winner);
+	   	   achievementService.updateAchievements(p);
+		   mav.addObject("winner", winner);
 		   mav.addObject("sbssorted", sbsSorted);
 	   } else {
 		   mav = new ModelAndView(FINISH_GAME);
@@ -310,6 +319,9 @@ public class GameController {
 	   mav.addObject("game", game);
 	   mav.addObject("user", user);
 	   mav.addObject("scoreboards", sbs);
+	   mav.addObject("scoreBoard", sbs.get(0));
+	   Profile p = user.getProfile();
+	   mav.addObject("profile", p);
 	   return mav;
    }
    
@@ -318,6 +330,10 @@ public class GameController {
 	   ModelAndView mav = new ModelAndView(WON_GAME);
 	   Game game = service.getGameById(id);
    	   User user = userService.findUser(principal.getName()).get();
+   	   Profile p = user.getProfile();
+   	   p.setWins(p.getWins()+1);
+   	   userService.saveUser(user);
+   	   achievementService.updateAchievements(p);
    	   List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
    	   this.service.finishGame(game, user);
 	   mav.addObject("game", game);
