@@ -255,6 +255,7 @@ public class GameService {
 		List<Cell> cells = game.getCells();
 		for (Cell c : cells) {
 			c.setTile(null);
+			c.setIsBlocked(false);
 			c.setIsFlipped(false);
 			this.cellService.save(c);
 		}
