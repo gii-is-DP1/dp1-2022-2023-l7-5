@@ -2,15 +2,12 @@ package org.springframework.samples.petclinic.game;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,6 @@ import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.profile.Profile;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
-import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -41,7 +37,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class GameController {
 	
 	private final String PLAY_SELECT = "games/play";
-	private final String GAME_JOIN = "games/joinGame";
 	private final String GAMES_LISTING_VIEW = "games/GamesListing";
     private final String GAMES_FORM = "games/createOrUpdateGameForm";
     private final String GAME_DETAIL = "games/gameDetails";
@@ -60,7 +55,6 @@ public class GameController {
     private GameService service;
     private ScoreBoardService scoreboardService;
     private UserService userService;
-    private CellService cellSercive;
     private AchievementService achievementService;
     
     @Autowired
@@ -68,7 +62,6 @@ public class GameController {
     	this.service = service;
     	this.scoreboardService = scoreBoardService;
     	this.userService = userService;
-    	this.cellSercive = cellService;
     	this.achievementService = achievementService;
     }
     
@@ -174,6 +167,7 @@ public class GameController {
     	ModelAndView result = new ModelAndView(GAME_DETAIL);
     	result.addObject("game", game);
     	result.addObject("scoreboards", sbs);
+    	result.addObject("creator", sbs.get(0).getUser());
 		return result;
     }
     
@@ -226,7 +220,7 @@ public class GameController {
     	mav.addObject("user", user);
     	ScoreBoard sb = sbs.stream().filter(i -> i.getUser().getUsername().equals(user.getUsername())).findFirst().get();
     	mav.addObject("handCondition",(sb.getScore()==0 && user.getTiles().size()==0) || (user.getTiles().size() < sb.getScore()));
-    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null);
+    	Boolean full = game.getCells().stream().allMatch(c -> c.getTile() != null || c.getIsBlocked());
     	Boolean empty = game.getCells().stream().allMatch(c -> c.getTile() == null);
 		Boolean emptyHands = sbs.stream().map(s -> s.getUser()).allMatch(u -> u.getTiles().isEmpty());
     	if (game.getMode().charAt(0) == 'S') {
@@ -340,6 +334,17 @@ public class GameController {
 	   mav.addObject("user", user);
 	   mav.addObject("scoreboards", sbs);
 	   return mav;
+   }
+   
+   @GetMapping("{username}")
+   public ModelAndView myGames(Principal principal) {
+	   ModelAndView mav = new ModelAndView(GAMES_LISTING_VIEW);
+	   User user = this.userService.findUser(principal.getName()).get();
+	   List<Game> myGames = this.service.getGamesByUser(user);
+	   System.out.println(myGames);
+	   mav.addObject("games", myGames);
+	   return mav;
+	   
    }
    
 }

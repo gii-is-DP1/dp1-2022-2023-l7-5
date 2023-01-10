@@ -85,11 +85,11 @@ public class UserController {
     	return mav;
     }
 	
-	@Transactional()
+	@Transactional
     @GetMapping("users/{username}/delete")
     public ModelAndView deleteUser(@PathVariable("username") String username){
         userService.deleteUser(username);        
-        return new ModelAndView("redirect:/users");
+        return new ModelAndView("redirect:/users/page/0");
     }
 	
 	@GetMapping(value = "/player/{username}/edit")
@@ -107,7 +107,7 @@ public class UserController {
 		}
 		else {
 			this.userService.saveUser(user);
-			return "redirect:/";
+			return "redirect:/player/"+username;
 		}
 	}
 	

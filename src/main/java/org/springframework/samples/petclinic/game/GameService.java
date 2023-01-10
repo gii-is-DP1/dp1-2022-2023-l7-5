@@ -55,22 +55,21 @@ public class GameService {
 	}
 
 	public Game getGameById(Integer id) {
-		return repository.findById(id).get();
-	}
-
-	public void deleteGameById(Integer id) {
-		repository.deleteById(id);
-	}
-
-	public void save(Game game) {
-		repository.save(game);
-	}
+    	return repository.findById(id).get();
+    }
+    
+    public void deleteGameById(Integer id) {
+    	repository.deleteById(id);
+    }
+    
+    public void save(Game game) {
+    	repository.save(game);
+    }
 
 	@Transactional
 	public void initPlayerToGame(String username, Game game) {
-		/*
-		 * game.setNumberCurrentPlayers(1); repository.save(game);
-		 */
+		game.setNumberCurrentPlayers(1); 
+		repository.save(game);
 		ScoreBoard sb = new ScoreBoard();
 		User user = userService.findUser(username).get();
 		repository.save(game);
@@ -232,6 +231,7 @@ public class GameService {
 		for (Cell c : cells) {
 			c.setTile(null);
 			c.setIsFlipped(false);
+			c.setIsBlocked(false);
 			this.cellService.save(c);
 		}
 		game.setBag(this.tileService.getTiles());
@@ -241,7 +241,11 @@ public class GameService {
 		this.scoreboardService.save(sb);
 		this.userService.saveUser(user);
 		repository.save(game);
-		initSolitarieGame(game);
+		if (game.getMode().charAt(2) == 'L') {
+			initSolitarieGame(game);
+		} else if (game.getMode().charAt(1) == 'U') {
+			initSurvivalGame(game);
+		}
 	}
 
 	@Transactional
@@ -251,6 +255,7 @@ public class GameService {
 		List<Cell> cells = game.getCells();
 		for (Cell c : cells) {
 			c.setTile(null);
+			c.setIsBlocked(false);
 			c.setIsFlipped(false);
 			this.cellService.save(c);
 		}
@@ -292,4 +297,11 @@ public class GameService {
 		game.setTurn(t);
 		repository.save(game);
 	}
+	
+	@Transactional(readOnly = true)
+	public List<Game> getGamesByUser(User user) {
+		List<ScoreBoard> sbs = scoreboardService.getScoreBoardByUser(user.getUsername());
+		return sbs.stream().map(sb -> sb.getGame()).collect(Collectors.toList());
+	}
+	
 }

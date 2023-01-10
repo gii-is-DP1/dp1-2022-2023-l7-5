@@ -81,7 +81,7 @@ public class AchievementServiceTest {
 	@Transactional
 	void shouldFindAchievementWithCorrectId() {
 		
-		Achievement acho = createAchievement("Example");
+		Achievement acho = createAchievement("Fire Steal");
 		
 		Achievement achos = this.serv.getAchievementById(acho.getId());
 		assertThat(achos.getName()).isEqualTo("Example");

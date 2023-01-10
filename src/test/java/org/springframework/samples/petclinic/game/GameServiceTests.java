@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
+import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
+import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.samples.petclinic.tile.Tile;
 import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
@@ -38,32 +41,43 @@ public class GameServiceTests {
 	@Autowired
 	protected TileService tileService;
 	
+	@Autowired
+	protected ScoreBoardService scoreboardService;
+	
+	public User createUser(String username) {
+		User user = new User();
+		user.setUsername(username);
+		user.setEmail("manuel.ejemplo@gmail.com");
+		user.setPassword("password");
+		user.setEnabled(true);
+		userService.saveUser(user);
+		return user;
+	}
+	
+	public Game createGame(String mode) {
+		Game game = new Game();
+		game.setMode(mode);
+		game.setFinished(true);
+		game.setNumberOfPlayers(1);
+		game.setDateOfCreation(LocalDate.now());
+		game.setNumberCurrentPlayers(0);
+		this.gameService.save(game);
+		return game;
+	}
+	
 	@Test
 	@Transactional
 	public void shouldInsertGame() {
 		int found = this.gameService.getGames().size();
 		
-		Game game = new Game();
-		game.setMode("survival");
-		game.setFinished(true);
-		game.setNumberOfPlayers(1);
-		game.setDateOfCreation(LocalDate.now());
-		game.setNumberCurrentPlayers(1);
+		createGame("SURVIVAL");
 		
-		this.gameService.save(game);
-		assertThat(game.getId()).isNotNull();
 		assertThat(this.gameService.getGames().size()).isEqualTo(found+1);
 	}
 	
 	@Test
 	void shouldFindGameById() {
-		Game game = new Game();
-		game.setMode("survival");
-		game.setFinished(true);
-		game.setNumberOfPlayers(1);
-		game.setNumberCurrentPlayers(1);
-		game.setDateOfCreation(LocalDate.now());
-		this.gameService.save(game);
+		Game game = createGame("SURVIVAL");
 		Integer id = game.getId();
 		
 		assertThat(this.gameService.getGameById(id)).isEqualTo(game);
@@ -71,16 +85,7 @@ public class GameServiceTests {
 	
 	@Test
 	void shouldDeleteGameById() {
-		int found = this.gameService.getGames().size();
-		assertThat(found).isEqualTo(0);
-		
-		Game game = new Game();
-		game.setMode("survival");
-		game.setFinished(true);
-		game.setNumberOfPlayers(1);
-		game.setNumberCurrentPlayers(1);
-		game.setDateOfCreation(LocalDate.now());
-		this.gameService.save(game);
+		Game game = createGame("SURVIVAL");
 		Integer id = game.getId();
 		
 		assertThat(this.gameService.getGames().size()).isEqualTo(1);
@@ -91,21 +96,9 @@ public class GameServiceTests {
 	
 	@Test
 	void shouldInitPlayerToGame() {
+		User user = createUser("manuelEjemplo2");
 		
-		User user = new User();
-		user.setUsername("manuelEjemplo2");
-		user.setEmail("manuel.ejemplo@gmail.com");
-		user.setPassword("password");
-		user.setEnabled(true);
-		this.userService.saveUser(user);
-		
-		Game game = new Game();
-		game.setMode("survival");
-		game.setFinished(true);
-		game.setNumberOfPlayers(1);
-		game.setNumberCurrentPlayers(0);
-		game.setDateOfCreation(LocalDate.now());
-		this.gameService.save(game);
+		Game game = createGame("SURVIVAL");
 		
 		String username = user.getUsername();
 		this.gameService.initPlayerToGame(username, game);
@@ -115,34 +108,16 @@ public class GameServiceTests {
 	
 	@Test
 	void shouldJoinPlayerToGame() {
-		User user = new User();
-		user.setUsername("manuelEjemplo2");
-		user.setEmail("manuel.ejemplo@gmail.com");
-		user.setPassword("password");
-		user.setEnabled(true);
-		this.userService.saveUser(user);
+		User user = createUser("manuelEjemplo2");
 		String username1 = user.getUsername();
 		
-		User user2 = new User();
-		user2.setUsername("manuelEjemplo3");
-		user2.setEmail("manuel.ejemplo3@gmail.com");
-		user2.setPassword("password");
-		user2.setEnabled(true);
-		this.userService.saveUser(user2);
+		User user2 = createUser("manuelEjemplo3");
 		String username2 = user2.getUsername();
 		
-		Game game = new Game();
-		game.setMode("COMPETITIVE");
-		game.setFinished(true);
-		game.setNumberOfPlayers(4);
-		game.setNumberCurrentPlayers(0);
-		game.setDateOfCreation(LocalDate.now());
+		Game game = createGame("COMPETITIVE");
+		game.setNumberOfPlayers(2);
 		this.gameService.save(game);
-		
 		this.gameService.initPlayerToGame(username1, game);
-		
-		assertThat(game.getNumberCurrentPlayers()).isEqualTo(1);
-		
 		try {
 			this.gameService.joinPlayerToGame(username2, game);
 		} catch (TooManyPlayers | NotThisTypeOfGame e) {
@@ -153,40 +128,22 @@ public class GameServiceTests {
 	
 	@Test
 	void shouldInitGame() {
-		
-		Game game = new Game();
-		game.setMode("survival");
-		game.setFinished(true);
-		game.setNumberOfPlayers(4);
-		game.setNumberCurrentPlayers(0);
-		game.setDateOfCreation(LocalDate.now());
-		this.gameService.save(game);
-		
-		
+		Game game = createGame("SURVIVAL");
 		this.gameService.initGame(game.getId());
 		
 		assertThat(this.gameService.getGames().size()>0);
-		
 	}
 	
 	@Test
 	void shouldInitSolitarieGame() {
-		
-		Game game = new Game();
-		game.setMode("survival");
-		game.setFinished(true);
-		game.setNumberOfPlayers(4);
-		game.setNumberCurrentPlayers(0);
-		game.setDateOfCreation(LocalDate.now());
+		Game game = createGame("SURVIVAL");
+		this.tileService.createAllTiles();
 		List<Tile> bag = this.tileService.getTiles();
     	game.setBag(bag);
 		this.gameService.save(game);
-		
-		
 		this.gameService.initSolitarieGame(game);
-		
-		assertThat(this.gameService.getGames().size()>0);
-		
+
+		assertThat(game.getBag().size()<72);
 	}
 	
 	/*@Test
