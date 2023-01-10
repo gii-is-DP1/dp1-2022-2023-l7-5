@@ -13,7 +13,6 @@
             <th>Id</th>
             <th>Starting Side</th>
             <th>Filled Side</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -36,9 +35,6 @@
 						<img class="img-responsive" src="${image}" width="80" height="80" />
 					</c:if>
                 </td>
-				<td>
-					<a href="<c:url value="/tiles/${tile.id}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-				</td>
             </tr>
         </c:forEach>
         </tbody>
