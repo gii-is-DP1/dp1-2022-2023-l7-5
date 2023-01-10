@@ -50,6 +50,10 @@ public class CellService {
 	public Cell getCellById(Integer id) {
 		return repo.findById(id).get();
 	}
+	
+	public Cell getCellByPosition(Integer pos) {
+		return repo.findByPosition(pos);
+	}
 
 	public void deleteCellById(Integer id) {
 		repo.deleteById(id);
@@ -147,7 +151,6 @@ public class CellService {
 			}
 		}
 		return match;
-
 	}
 
 	@Transactional
