@@ -66,7 +66,7 @@ public class AchievementController {
 	@PostMapping("/{id}/edit")
 	public ModelAndView saveUpdatedAchievement(@PathVariable int id, @Valid Achievement achievement, BindingResult br) {
 		if (br.hasErrors()) {
-			return new ModelAndView();
+			return new ModelAndView(ACHIEVEMENTS_FORM);
 		} else {
 			Achievement a= service.getAchievementById(id);
 			BeanUtils.copyProperties(achievement, a, "id");
