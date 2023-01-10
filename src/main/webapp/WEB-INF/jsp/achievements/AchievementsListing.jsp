@@ -15,6 +15,7 @@
             <th>Threshold</th>
             <th>Description</th>
             <th>Badge Image</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
 							height="80" />
 					</c:if></td>
 				<td>
+					<a href="<c:url value="/achievements/${achievement.id}/edit/"/>"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 					<a href="<c:url value="/achievements/${achievement.id}/delete/"/>"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 				</td>
             </tr>
