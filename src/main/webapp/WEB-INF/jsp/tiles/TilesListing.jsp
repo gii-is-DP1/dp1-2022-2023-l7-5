@@ -43,5 +43,4 @@
         </c:forEach>
         </tbody>
     </table>
-    <a class="btn btn-default" href="/tiles/new">Create new tile</a>
 </petclinic:layout>

@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.profile.Profile;
 import org.springframework.samples.petclinic.profile.ProfileService;
-import org.springframework.samples.petclinic.user.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,9 +36,9 @@ public class AchievementService {
 		repo.deleteById(id);
 	}
 
-	public void save(Achievement achievement) {
+	public Achievement save(Achievement achievement) {
 
-		repo.save(achievement);
+		return this.repo.save(achievement);
 	}
 
 	public void giveAchievement(Profile p, Achievement a) {
