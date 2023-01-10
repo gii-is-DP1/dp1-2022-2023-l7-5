@@ -15,6 +15,7 @@
             <th>Email</th>
             <th>Password</th>
             <th>Actions</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,11 @@
                 <td>
                     <c:out value="${player.password}"/>
                 </td>
+                <sec:authorize access="hasAnyAuthority('admin')">
+					<td>
+						<a href="<c:url value="/player/${player.username}" />">See Details</a>
+					</td>
+				</sec:authorize>
                 <sec:authorize access="hasAnyAuthority('admin')">
 					<td>
 						<a href="<c:url value="/users/${player.username}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>

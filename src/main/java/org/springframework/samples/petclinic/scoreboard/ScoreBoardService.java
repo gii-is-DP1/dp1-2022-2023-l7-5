@@ -46,7 +46,7 @@ public class ScoreBoardService {
 	    return repo.getScoreboardsByGameId(id);
 	}
 	
-	public ScoreBoard getScoreBoardByUser(String username) {
+	public List<ScoreBoard> getScoreBoardByUser(String username) {
 		return repo.getScoreboardsByUser(username);
 	}
 	

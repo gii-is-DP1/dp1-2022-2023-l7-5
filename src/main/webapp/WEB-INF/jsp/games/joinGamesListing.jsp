@@ -12,6 +12,7 @@
         <tr>
         	<th>Game</th>
             <th>Players</th>
+            <th>Creator</th>
             <th></th>
         </tr>
         </thead>
@@ -23,6 +24,9 @@
                 </td>
                 <td>
                     <c:out value="${game.numberCurrentPlayers} / ${game.numberOfPlayers}"/>
+                </td>
+                <td>
+                	<c:out value="${game.scoreboards.get(0).user.username}"/>
                 </td>
                 <c:if test="${game.numberCurrentPlayers != game.numberOfPlayers}"> 
                 <td>
