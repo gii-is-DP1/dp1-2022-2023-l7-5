@@ -163,7 +163,9 @@ public class CellService {
 			cell.setIsFlipped(!cell.getIsFlipped());
 			repo.save(cell);
 		}
-		blockEsquinas(match, game);
+		if (game.getMode().charAt(1) == 'U') {
+			blockEsquinas(match, game);
+		}
 		for (Cell cell : repo.findAll()) {
 			detectMatch(cell.getId(), user, game);
 		}
