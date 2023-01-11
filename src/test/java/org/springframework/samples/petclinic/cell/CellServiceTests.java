@@ -76,6 +76,16 @@ public class CellServiceTests {
 		return p;
 	}
 	
+	@Test 
+	public void shouldGetCellById() {
+		Cell cell = new Cell();
+		cell.setIsBlocked(false);
+		cell.setIsFlipped(false);
+		cell.setPosition(22);
+		this.cellService.save(cell);
+		assertThat(this.cellService.getCellById(cell.getId()).getPosition()).isEqualTo(22);
+	}
+	
 	@Test
 	public void shouldInsertCell() {
 		int found = this.cellService.getCells().size();
@@ -89,6 +99,22 @@ public class CellServiceTests {
 		this.cellService.save(cell);
 		assertThat(cell.getId()).isNotEqualTo(0);
 		assertThat(this.cellService.getCells().size()).isEqualTo(found+1);
+	}
+	
+	@Test
+	public void shouldDeleteCell() {
+		int found = this.cellService.getCells().size();
+		
+		Cell cell = new Cell();
+		cell.setIsBlocked(false);
+		cell.setIsFlipped(false);
+		cell.setPosition(1);
+		
+		this.cellService.save(cell);
+		assertThat(cell.getId()).isNotEqualTo(0);
+		assertThat(this.cellService.getCells().size()).isEqualTo(found+1);
+		this.cellService.deleteCellById(cell.getId());
+		assertThat(this.cellService.getCells().size()).isEqualTo(found);
 	}
 	
 	@Test

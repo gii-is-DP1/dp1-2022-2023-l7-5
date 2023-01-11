@@ -84,7 +84,7 @@ public class AchievementServiceTest {
 		Achievement acho = createAchievement("Fire Steal");
 		
 		Achievement achos = this.serv.getAchievementById(acho.getId());
-		assertThat(achos.getName()).isEqualTo("Example");
+		assertThat(achos.getName()).isEqualTo("Fire Steal");
 
 	}
 	
