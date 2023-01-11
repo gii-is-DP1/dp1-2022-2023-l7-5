@@ -58,6 +58,7 @@ public class GameService {
     	return repository.findById(id).get();
     }
     
+	@Transactional
     public void deleteGameById(Integer id) {
     	repository.deleteById(id);
     }
@@ -301,7 +302,7 @@ public class GameService {
 	@Transactional(readOnly = true)
 	public List<Game> getGamesByUser(User user) {
 		List<ScoreBoard> sbs = scoreboardService.getScoreBoardByUser(user.getUsername());
-		return sbs.stream().map(sb -> sb.getGame()).collect(Collectors.toList());
+		return sbs.stream().map(sb -> this.repository.findById(sb.getGame().getId()).get()).collect(Collectors.toList());
 	}
 	
 }
