@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="achievements">
@@ -14,6 +15,7 @@
             <th>Threshold</th>
             <th>Description</th>
             <th>Badge Image</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -35,10 +37,11 @@
 							height="80" />
 					</c:if></td>
 				<td>
-					<a href="<c:url value="/achievements/${achievement.id}/delete/"/>"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+					<a href="<c:url value="/achievements/${achievement.id}/edit/"/>"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 				</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <a class="btn btn-default" href="/achievements/new">Create new achievement</a>
 </petclinic:layout>
