@@ -301,7 +301,9 @@ public class GameController {
 				   .collect(Collectors.toList());
 		   User winner = sbsSorted.get(0).getUser();
 		   Profile p = winner.getProfile();
-	   	   p.setWins(p.getWins()+1);
+		   if (winner.getUsername() == principal.getName()) {
+			   p.setWins(p.getWins()+1);
+		   }
 	   	   userService.saveUser(winner);
 	   	   achievementService.updateAchievements(p);
 		   mav.addObject("winner", winner);
