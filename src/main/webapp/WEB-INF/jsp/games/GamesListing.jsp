@@ -20,6 +20,7 @@
         </tr>
         </thead>
         <tbody>
+        <c:if test="${!games.isEmpty()}">
         <c:forEach items="${games}" var="game">
             <tr>
             	<td>
@@ -45,6 +46,7 @@
                 </td>
             </tr>
         </c:forEach>
+        </c:if>
         </tbody>
     </table>
     <a class="btn btn-default" href="/games/new">Create new game</a>
