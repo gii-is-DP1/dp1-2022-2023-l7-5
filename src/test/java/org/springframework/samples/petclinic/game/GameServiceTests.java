@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.game;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -75,6 +76,7 @@ public class GameServiceTests {
 		this.gameService.save(game);
 		return game;
 	}
+
 	
 	@Test
 	@Transactional

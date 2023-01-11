@@ -118,7 +118,7 @@ public class ProfileServiceTest {
 		this.serv.initProfile(u);
 		
 		
-		assertThat(u.getProfile()!= null);
+		assertThat(u.getProfile().getPlayedGames()!= null).isTrue();
 	}
 	
 	@Test
@@ -133,7 +133,7 @@ public class ProfileServiceTest {
 		
 		serv3.giveAchievement(p, acho);
 		
-		assertThat(this.serv.hasAchievement(acho, p) && p.getAchievements().contains(acho));
+		assertThat(this.serv.hasAchievement(acho, p) && p.getAchievements().contains(acho)).isTrue();
 	}
 	
 	@Test
@@ -147,7 +147,7 @@ public class ProfileServiceTest {
 		
 		serv3.giveAchievement(p, a);
 		serv.deleteAchievement(a, p);
-		assertThat(p.getAchievements().size()==0);
+		assertThat(p.getAchievements().size()==0).isTrue();
 		
 	}
 	
@@ -168,7 +168,7 @@ public class ProfileServiceTest {
 		p1.setSteals(156);
 		serv.updateGlobal();
 		
-		assertThat(global.getMatches()==8 && global.getSteals()==158);
+		assertThat(global.getMatches()==8 && global.getSteals()==158).isTrue();
 		
 	}
 	

@@ -112,7 +112,7 @@ public class AchievementServiceTest {
 		
 		this.serv.save(acho);
 		this.serv.giveAchievement(p, acho);
-		assertThat(p.getAchievements().contains(acho));
+		assertThat(p.getAchievements().contains(acho)).isTrue();
 
 	}
 	
@@ -132,8 +132,8 @@ public class AchievementServiceTest {
 		
 		this.serv.updateAchievements(p);
 		this.serv.updateGlobalAchievements();
-		//Primer game, primer steal, max games y max steal
-		assertThat(p.getAchievements().size() == 4);
+		//primer steal, max games y max steal
+		assertThat(p.getAchievements().size() == 3).isTrue();
 		
 	}
 	
@@ -147,7 +147,7 @@ public class AchievementServiceTest {
 		
 		this.serv.giveFirstAchieve(p);
 		
-		assertThat(p.getAchievements().size() == 1);
+		assertThat(p.getAchievements().size() == 1).isTrue();
 
 	}
 	
@@ -162,16 +162,17 @@ public class AchievementServiceTest {
 		Profile p1 = createProfile(user1);
 		
 		p.setWins(2);
+		p.setSteals(2);
 		this.serv.updateAchievements(p);
 		this.serv.updateAchievements(p1);
 		this.serv.updateGlobalAchievements();
-		assertThat(p.getAchievements().size() == 2 && p1.getAchievements().size()==0);
+		assertThat(p.getAchievements().size()).isEqualTo(4);
 		
 		p1.setWins(6);
 		this.serv.updateAchievements(p);
 		this.serv.updateAchievements(p1);
 		this.serv.updateGlobalAchievements();
-		assertThat(p.getAchievements().size() == 1 && p1.getAchievements().size()==2);
+		assertThat(p.getAchievements().size() == 3 && p1.getAchievements().size()==2).isTrue();
 		
 	}
 	
