@@ -4,6 +4,7 @@ package org.springframework.samples.petclinic.game;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -72,7 +73,7 @@ public class GameControllerTests {
 		game.setNumberOfPlayers(1);
 		game.setNumberCurrentPlayers(1);
 		game.setDateOfCreation(LocalDate.now());
-		given(this.gameService.getGames()).willReturn(Lists.newArrayList(game));
+		given(gameService.getGames()).willReturn(Lists.newArrayList(game));
 	}
 	
 	@WithMockUser(value = "spring")

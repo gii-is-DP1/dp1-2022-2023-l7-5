@@ -62,7 +62,7 @@ public class UserControllerTest {
 //		auth.setAuthority("admin");
 		
 		given(userService.findAllUsers()).willReturn(Lists.newArrayList(user));
-//		given(this.userService.findUser(TEST_ID).get()).willReturn(user);
+//		given(userService.findUser(TEST_ID).get()).willReturn(user);
 	}
 	
 //	@WithMockUser(value = "spring")
