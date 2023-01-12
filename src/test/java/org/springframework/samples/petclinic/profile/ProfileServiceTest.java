@@ -2,11 +2,14 @@ package org.springframework.samples.petclinic.profile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.achievement.Achievement;
+import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;
@@ -16,57 +19,77 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProfileServiceTest {
 	
 	@Autowired
-	protected ProfileService serv;
+	protected ProfileService service;
 	
 	@Autowired
-	protected UserService serv2;
+	protected UserService userService;
 	
-	@Test
-	public void shouldInsertProfile() {
-		int found = this.serv.getProfiles().size();
+	@Autowired
+	protected AchievementService achievementService;
+	
+	public User createUser(String username) {
+		
+		User user = new User();
+		user.setUsername(username);
+		user.setEmail("manuel.ejemplo@gmail.com");
+		user.setPassword("password");
+		user.setEnabled(true);
+		userService.saveUser(user);
+		return user;
+		
+	}
+	public Achievement createAchievement(String name) {
+		
+		Achievement ach = new Achievement();
+		ach.setName(name);
+		ach.setDescription("Description");
+		ach.setBadgeImage("Manue");
+		ach.setThreshold(1.);
+		ach.setBlockedImage("Julian");
+		achievementService.save(ach);
+		return ach;
+		
+	}
+	
+	public Profile createProfile(User user) {
 		
 		Profile p = new Profile();
-		p.setPlayedGames(200);
-		p.setMatches(2301);
+		p.setPlayedGames(0);
+		p.setMatches(0);
 		p.setWins(0);
-		p.setSteals(543);
+		p.setSteals(0);
+		p.setUser(user);
+		p.setAchievements(new ArrayList<Achievement>());
+		service.save(p);
 		
-		User u = new User();
-		u.setEmail("pepe@gmail.com");
-		u.setUsername("Juan");
-		u.setPassword("p");
-		u.setEnabled(true);
-		serv2.saveUser(u);
+		return p;
 		
-		p.setUser(u);
-		
-		this.serv.save(p);
-		assertThat(p.getId()).isNotEqualTo(0);
-		assertThat(this.serv.getProfiles().size()).isEqualTo(found+1);
 	}
 	
 	@Test
+	@Transactional
+	public void shouldInsertProfile() {
+		int found = service.getProfiles().size();
+		
+		User user = createUser("Jorge");
+		Profile p = createProfile(user);
+		
+		service.save(p);
+		assertThat(p.getId()).isNotEqualTo(0);
+		assertThat(service.getProfiles().size()).isEqualTo(found+1);
+	}
+	
+	@Test
+	@Transactional
 	public void shouldFindProfileById() {
 		
-		Profile p = new Profile();
-		p.setPlayedGames(200);
-		p.setMatches(2301);
-		p.setWins(0);
-		p.setSteals(543);
-		
-		User u = new User();
-		u.setEmail("pepe@gmail.com");
-		u.setUsername("Juan");
-		u.setPassword("p");
-		u.setEnabled(true);
-		serv2.saveUser(u);
-		p.setUser(u);
-		serv.save(p);
+		User user = createUser("Jorge");
+		Profile p = createProfile(user);
 		
 		Integer id = p.getId();
 		
 		
-		assertThat(this.serv.getProfileById(id)).isEqualTo(p);
+		assertThat(service.getProfileById(id)).isEqualTo(p);
 		
 	}
 	
@@ -74,27 +97,78 @@ public class ProfileServiceTest {
 	@Test
 	public void shouldDeleteProfileById() {
 		
-		Profile p = new Profile();
-		p.setPlayedGames(200);
-		p.setMatches(2301);
-		p.setWins(0);
-		p.setSteals(543);
-		
-		User u = new User();
-		u.setEmail("pepe@gmail.com");
-		u.setUsername("Juan");
-		u.setPassword("p");
-		u.setEnabled(true);
-		serv2.saveUser(u);
-		p.setUser(u);
-		serv.save(p);
+		User user = createUser("Jorge");
+		Profile p = createProfile(user);
 		
 		Integer id = p.getId();
 		
-		assertThat(this.serv.getProfiles().size()).isEqualTo(1);
-		this.serv.deleteProfileById(id);;
-		assertThat(this.serv.getProfiles().size()).isEqualTo(0);
+		assertThat(service.getProfiles().size()).isEqualTo(3);
+		service.deleteProfileById(id);;
+		assertThat(service.getProfiles().size()).isEqualTo(2);
 		
+		
+	}
+	
+	@Test
+	@Transactional
+	public void shouldInitProfile() {
+		
+		User u = createUser("Jorge");		
+		
+		service.initProfile(u);
+		
+		
+		assertThat(u.getProfile().getPlayedGames()!= null).isTrue();
+	}
+	
+	@Test
+	@Transactional
+	public void shouldHaveAchievement() {
+		
+		
+		Achievement acho = createAchievement("Liada Padre");
+		
+		User user = createUser("Jorge");
+		Profile p = createProfile(user);
+		
+		achievementService.giveAchievement(p, acho);
+		
+		assertThat(service.hasAchievement(acho, p) && p.getAchievements().contains(acho)).isTrue();
+	}
+	
+	@Test
+	@Transactional
+	void shouldDeleteAchievement() {
+		
+		User user = createUser("Jorge");
+		Profile p = createProfile(user);
+		
+		Achievement a = createAchievement("acho");
+		
+		achievementService.giveAchievement(p, a);
+		service.deleteAchievement(a, p);
+		assertThat(p.getAchievements().size()==0).isTrue();
+		
+	}
+	
+	@Test
+	@Transactional
+	void shouldUpdateGlobal() {
+		
+		User user = createUser("Jorge");
+		Profile p = createProfile(user);
+		User user1 = createUser("Adrian");
+		Profile p1 = createProfile(user1);
+		
+		Profile global = service.getProfileById(1);
+		
+		p.setMatches(3);
+		p1.setMatches(5);
+		p.setSteals(2);
+		p1.setSteals(156);
+		service.updateGlobal();
+		
+		assertThat(global.getMatches()==8 && global.getSteals()==158).isTrue();
 		
 	}
 	

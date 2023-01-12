@@ -26,9 +26,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(controllers = CellController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 public class CellControllerTests {
 
-	@Autowired
-	private CellController cellController;
-	
 	@MockBean
 	private CellService cellService;
 	

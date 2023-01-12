@@ -13,7 +13,6 @@
             <th>Id</th>
             <th>Starting Side</th>
             <th>Filled Side</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -23,17 +22,21 @@
                     <c:out value="${tile.id}"/>
                 </td>
                 <td>
-                    <c:out value="${tile.startingSide}"/>
+                    <c:if test="${tile.startingSide == '' }">none </c:if> 
+                    <c:if test="${tile.startingSide != '' }">
+						<spring:url value="${tile.startingSide}" var="image"/>
+						<img class="img-responsive" src="${image}" width="80" height="80" />
+					</c:if>
                 </td>
                 <td>
-                    <c:out value="${tile.filledSide}"/>
+                    <c:if test="${tile.filledSide == '' }">none </c:if> 
+                    <c:if test="${tile.filledSide != '' }">
+						<spring:url value="${tile.filledSide}" var="image"/>
+						<img class="img-responsive" src="${image}" width="80" height="80" />
+					</c:if>
                 </td>
-				<td>
-					<a href="<c:url value="/tiles/${tile.id}/delete/" />"><span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-				</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <a class="btn btn-default" href="/tiles/new">Create new tile</a>
 </petclinic:layout>

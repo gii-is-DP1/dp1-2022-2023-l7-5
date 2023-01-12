@@ -1,7 +1,10 @@
 package org.springframework.samples.petclinic.user;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import java.util.List;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -31,11 +34,12 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "users")
-public class User{
+public class User {
+
 	@Id
 	@NotNull
 	@NotBlank
-	String username;
+	private String username;
 	
 	@NotNull
 	@Email
@@ -44,20 +48,23 @@ public class User{
 	
 	@NotNull
 	@NotBlank
-	String password;
+	private String password;
 	
 	boolean enabled;
 	
 	@CreatedBy
-    private String creator;
-    @CreatedDate
-    private LocalDate createdDate;
-    @LastModifiedBy
-    private String modifier;
-    @LastModifiedDate
-    private LocalDate lastModifiedDate;
-	
-	@OneToMany
+  private String creator;
+  
+  @CreatedDate
+  private LocalDate createdDate;
+  
+  @LastModifiedBy
+  private String modifier;
+  
+  @LastModifiedDate
+  private LocalDate lastModifiedDate;
+  
+  @OneToMany
 	private List<Tile> tiles;
 	
 	@OneToOne

@@ -27,7 +27,8 @@ public class TileServiceTest {
 		Tile tile = new Tile();
 		tile.setStartingSide("blue");;
 		tile.setFilledSide("green");
-		
+		tile.setStartingSideColor("blue");;
+		tile.setFilledSideColor("green");
 		this.tileService.save(tile);
 		assertThat(tile.getId()).isNotEqualTo(0);
 		assertThat(this.tileService.getTiles().size()).isEqualTo(found+1);
@@ -39,7 +40,10 @@ public class TileServiceTest {
 		Tile tile = new Tile();
 		tile.setStartingSide("blue");;
 		tile.setFilledSide("green");
-		
+		tile.setStartingSide("blue");;
+		tile.setFilledSide("green");
+		tile.setStartingSideColor("blue");;
+		tile.setFilledSideColor("green");
 		this.tileService.save(tile);
 		Integer id = tile.getId();
 		
@@ -54,7 +58,10 @@ public class TileServiceTest {
 		Tile tile = new Tile();
 		tile.setStartingSide("blue");;
 		tile.setFilledSide("green");
-		
+		tile.setStartingSide("blue");;
+		tile.setFilledSide("green");
+		tile.setStartingSideColor("blue");;
+		tile.setFilledSideColor("green");
 		this.tileService.save(tile);
 		Integer id = tile.getId();
 		
@@ -63,5 +70,12 @@ public class TileServiceTest {
 		this.tileService.deleteTileById(id);
 		assertThat(this.tileService.getTiles().size()).isEqualTo(found);
 				
+	}
+	
+	@Test
+	public void shouldCreateAllTiles() {
+		int found = this.tileService.getTiles().size();
+		this.tileService.createAllTiles();
+		assertThat(this.tileService.getTiles().size()).isEqualTo(found+72);
 	}
 }

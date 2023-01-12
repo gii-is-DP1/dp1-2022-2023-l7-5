@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.samples.petclinic.model.AuditableEntity;
+import org.springframework.samples.petclinic.model.NamedEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Achievement extends AuditableEntity {
+
+public class Achievement extends NamedEntity {
 
 	@NotNull
 	private Double threshold;
@@ -24,4 +26,7 @@ public class Achievement extends AuditableEntity {
 	
 	@NotNull
 	private String badgeImage;
+
+	@NotNull
+	private String blockedImage;
 }

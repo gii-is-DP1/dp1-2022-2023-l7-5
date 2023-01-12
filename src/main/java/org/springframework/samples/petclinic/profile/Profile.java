@@ -3,8 +3,9 @@ package org.springframework.samples.petclinic.profile;
 import java.util.List;
 
 import javax.persistence.Entity;
+
 import javax.persistence.EntityListeners;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -21,22 +22,24 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Profile extends AuditableEntity {
-	
+
 	@NotNull
 	private Integer playedGames;
-	
+  
 	@NotNull
 	private Integer matches;
-	
+  
 	@NotNull
 	private Integer wins; 
-	
+  
 	@NotNull
 	private Integer steals;
+	
+	private Integer record;
 
-	@OneToOne(optional = false)
+	@OneToOne
 	private User user;
 	
-	@OneToMany
+	@ManyToMany
 	private List<Achievement> achievements;
 }

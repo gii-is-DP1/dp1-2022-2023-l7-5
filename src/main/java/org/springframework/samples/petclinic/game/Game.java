@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.game;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,10 +12,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.audit.AuditableEntity;
 import org.springframework.samples.petclinic.cell.Cell;
-//import org.springframework.samples.petclinic.cell.Cell;
-import org.springframework.samples.petclinic.model.BaseEntity;
-//import org.springframework.samples.petclinic.player.Player;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.tile.Tile;
 
@@ -25,7 +24,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "games")
-public class Game extends BaseEntity {
+public class Game extends AuditableEntity {
 	
 	@NotNull
 	@Column(name = "mode")
@@ -57,4 +56,7 @@ public class Game extends BaseEntity {
 	
 	@OneToMany
 	private List<Tile> bag;
+	
+	private Integer turn;
+	
 }

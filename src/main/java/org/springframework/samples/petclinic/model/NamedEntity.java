@@ -19,6 +19,8 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Size;
 
+import org.springframework.samples.petclinic.audit.AuditableEntity;
+
 /**
  * Simple JavaBean domain object adds a name property to <code>BaseEntity</code>. Used as
  * a base class for objects needing these properties.
@@ -27,7 +29,7 @@ import javax.validation.constraints.Size;
  * @author Juergen Hoeller
  */
 @MappedSuperclass
-public class NamedEntity extends BaseEntity {
+public class NamedEntity extends AuditableEntity {
 
     @Size(min = 3, max = 50)
 	@Column(name = "name")
