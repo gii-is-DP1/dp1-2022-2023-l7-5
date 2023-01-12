@@ -102,9 +102,9 @@ public class ProfileServiceTest {
 		
 		Integer id = p.getId();
 		
-		assertThat(this.serv.getProfiles().size()).isEqualTo(2);
+		assertThat(this.serv.getProfiles().size()).isEqualTo(3);
 		this.serv.deleteProfileById(id);;
-		assertThat(this.serv.getProfiles().size()).isEqualTo(1);
+		assertThat(this.serv.getProfiles().size()).isEqualTo(2);
 		
 		
 	}

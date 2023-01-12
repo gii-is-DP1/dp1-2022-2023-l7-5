@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.profile;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,16 +13,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileService {
-	ProfileRepository repo;
+	
+	protected ProfileRepository repo;
 
 	@Autowired
-	AchievementService achievementServ;
+	protected AchievementService achievementService;
 
 	@Autowired
-	UserService userServ;
+	protected UserService userService;
 
 	@Autowired
-	ProfileService(ProfileRepository repo) {
+	private ProfileService(ProfileRepository repo) {
 		this.repo = repo;
 	}
 
@@ -56,10 +56,10 @@ public class ProfileService {
 		p.setSteals(0);
 		p.setUser(u);
 		p.setAchievements(new ArrayList<Achievement>());
-		achievementServ.giveFirstAchieve(p);
+		achievementService.giveFirstAchieve(p);
 		repo.save(p);
 		u.setProfile(p);
-		userServ.saveUser(u);
+		userService.saveUser(u);
 
 	}
 

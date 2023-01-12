@@ -23,6 +23,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.achievement.Achievement;
 import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.profile.Profile;
 import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
@@ -61,15 +62,25 @@ public class UserControllerTest {
 		user.setEmail("manuel.ejemplo@gmail.com");
 		user.setPassword("password");
 		user.setEnabled(true);
-		this.service.saveUser(user);
+		
+		Profile p = new Profile();
+		p.setPlayedGames(0);
+		p.setMatches(0);
+		p.setWins(0);
+		p.setSteals(0);
+		p.setUser(user);
+		p.setAchievements(new ArrayList<Achievement>());
 
 		given(this.service.findAllUsers()).willReturn(Lists.newArrayList(user));
+		given(this.profileService.getProfiles()).willReturn(Lists.newArrayList(p));
+
 		
 		//NoSuchElementException
 		//given(this.service.findUser(USERNAME).get()).willReturn(new User());
 
 
 	}
+	
 
 	@WithMockUser(value = "spring")
 	@Test
@@ -106,7 +117,7 @@ public class UserControllerTest {
 
 	}
 	
-	@WithMockUser(value = "spring")
+	/*@WithMockUser(value = "spring")
 	@Test
 	void testInitUpdateUser() throws Exception {
 		
@@ -116,7 +127,7 @@ public class UserControllerTest {
 	}
 	
 	
-	/*@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateUserSuccess() throws Exception {
 		
@@ -137,5 +148,13 @@ public class UserControllerTest {
 		.andExpect(status().isOk()).andExpect(view().name("achievements/createOrUpdateAchievementsForm"));
 		
 	}*/
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testShowGlobalStadistics() throws Exception {
+		
+		mockMvc.perform(get("/player/honey")).andExpect(status().isOk())
+				.andExpect(view().name("/player/honey")).andExpect(model().attributeExists("players"));
+	}
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Profile extends BaseEntity{
+	
 	@NotNull
 	private Integer playedGames;
 	@NotNull
@@ -35,4 +35,6 @@ public class Profile extends BaseEntity{
 	
 	@ManyToMany
 	private List<Achievement> achievements;
+	
+
 }
