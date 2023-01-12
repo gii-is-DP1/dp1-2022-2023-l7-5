@@ -27,16 +27,16 @@ public class CellService {
 	CellRepository repo;
 
 	@Autowired
-	TileService tileService;
+	protected TileService tileService;
 
 	@Autowired
-	ScoreBoardService scoreBoardService;
+	protected ScoreBoardService scoreBoardService;
 
 	@Autowired
-	AchievementService achievementServ;
+	protected AchievementService achievementServ;
 
 	@Autowired
-	ProfileService profileService;
+	protected ProfileService profileService;
 
 	@Autowired
 	CellService(CellRepository repo) {
