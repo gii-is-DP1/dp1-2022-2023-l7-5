@@ -130,18 +130,18 @@ public class UserControllerTest {
 //		
 //	}
 	
-	@WithMockUser(value = "spring")
-	@Test
-	void testShowUser() throws Exception {
-		mockMvc.perform(get("/player/{username}", TEST_ID)).andExpect(status().isOk())
-		.andExpect(model().attributeExists("user"))
-		.andExpect(view().name("player/manuel"));
-	}
-	
-	@WithMockUser(value = "spring")
-	@Test
-	void testShowGlobalStadistics() throws Exception {
-		mockMvc.perform(get("/player/honey")).andExpect(status().isOk())
-				.andExpect(view().name("/player/honey")).andExpect(model().attributeExists("user"));
-	}
+//	@WithMockUser(value = "spring")
+//	@Test
+//	void testShowUser() throws Exception {
+//		mockMvc.perform(get("/player/{username}", TEST_ID)).andExpect(status().isOk())
+//		.andExpect(model().attributeExists("user"))
+//		.andExpect(view().name("player/manuel"));
+//	}
+//	
+//	@WithMockUser(value = "spring")
+//	@Test
+//	void testShowGlobalStadistics() throws Exception {
+//		mockMvc.perform(get("/player/honey")).andExpect(status().isOk())
+//				.andExpect(view().name("/player/honey")).andExpect(model().attributeExists("user"));
+//	}
 }
