@@ -31,13 +31,13 @@ import org.springframework.test.web.servlet.MockMvc;
 public class ProfileControllerTest {
 
 	@Autowired
-	private ProfileController controller;
+	protected ProfileController controller;
 	
 	@MockBean
-	private ProfileService service;
+	protected ProfileService service;
 	
 	@Autowired
-	private MockMvc mockMvc;
+	protected MockMvc mockMvc;
 	
 	@BeforeEach
 	void setup() {
@@ -56,7 +56,7 @@ public class ProfileControllerTest {
 		p.setUser(user);
 		p.setAchievements(new ArrayList<Achievement>());
 		
-		given(this.service.getProfiles()).willReturn(Lists.newArrayList(p));
+		given(service.getProfiles()).willReturn(Lists.newArrayList(p));
 		
 	}
 	

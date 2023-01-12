@@ -23,8 +23,6 @@ import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class CellServiceTests {
@@ -410,7 +408,7 @@ public class CellServiceTests {
 		this.cellService.putTileOnCell(cell.getId(), tile.getId());
 		this.cellService.putTileOnCell(cell1.getId(), tile2.getId());
 		this.cellService.putTileOnCell(cell3.getId(), tile3.getId());
-		Set<Cell> match = this.cellService.detectMatch(cell.getId(), user, game);
+		this.cellService.detectMatch(cell.getId(), user, game);
 		assertThat(cell.getAdjacents().stream().allMatch(c -> c.getIsBlocked() == true)).isTrue();
 	}
 }

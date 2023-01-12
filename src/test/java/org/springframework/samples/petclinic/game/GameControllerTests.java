@@ -1,8 +1,5 @@
 package org.springframework.samples.petclinic.game;
 
-
-
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -42,9 +39,6 @@ import org.springframework.test.web.servlet.MockMvc;
 public class GameControllerTests {
 
 	private static final int TEST_ID = 1;
-
-	@Autowired
-	private GameController gameController;
 
 	@MockBean
 	private GameService gameService;

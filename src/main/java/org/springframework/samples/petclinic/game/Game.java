@@ -14,9 +14,6 @@ import javax.validation.constraints.PastOrPresent;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.audit.AuditableEntity;
 import org.springframework.samples.petclinic.cell.Cell;
-//import org.springframework.samples.petclinic.cell.Cell;
-import org.springframework.samples.petclinic.model.BaseEntity;
-//import org.springframework.samples.petclinic.player.Player;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
 import org.springframework.samples.petclinic.tile.Tile;
 

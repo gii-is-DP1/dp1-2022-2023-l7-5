@@ -60,8 +60,7 @@ public class UserController {
 	@PostMapping(value = "/users/new")
 	public ModelAndView processCreationForm(@Valid User user, @Valid Authorities auth, BindingResult br) {
 		if (br.hasErrors()) {
-			ModelAndView result = new ModelAndView(VIEWS_PLAYER_CREATE_FORM, br.getModel());
-			return result;
+			return new ModelAndView(VIEWS_PLAYER_CREATE_FORM);
 		}
 		else {
 			user.setEnabled(true);
@@ -85,6 +84,14 @@ public class UserController {
     	mav.addObject("players", users);
     	return mav;
     }
+	
+	@GetMapping(value = "players/PlayersListing")
+	public ModelAndView showAchievements() {
+		ModelAndView mav = new ModelAndView(PLAYERS_LISTING_VIEW);
+		List<User> us = userService.findAllUsers();
+		mav.addObject("players", us);
+		return mav;
+	}
 	
 	@Transactional
     @GetMapping("users/{username}/delete")

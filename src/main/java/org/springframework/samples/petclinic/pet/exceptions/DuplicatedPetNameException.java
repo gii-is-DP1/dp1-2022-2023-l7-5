@@ -9,6 +9,7 @@ package org.springframework.samples.petclinic.pet.exceptions;
  *
  * @author japarejo
  */
+@SuppressWarnings("serial")
 public class DuplicatedPetNameException extends Exception{
     
 }
