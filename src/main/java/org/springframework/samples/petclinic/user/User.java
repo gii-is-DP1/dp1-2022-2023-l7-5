@@ -27,7 +27,7 @@ public class User{
 	@Id
 	@NotNull
 	@NotBlank
-	String username;
+	private String username;
 	
 	@NotNull
 	@Email
@@ -36,7 +36,7 @@ public class User{
 	
 	@NotNull
 	@NotBlank
-	String password;
+	private String password;
 	
 	boolean enabled;
 	

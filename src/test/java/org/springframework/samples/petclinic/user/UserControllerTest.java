@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.user;
 
 import static org.mockito.BDDMockito.given;
 
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -9,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.util.ArrayList;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +61,7 @@ public class UserControllerTest {
 //		auth.setUser(user);
 //		auth.setAuthority("admin");
 		
-		given(this.userService.findAllUsers()).willReturn(Lists.newArrayList(user));
+		given(userService.findAllUsers()).willReturn(Lists.newArrayList(user));
 //		given(this.userService.findUser(TEST_ID).get()).willReturn(user);
 	}
 	

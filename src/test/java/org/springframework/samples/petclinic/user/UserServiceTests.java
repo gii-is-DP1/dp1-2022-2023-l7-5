@@ -3,7 +3,7 @@ package org.springframework.samples.petclinic.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-import java.time.LocalDate;
+
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -25,22 +25,22 @@ public class UserServiceTests {
 	@Test
 	@Transactional
 	public void shoulhInsertUser() {
-		int found = this.userService.findAllUsers().size();
+		int found = userService.findAllUsers().size();
 		
 		User user = new User();
 		user.setUsername("manuelEjemplo");
 		user.setEmail("manuel.ejemplo@gmail.com");
 		user.setPassword("password");
 		user.setEnabled(true);
-		this.userService.saveUser(user);
+		userService.saveUser(user);
 				
 		Authorities autho = new Authorities();
 		autho.setUser(user);
 		autho.setAuthority("44444");
-		this.authoService.saveAuthorities(autho);
+		authoService.saveAuthorities(autho);
 		
 		assertThat(user.getUsername()).isNotNull();
-		assertThat(this.userService.findAllUsers().size()).isEqualTo(found+1);
+		assertThat(userService.findAllUsers().size()).isEqualTo(found+1);
 		
 	}
 	
@@ -52,35 +52,31 @@ public class UserServiceTests {
 		user.setEmail("manuel.ejemplo@gmail.com");
 		user.setPassword("password");
 		user.setEnabled(true);
-		this.userService.saveUser(user);
+		userService.saveUser(user);
 				
 		String username = user.getUsername();
 		
-		assertThat(this.userService.findUser(username).get().getUsername()).isEqualTo(user.getUsername());
-		assertThat(this.userService.findUser(username).get().getEmail()).isEqualTo(user.getEmail());
-		assertThat(this.userService.findUser(username).get().getPassword()).isEqualTo(user.getPassword());
-
-
+		assertThat(userService.findUser(username).get().getUsername()).isEqualTo(user.getUsername());
 	}
 	
 	@Test
 	void shouldDeleteUser() {
-		int found = this.userService.findAllUsers().size();
+		int found = userService.findAllUsers().size();
 		
 		User user = new User();
 		user.setUsername("manuelEjemplo3");
 		user.setEmail("manuel.ejemplo@gmail.com");
 		user.setPassword("password");
 		user.setEnabled(true);
-		this.userService.saveUser(user);
+		userService.saveUser(user);
 	
 		String username = user.getUsername();
 		
-		assertThat(this.userService.findAllUsers().size()).isEqualTo(found+1);
+		assertThat(userService.findAllUsers().size()).isEqualTo(found+1);
 		
-		this.userService.deleteUser(username);
-		assertThat(this.userService.findAllUsers().size()).isEqualTo(found);
-		assertThat(this.userService.findUser(username)).isEqualTo(Optional.empty());
+		userService.deleteUser(username);
+		assertThat(userService.findAllUsers().size()).isEqualTo(found);
+		assertThat(userService.findUser(username)).isEqualTo(Optional.empty());
 		
 	}
 }

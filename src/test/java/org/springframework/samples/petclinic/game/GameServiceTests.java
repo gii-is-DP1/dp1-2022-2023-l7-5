@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -18,7 +19,6 @@ import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
 import org.springframework.samples.petclinic.cell.exception.AlreadyTileOnCell;
 import org.springframework.samples.petclinic.game.exception.NotThisTypeOfGame;
-import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.game.exception.TooManyPlayers;
 import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
@@ -69,12 +69,12 @@ public class GameServiceTests {
 		game.setNumberOfPlayers(1);
 		game.setDateOfCreation(LocalDate.now());
 		game.setNumberCurrentPlayers(0);
-		this.tileService.createAllTiles();
-		List<Tile> bag = this.tileService.getTiles();
+		tileService.createAllTiles();
+		List<Tile> bag = tileService.getTiles();
     	game.setBag(bag);
-    	List<Cell> cells = this.cellService.getCells();
+    	List<Cell> cells = cellService.getCells();
     	game.setCells(cells);
-		this.gameService.save(game);
+		gameService.save(game);
 		return game;
 	}
 
@@ -82,11 +82,11 @@ public class GameServiceTests {
 	@Test
 	@Transactional
 	public void shouldInsertGame() {
-		int found = this.gameService.getGames().size();
+		int found = gameService.getGames().size();
 		
 		createGame("SURVIVAL");
 		
-		assertThat(this.gameService.getGames().size()).isEqualTo(found+1);
+		assertThat(gameService.getGames().size()).isEqualTo(found+1);
 	}
 	
 	@Test
@@ -94,7 +94,7 @@ public class GameServiceTests {
 		Game game = createGame("SURVIVAL");
 		Integer id = game.getId();
 		
-		assertThat(this.gameService.getGameById(id)).isEqualTo(game);
+		assertThat(gameService.getGameById(id)).isEqualTo(game);
 	}
 	
 	@Test
@@ -102,10 +102,10 @@ public class GameServiceTests {
 		Game game = createGame("SURVIVAL");
 		Integer id = game.getId();
 		
-		assertThat(this.gameService.getGames().size()).isEqualTo(1);
+		assertThat(gameService.getGames().size()).isEqualTo(1);
 
-		this.gameService.deleteGameById(id);
-		assertThat(this.gameService.getGames().size()).isEqualTo(0);
+		gameService.deleteGameById(id);
+		assertThat(gameService.getGames().size()).isEqualTo(0);
 	}
 	
 	@Test
@@ -115,7 +115,7 @@ public class GameServiceTests {
 		Game game = createGame("SURVIVAL");
 		
 		String username = user.getUsername();
-		this.gameService.initPlayerToGame(username, game);
+		gameService.initPlayerToGame(username, game);
 		
 		assertThat(game.getNumberCurrentPlayers()).isEqualTo(1);
 	}
@@ -130,11 +130,11 @@ public class GameServiceTests {
 		
 		Game game = createGame("COMPETITIVE");
 		game.setNumberOfPlayers(2);
-		this.gameService.save(game);
-		this.gameService.initPlayerToGame(username1, game);
+		gameService.save(game);
+		gameService.initPlayerToGame(username1, game);
 		
 		try {
-			this.gameService.joinPlayerToGame(username2, game);
+			gameService.joinPlayerToGame(username2, game);
 		} catch (TooManyPlayers | NotThisTypeOfGame e) {
 			e.printStackTrace();
 		}
@@ -144,15 +144,15 @@ public class GameServiceTests {
 	@Test
 	void shouldInitGame() {
 		Game game = createGame("SURVIVAL");
-		this.gameService.initGame(game.getId());
+		gameService.initGame(game.getId());
 		
-		assertThat(this.gameService.getGames().size()>0).isTrue();
+		assertThat(gameService.getGames().size()>0).isTrue();
 	}
 	
 	@Test
 	void shouldInitSolitarieGame() {
 		Game game = createGame("SOLITARIO");
-		this.gameService.initSolitarieGame(game);
+		gameService.initSolitarieGame(game);
 		
 		List<Cell> cells = cellService.getCells();
 	     List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
@@ -171,10 +171,10 @@ public class GameServiceTests {
 		Game game = createGame("SURVIVAL");
 		User user = createUser("manuel");
 		user.setTiles(new ArrayList<>());
-		this.userService.saveUser(user);
-		this.profileService.initProfile(user);
-		this.userService.saveUser(user);
-		this.gameService.stealToken(game, user);
+		userService.saveUser(user);
+		profileService.initProfile(user);
+		userService.saveUser(user);
+		gameService.stealToken(game, user);
 		
 		Tile tile = user.getTiles().get(0);
 		
@@ -185,8 +185,8 @@ public class GameServiceTests {
 	@Test
 	void shouldDeleteTilesSurvival() {
 		Game game = createGame("SURVIVAL");
-		this.gameService.deleteTilesSurvival(game);
-		Tile tile = this.tileService.getTiles().stream().filter(r -> r.getStartingSideColor()==r.getFilledSideColor())
+		gameService.deleteTilesSurvival(game);
+		Tile tile = tileService.getTiles().stream().filter(r -> r.getStartingSideColor()==r.getFilledSideColor())
 				.findFirst().get();
 		
 		assertThat(!game.getBag().contains(tile)).isTrue();
@@ -195,10 +195,10 @@ public class GameServiceTests {
 	@Test
 	void shouldInitSurvivalGame() {
 		Game game = createGame("SURVIVAL");
-		List<Cell> cells =this.cellService.getCells();
+		List<Cell> cells = cellService.getCells();
 		game.setCells(cells);
-		this.gameService.save(game);
-		this.gameService.initSurvivalGame(game);
+		gameService.save(game);
+		gameService.initSurvivalGame(game);
 		
 	     List<Cell> corners = game.getCells().stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
 	     Boolean res = true;
@@ -214,26 +214,26 @@ public class GameServiceTests {
 	@Test
 	void shouldFinishGame() {
 		Game game = createGame("SOLITARIO");
-		List<Cell> cells =this.cellService.getCells();
+		List<Cell> cells = cellService.getCells();
 		game.setCells(cells);
-		this.gameService.save(game);
+		gameService.save(game);
 		User user = createUser("Jorge");
 
-		this.gameService.initSolitarieGame(game);
-		this.profileService.initProfile(user);
-		this.userService.saveUser(user);
+		gameService.initSolitarieGame(game);
+		profileService.initProfile(user);
+		userService.saveUser(user);
 		ScoreBoard sb = new ScoreBoard();
 		sb.setOrden(1);
 		sb.setScore(0);
 		sb.setUser(user);
 		sb.setGame(game);
-		this.scoreboardService.save(sb);
+		scoreboardService.save(sb);
 		List<ScoreBoard> sbs = new ArrayList<>();
 		sbs.add(sb);
 		game.setScoreboards(sbs);
-		this.gameService.save(game);
+		gameService.save(game);
 		
-		this.gameService.finishGame(game, user);
+		gameService.finishGame(game, user);
 		
 		Boolean res = true;
 		for(Cell c : cells) {
@@ -250,9 +250,9 @@ public class GameServiceTests {
 	@Test
 	void shouldRestartGameSolitarie() {
 		Game game = createGame("SOLITARIO");
-		this.gameService.save(game);
+		gameService.save(game);
 		User user = createUser("manuel");
-		this.gameService.initPlayerToGame(user.getUsername(), game);
+		gameService.initPlayerToGame(user.getUsername(), game);
 		
 		List<Cell> cellsT = cellService.getCells();
 	    List<Cell> corners = cellsT.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
@@ -260,11 +260,11 @@ public class GameServiceTests {
 		
 	    tablero.get(0).setTile(game.getBag().get(0));
 	    game.getBag().remove(0);
-	    this.gameService.save(game);
+	    gameService.save(game);
 	    corners.get(0).setIsFlipped(true);
-	    this.gameService.save(game);
+	    gameService.save(game);
 	    
-		this.gameService.restartGame(game, user);
+		gameService.restartGame(game, user);
 		
 		Boolean res = true;
 		for(Cell c : tablero) {
@@ -285,7 +285,7 @@ public class GameServiceTests {
 	void shouldRestartGameSurvival() {
 		Game game = createGame("SURVIVAL");
 		User user = createUser("manuel");
-		this.gameService.initPlayerToGame(user.getUsername(), game);
+		gameService.initPlayerToGame(user.getUsername(), game);
 		
 		List<Cell> cellsT = cellService.getCells();
 	    List<Cell> corners = cellsT.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
@@ -293,11 +293,11 @@ public class GameServiceTests {
 		
 	    tablero.get(0).setTile(game.getBag().get(0));
 	    game.getBag().remove(0);
-	    this.gameService.save(game);
+	    gameService.save(game);
 	    corners.get(0).setIsBlocked(true);;
-	    this.gameService.save(game);
+	    gameService.save(game);
 	    
-	    this.gameService.restartGame(game, user);
+	    gameService.restartGame(game, user);
 	    
 	    Boolean res = true;
 		for(Cell c : tablero) {
@@ -318,10 +318,10 @@ public class GameServiceTests {
 	void shouldIncrementTurn() {
 		Game game = createGame("COMPETITIVE");
 		game.setNumberCurrentPlayers(2);
-		this.gameService.save(game);
+		gameService.save(game);
 		game.setTurn(1);
-		this.gameService.save(game);
-		this.gameService.incrementTurn(game);
+		gameService.save(game);
+		gameService.incrementTurn(game);
 		
 		assertThat(game.getTurn()).isEqualTo(2);
 	}
@@ -330,26 +330,26 @@ public class GameServiceTests {
 	void  shouldPlayTile() throws AlreadyTileOnCell {
 		Game game = createGame("SOLITARIO");
 		User user = createUser("manuel");
-		this.gameService.initSolitarieGame(game);
-		this.profileService.initProfile(user);
-		this.userService.saveUser(user);
+		gameService.initSolitarieGame(game);
+		profileService.initProfile(user);
+		userService.saveUser(user);
 		ScoreBoard sb = new ScoreBoard();
 		sb.setOrden(1);
 		sb.setScore(0);
 		sb.setUser(user);
 		sb.setGame(game);
-		this.scoreboardService.save(sb);
+		scoreboardService.save(sb);
 		List<ScoreBoard> sbs = new ArrayList<>();
 		sbs.add(sb);
 		game.setScoreboards(sbs);
-		this.gameService.save(game);
+		gameService.save(game);
 		
-		this.gameService.save(game);
-		this.gameService.stealToken(game, user);
+		gameService.save(game);
+		gameService.stealToken(game, user);
 		Integer tileId = user.getTiles().get(0).getId();
 		Cell cell = game.getCells().stream().filter(c -> c.getTile() == null)
 				.findFirst().get();
-		this.gameService.playTile(cell.getId(), tileId, user, game.getId());
+		gameService.playTile(cell.getId(), tileId, user, game.getId());
 		
 		assertThat(cell.getTile() != null).isTrue();
 	}
@@ -358,14 +358,14 @@ public class GameServiceTests {
 	void shouldGetGamesByUser() throws TooManyPlayers, NotThisTypeOfGame {
 		Game game = createGame("COMPETITIVO");
 		game.setNumberOfPlayers(2);
-		this.gameService.save(game);
+		gameService.save(game);
 		Game game2 = createGame("COMPETITIVO");
 		game2.setNumberOfPlayers(2);
-		this.gameService.save(game2);
+		gameService.save(game2);
 		User user = createUser("manuel");
-		this.gameService.joinPlayerToGame(user.getUsername(), game);
-		this.gameService.joinPlayerToGame(user.getUsername(), game2);
-		List<Game> games = this.gameService.getGamesByUser(user);
+		gameService.joinPlayerToGame(user.getUsername(), game);
+		gameService.joinPlayerToGame(user.getUsername(), game2);
+		List<Game> games = gameService.getGamesByUser(user);
 		
 		assertThat(games.size()).isEqualTo(2);
 	}
