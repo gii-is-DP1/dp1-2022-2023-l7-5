@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.audit.AuditableEntity;
 import org.springframework.samples.petclinic.cell.Cell;
 //import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.model.BaseEntity;
@@ -25,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "games")
-public class Game extends BaseEntity {
+public class Game extends AuditableEntity {
 	
 	@NotNull
 	@Column(name = "mode")

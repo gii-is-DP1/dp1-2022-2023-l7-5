@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Achievement extends NamedEntity{
+public class Achievement extends NamedEntity {
 
 	@NotNull
 	private Double threshold;

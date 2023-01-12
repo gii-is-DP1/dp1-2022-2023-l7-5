@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="gameDetail">
 
@@ -24,8 +25,22 @@
         </tr>
         <tr>
             <th>Creator</th>
-            <td><c:out value="${creator.username}"/></td>
+            <td><c:out value="${game.creator}"/></td>
         </tr>
+        <tr>
+            <th>Creation Date</th>
+            <td><c:out value="${game.createdDate}"/></td>
+        </tr>
+        <sec:authorize access="hasAnyAuthority('admin')">
+        <tr>
+            <th>Last Modifier</th>
+            <td><c:out value="${game.modifier}"/></td>
+        </tr>
+        <tr>
+            <th>Last Modification Date</th>
+            <td><c:out value="${game.lastModifiedDate}"/></td>
+        </tr>
+        </sec:authorize>
     </table>
     <br/>
     <br/>

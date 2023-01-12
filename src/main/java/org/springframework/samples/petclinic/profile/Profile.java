@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.samples.petclinic.achievement.Achievement;
+import org.springframework.samples.petclinic.audit.AuditableEntity;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.user.User;
 
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Profile extends BaseEntity{
+public class Profile extends AuditableEntity {
 	@NotNull
 	private Integer playedGames;
 	@NotNull

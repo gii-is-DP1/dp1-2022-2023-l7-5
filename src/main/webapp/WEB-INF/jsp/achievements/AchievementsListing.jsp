@@ -15,6 +15,12 @@
             <th>Threshold</th>
             <th>Description</th>
             <th>Badge Image</th>
+           	<sec:authorize access="hasAnyAuthority('admin')">
+           	<th>Creator</th>
+            <th>Creation Date</th>
+            <th>Modifier</th>
+            <th>Last Modification Date</th>
+            </sec:authorize>
             <th></th>
         </tr>
         </thead>
@@ -35,7 +41,14 @@
 						<spring:url value="${achievement.badgeImage}" var="image"/>
 						<img class="img-responsive" src="${image}" width="80"
 							height="80" />
-					</c:if></td>
+					</c:if>
+				</td>
+				<sec:authorize access="hasAnyAuthority('admin')">
+	           		<td><c:out value="${achievement.creator}" /></td>
+	           		<td><c:out value="${achievement.createdDate}" /></td>
+	           		<td><c:out value="${achievement.modifier}" /></td>
+	           		<td><c:out value="${achievement.lastModifiedDate}" /></td>
+	            </sec:authorize>
 				<td>
 					<a href="<c:url value="/achievements/${achievement.id}/edit/"/>"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 				</td>
