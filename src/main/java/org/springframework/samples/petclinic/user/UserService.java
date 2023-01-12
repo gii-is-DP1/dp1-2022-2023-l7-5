@@ -16,8 +16,10 @@
 package org.springframework.samples.petclinic.user;
 
 
-import java.util.Iterator;
+
 import java.util.List;
+
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,13 +47,13 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Autowired
-	GameService gameService;
+	protected GameService gameService;
 	
 	@Autowired
-	ProfileService profileService;
+	protected ProfileService profileService;
 
 	@Autowired
-	ScoreBoardService scoreboardService;
+	protected ScoreBoardService scoreboardService;
 			
 	@Autowired
 	public UserService(UserRepository userRepository) {
@@ -78,20 +80,20 @@ public class UserService {
 	
 	@Transactional
 	public void deleteUser(String username) {
-		User user = this.userRepository.findById(username).get();
+		User user = userRepository.findById(username).get();
 		if (user.getProfile()!=null) {
 			user.setProfile(null);
-			this.userRepository.save(user);
-			Profile p = this.profileService.getProfileByUsername(username);
-			this.profileService.deleteProfileById(p.getId());
+			userRepository.save(user);
+			Profile p = profileService.getProfileByUsername(username);
+			profileService.deleteProfileById(p.getId());
 		}
-		List<ScoreBoard> sbs = this.scoreboardService.getScoreBoardByUser(username);
+		List<ScoreBoard> sbs = scoreboardService.getScoreBoardByUser(username);
 		for (ScoreBoard scoreBoard : sbs) {
-			Game game = this.gameService.getGameById(scoreBoard.getGame().getId());
-			this.gameService.deleteGameById(game.getId());
+			Game game = gameService.getGameById(scoreBoard.getGame().getId());
+			gameService.deleteGameById(game.getId());
 			scoreBoard.setGame(null);
-			this.scoreboardService.save(scoreBoard);
-			this.scoreboardService.deleteScoreBoardById(scoreBoard.getId()); 
+			scoreboardService.save(scoreBoard);
+			scoreboardService.deleteScoreBoardById(scoreBoard.getId()); 
 		}
 		userRepository.deleteById(username);
 	}

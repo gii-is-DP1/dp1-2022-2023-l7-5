@@ -18,10 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/achievements")
 public class AchievementController {
+	
 	private final String ACHIEVEMENTS_LISTING_VIEW = "achievements/AchievementsListing";
 	private final String ACHIEVEMENTS_FORM = "achievements/createOrUpdateAchievementsForm";
 
-	private AchievementService service;
+	protected AchievementService service;
 
 	@Autowired
 	public AchievementController(AchievementService service) {
@@ -64,7 +65,7 @@ public class AchievementController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public ModelAndView saveUpdatedAchievement(@PathVariable int id, @Valid Achievement achievement, BindingResult br) {
+	public ModelAndView saveUpdatedAchievement(@PathVariable Integer id, @Valid Achievement achievement, BindingResult br) {
 		if (br.hasErrors()) {
 			return new ModelAndView(ACHIEVEMENTS_FORM);
 		} else {

@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.achievement;
 
 
 import static org.mockito.BDDMockito.given;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,26 +29,26 @@ public class AchievementControllerTest {
 	private static final Integer TEST_ID = 1;
 
 	@Autowired
-	private AchievementController controller;
+	protected AchievementController controller;
 	
 	@MockBean
-	private AchievementService service;
+	protected AchievementService service;
 	
 	@Autowired
-	private MockMvc mockMvc;
+	protected MockMvc mockMvc;
 	
 	@BeforeEach
 	void setup() {
 		
-		Achievement ach = new Achievement();
-		ach.setName("name");
-		ach.setDescription("Description");
-		ach.setBadgeImage("Manue");
-		ach.setThreshold(1.);
-		ach.setBlockedImage("Julian");
+		Achievement a = new Achievement();
+		a.setName("name");
+		a.setDescription("Description");
+		a.setBadgeImage("Manue");
+		a.setThreshold(1.);
+		a.setBlockedImage("Julian");
 		
-		given(this.service.getAchievements()).willReturn(Lists.newArrayList(ach));
-		given(this.service.getAchievementById(TEST_ID)).willReturn(new Achievement());
+		given(service.getAchievements()).willReturn(Lists.newArrayList(a));
+		given(service.getAchievementById(TEST_ID)).willReturn(new Achievement());
 		
 	}
 	

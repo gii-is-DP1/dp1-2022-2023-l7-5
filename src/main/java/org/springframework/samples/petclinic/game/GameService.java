@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.game;
 
 import java.util.ArrayList;
+
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +10,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.achievement.Achievement;
 import org.springframework.samples.petclinic.achievement.AchievementService;
 import org.springframework.samples.petclinic.cell.Cell;
 import org.springframework.samples.petclinic.cell.CellService;
@@ -28,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
-	GameRepository repository;
+	protected GameRepository repository;
 
 	@Autowired
 	protected TileService tileService;
@@ -37,13 +38,13 @@ public class GameService {
 	protected CellService cellService;
 
 	@Autowired
-	UserService userService;
+	protected UserService userService;
 	@Autowired
-	ScoreBoardService scoreboardService;
+	protected  ScoreBoardService scoreboardService;
 	@Autowired
-	ProfileService profileService;
+	protected ProfileService profileService;
 	@Autowired
-	AchievementService achievementServ;
+	protected AchievementService achievementServ;
 
 	@Autowired
 	GameService(GameRepository repository) {
@@ -105,21 +106,20 @@ public class GameService {
 			}
 			repository.save(game);
 		}
-
 	}
 
 	@Transactional
 	public void initGame(Integer id) {
 		Game game = getGameById(id);
 		if (tileService.getTiles().isEmpty()) {
-			this.tileService.createAllTiles();
+			tileService.createAllTiles();
 		}
-		List<Tile> bag = this.tileService.getTiles();
+		List<Tile> bag = tileService.getTiles();
 		game.setBag(bag);
-		List<Cell> cells = this.cellService.getCells();
+		List<Cell> cells = cellService.getCells();
 		game.setCells(cells);
 		game.setTurn(1);
-		this.repository.save(game);
+		repository.save(game);
 		if (game.getMode().charAt(2) == 'L') {
 			initSolitarieGame(game);
 		} else if (game.getMode().charAt(1) == 'U') {
@@ -138,7 +138,6 @@ public class GameService {
 		game.getBag().remove(tile);
 		Profile p = user.getProfile();
 		p.setSteals(p.getSteals() + 1);
-		// p.setWins(p.getWins()+1); //Esto para comprobar que funciona el Max Winner
 		achievementServ.updateAchievements(p);
 		repository.save(game);
 		userService.saveUser(user);
@@ -216,13 +215,13 @@ public class GameService {
 
 	@Transactional(rollbackFor = { AlreadyTileOnCell.class })
 	public void playTile(Integer cellId, Integer tileId, User user, Integer gameId) throws AlreadyTileOnCell {
-		this.cellService.putTileOnCell(cellId, tileId);
+		cellService.putTileOnCell(cellId, tileId);
 		List<Tile> tiles = user.getTiles();
-		tiles.remove(this.tileService.getTileById(tileId));
+		tiles.remove(tileService.getTileById(tileId));
 		user.setTiles(tiles);
 		userService.saveUser(user);
 		Game game = repository.findById(gameId).get();
-		this.cellService.detectMatch(cellId, user, game);
+		cellService.detectMatch(cellId, user, game);
 	}
 
 	@Transactional
@@ -233,14 +232,14 @@ public class GameService {
 			c.setTile(null);
 			c.setIsFlipped(false);
 			c.setIsBlocked(false);
-			this.cellService.save(c);
+			cellService.save(c);
 		}
-		game.setBag(this.tileService.getTiles());
+		game.setBag(tileService.getTiles());
 		game.setFinished(false);
-		ScoreBoard sb = this.scoreboardService.getScoreBoardByGameIdByUser(user.getUsername(), game.getId());
+		ScoreBoard sb = scoreboardService.getScoreBoardByGameIdByUser(user.getUsername(), game.getId());
 		sb.setScore(0);
-		this.scoreboardService.save(sb);
-		this.userService.saveUser(user);
+		scoreboardService.save(sb);
+		userService.saveUser(user);
 		repository.save(game);
 		if (game.getMode().charAt(2) == 'L') {
 			initSolitarieGame(game);
@@ -258,12 +257,12 @@ public class GameService {
 			c.setTile(null);
 			c.setIsBlocked(false);
 			c.setIsFlipped(false);
-			this.cellService.save(c);
+			cellService.save(c);
 		}
 		game.setCells(null);
 		game.setBag(null);
 		repository.save(game);
-		this.userService.saveUser(user);
+		userService.saveUser(user);
 		Profile p = user.getProfile();
 		p.setPlayedGames(p.getPlayedGames() + 1);
 		achievementServ.updateAchievements(p);
@@ -283,8 +282,8 @@ public class GameService {
 				}
 			}
 		}
-		this.profileService.save(p);
-		this.scoreboardService.save(sb);
+		profileService.save(p);
+		scoreboardService.save(sb);
 	}
 
 	@Transactional
@@ -302,7 +301,7 @@ public class GameService {
 	@Transactional(readOnly = true)
 	public List<Game> getGamesByUser(User user) {
 		List<ScoreBoard> sbs = scoreboardService.getScoreBoardByUser(user.getUsername());
-		return sbs.stream().map(sb -> this.repository.findById(sb.getGame().getId()).get()).collect(Collectors.toList());
+		return sbs.stream().map(sb -> repository.findById(sb.getGame().getId()).get()).collect(Collectors.toList());
 	}
 	
 }

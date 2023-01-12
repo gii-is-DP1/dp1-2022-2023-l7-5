@@ -66,6 +66,9 @@ INSERT INTO authorities(id,username,authority) VALUES (29,'tomasRoncero','player
 INSERT INTO users(username,email,password,enabled) VALUES ('foreverAlone','foreverAlone@gmail.com','f0r3v3r4l0n3',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (30,'foreverAlone','player');
 
+INSERT INTO users(username,email,password,enabled) VALUES ('None','noneAlone@gmail.com','n0n3',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (32,'None','player');
+
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (11, false, false, 11);
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (12, false, false, 12);
 INSERT INTO cell(id, is_blocked, is_flipped, position) VALUES (13, false, false, 13);
@@ -195,6 +198,7 @@ INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 43);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 44);
 
 INSERT INTO profile(id, played_games, wins, steals, matches,record,  user_username) VALUES (1, 0, 0, 0, 0, 0,  'honey');
+INSERT INTO profile(id, played_games, wins, steals, matches,record,  user_username) VALUES (2, 0, 0, 0, 0, 0,  'None');
 
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (1, 'Baby Bee','https://media.istockphoto.com/illustrations/happy-baby-bee-illustration-id92717135?k=6&m=92717135&s=170667a&w=0&h=rT8nF4gaMA1bjExYyX4jTlTERmNtuVhVihHE5bmavIc=','https://i.imgur.com/wYoxz9e.png', 2.0, 'Enter your first game');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (2, 'BumbleBee','https://th.bing.com/th/id/OIP.oJ3oz0uzEgtj_ev6HkXIYQHaFR?pid=ImgDet&rs=1','https://i.imgur.com/cXppzV3.png', 2.0, 'Play 5 Games');

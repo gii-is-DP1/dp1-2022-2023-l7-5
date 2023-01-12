@@ -11,10 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AchievementService {
-	AchievementRepository repo;
+	
+	protected AchievementRepository repo;
 
 	@Autowired
-	ProfileService profileServ;
+	protected ProfileService profileService;
 
 	@Autowired
 	public AchievementService(AchievementRepository repo) {
@@ -44,7 +45,7 @@ public class AchievementService {
 	public void giveAchievement(Profile p, Achievement a) {
 
 		p.getAchievements().add(a);
-		profileServ.save(p);
+		profileService.save(p);
 
 	}
 
@@ -61,7 +62,7 @@ public class AchievementService {
 		if (p.getPlayedGames() == 5) {
 
 			Achievement a = repo.findById(2).get();
-			if (profileServ.hasAchievement(a, p) == false) {
+			if (profileService.hasAchievement(a, p) == false) {
 
 				giveAchievement(p, a);
 
@@ -71,7 +72,7 @@ public class AchievementService {
 		if (p.getPlayedGames() == 10) {
 
 			Achievement a = repo.findById(3).get();
-			if (profileServ.hasAchievement(a, p) == false) {
+			if (profileService.hasAchievement(a, p) == false) {
 
 				giveAchievement(p, a);
 
@@ -82,7 +83,7 @@ public class AchievementService {
 		if (p.getWins() >= 1) {
 
 			Achievement a = repo.findById(4).get();
-			if (profileServ.hasAchievement(a, p) == false) {
+			if (profileService.hasAchievement(a, p) == false) {
 
 				giveAchievement(p, a);
 
@@ -92,7 +93,7 @@ public class AchievementService {
 		if (p.getSteals() >= 1) {
 
 			Achievement a = repo.findById(5).get();
-			if (profileServ.hasAchievement(a, p) == false) {
+			if (profileService.hasAchievement(a, p) == false) {
 
 				giveAchievement(p, a);
 
@@ -102,7 +103,7 @@ public class AchievementService {
 		if (p.getMatches() >= 1) {
 
 			Achievement a = repo.findById(7).get();
-			if (profileServ.hasAchievement(a, p) == false) {
+			if (profileService.hasAchievement(a, p) == false) {
 
 				giveAchievement(p, a);
 
@@ -113,49 +114,49 @@ public class AchievementService {
 	
 	public void updateGlobalAchievements() {
 		
-		Achievement winner = repo.findById(6).get();
+		Achievement winnerAchievement = repo.findById(6).get();
 		Comparator<Profile> Cwins = Comparator.comparing(Profile::getWins);
-		List<Profile> wins = profileServ.getProfiles().stream().sorted(Cwins.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
+		List<Profile> wins = profileService.getProfiles().stream().sorted(Cwins.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
 		Profile maxWin = wins.get(0);
 		for (Profile p : wins) {
 			
-			if(profileServ.hasAchievement(winner, p)) profileServ.deleteAchievement(winner, p);
+			if(profileService.hasAchievement(winnerAchievement, p)) profileService.deleteAchievement(winnerAchievement, p);
 			
 		}
-		if (maxWin.getWins()>0) giveAchievement(maxWin, winner);
+		if (maxWin.getWins()>0) giveAchievement(maxWin, winnerAchievement);
 		
-		Achievement thief = repo.findById(8).get();
+		Achievement stealAchievement = repo.findById(8).get();
 		Comparator<Profile> Csteals = Comparator.comparing(Profile::getSteals);
-		List<Profile> steals = profileServ.getProfiles().stream().sorted(Csteals.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
+		List<Profile> steals = profileService.getProfiles().stream().sorted(Csteals.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
 		Profile maxSteal = steals.get(0);
 		for (Profile p : steals) {
 			
-			if(profileServ.hasAchievement(thief, p)) profileServ.deleteAchievement(thief, p);
+			if(profileService.hasAchievement(stealAchievement, p)) profileService.deleteAchievement(stealAchievement, p);
 			
 		}
-		if (maxSteal.getSteals()>0) giveAchievement(maxSteal, thief);
+		if (maxSteal.getSteals()>0) giveAchievement(maxSteal, stealAchievement);
 		
-		Achievement old = repo.findById(9).get();
+		Achievement gamesAchievement = repo.findById(9).get();
 		Comparator<Profile> CplayedGames = Comparator.comparing(Profile::getPlayedGames);
-		List<Profile> playedGames = profileServ.getProfiles().stream().sorted(CplayedGames.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
+		List<Profile> playedGames = profileService.getProfiles().stream().sorted(CplayedGames.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
 		Profile maxGames = playedGames.get(0);
 		for (Profile p : playedGames) {
 			
-			if(profileServ.hasAchievement(old, p)) profileServ.deleteAchievement(old, p);
+			if(profileService.hasAchievement(gamesAchievement, p)) profileService.deleteAchievement(gamesAchievement, p);
 			
 		}
-		if (maxGames.getPlayedGames()>0) giveAchievement(maxGames, old);
+		if (maxGames.getPlayedGames()>0) giveAchievement(maxGames, gamesAchievement);
 		
-		Achievement matcher = repo.findById(10).get();
+		Achievement matchesAchievement = repo.findById(10).get();
 		Comparator<Profile> Cmatches = Comparator.comparing(Profile::getMatches);
-		List<Profile> matches = profileServ.getProfiles().stream().sorted(Cmatches.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
+		List<Profile> matches = profileService.getProfiles().stream().sorted(Cmatches.reversed()).filter(p -> p.getId()!=1).collect(Collectors.toList());;
 		Profile maxMatch = matches.get(0);
 		for (Profile p : matches) {
 			
-			if(profileServ.hasAchievement(matcher, p)) profileServ.deleteAchievement(matcher, p);
+			if(profileService.hasAchievement(matchesAchievement, p)) profileService.deleteAchievement(matchesAchievement, p);
 			
 		}
-		if (maxMatch.getMatches()>0) giveAchievement(maxMatch, matcher);
+		if (maxMatch.getMatches()>0) giveAchievement(maxMatch, matchesAchievement);
 		
 	}
 

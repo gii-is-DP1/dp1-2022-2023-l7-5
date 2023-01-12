@@ -3,6 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="players">
 
@@ -17,6 +19,24 @@
 			<th>Email</th>
 			<td><c:out value="${user.email}" /></td>
 		</tr>
+		<sec:authorize access="hasAnyAuthority('admin')">
+		<tr>
+			<th>Creator</th>
+			<td><c:out value="${user.creator}" /></td>
+		</tr>
+		<tr>
+			<th>Creation Date</th>
+			<td><c:out value="${user.createdDate}" /></td>
+		</tr>
+		<tr>
+			<th>Modifier</th>
+			<td><c:out value="${user.modifier}" /></td>
+		</tr>
+		<tr>
+			<th>Last Modification Date</th>
+			<td><c:out value="${user.lastModifiedDate}" /></td>
+		</tr>
+		</sec:authorize>
 	</table>
 
 	<spring:url value="{username}/edit" var="editUrl">
@@ -51,6 +71,24 @@
 			<th>Record</th>
 			<td><c:out value="${user.profile.record}"/></td>
 		</tr>
+		<sec:authorize access="hasAnyAuthority('admin')">
+		<tr>
+			<th>Creator</th>
+			<td><c:out value="${user.profile.creator}" /></td>
+		</tr>
+		<tr>
+			<th>Creation Date</th>
+			<td><c:out value="${user.profile.createdDate}" /></td>
+		</tr>
+		<tr>
+			<th>Modifier</th>
+			<td><c:out value="${user.profile.modifier}" /></td>
+		</tr>
+		<tr>
+			<th>Last Modification Date</th>
+			<td><c:out value="${user.profile.lastModifiedDate}" /></td>
+		</tr>
+		</sec:authorize>
 	</table>
 	<br />
 	<h2>Achievements</h2>

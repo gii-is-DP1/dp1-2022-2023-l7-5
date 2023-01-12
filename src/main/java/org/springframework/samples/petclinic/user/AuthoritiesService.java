@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.user;
 
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthoritiesService {
 
 	private AuthoritiesRepository authoritiesRepository;
-	private UserService userService;
+	protected UserService userService;
 
 	@Autowired
 	public AuthoritiesService(AuthoritiesRepository authoritiesRepository,UserService userService) {

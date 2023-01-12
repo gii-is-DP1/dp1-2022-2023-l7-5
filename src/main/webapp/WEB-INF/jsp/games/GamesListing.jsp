@@ -14,8 +14,8 @@
             <th>Mode</th>
             <th>Finished</th>
             <th>Creator</th>
-            <th>Number of Players</th>
             <th>Date of Creation</th>
+            <th>Number of Players</th>
             <th>Details</th>
         </tr>
         </thead>
@@ -33,14 +33,15 @@
                     <c:out value="${game.finished}"/>
                 </td>
                 <td>
-                	<c:out value="${game.scoreboards.get(0).user.username}"/>
+                	<c:out value="${game.creator}"/>
+                </td>
+                <td>
+                    <c:out value="${game.createdDate}"/>
                 </td>
                 <td>
                     <c:out value="${game.numberOfPlayers}"/>
                 </td>
-                <td>
-                    <c:out value="${game.dateOfCreation}"/>
-                </td>
+                
                 <td>
                     <a class="btn btn-default" href="/games/${game.id}/view">See details</a>
                 </td>

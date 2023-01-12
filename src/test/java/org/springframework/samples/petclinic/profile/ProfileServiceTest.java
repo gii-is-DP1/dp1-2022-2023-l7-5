@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProfileServiceTest {
 	
 	@Autowired
-	protected ProfileService serv;
+	protected ProfileService service;
 	
 	@Autowired
-	protected UserService serv2;
+	protected UserService userService;
 	
 	@Autowired
-	protected AchievementService serv3;
+	protected AchievementService achievementService;
 	
 	public User createUser(String username) {
 		
@@ -34,7 +34,7 @@ public class ProfileServiceTest {
 		user.setEmail("manuel.ejemplo@gmail.com");
 		user.setPassword("password");
 		user.setEnabled(true);
-		serv2.saveUser(user);
+		userService.saveUser(user);
 		return user;
 		
 	}
@@ -46,7 +46,7 @@ public class ProfileServiceTest {
 		ach.setBadgeImage("Manue");
 		ach.setThreshold(1.);
 		ach.setBlockedImage("Julian");
-		serv3.save(ach);
+		achievementService.save(ach);
 		return ach;
 		
 	}
@@ -60,7 +60,7 @@ public class ProfileServiceTest {
 		p.setSteals(0);
 		p.setUser(user);
 		p.setAchievements(new ArrayList<Achievement>());
-		serv.save(p);
+		service.save(p);
 		
 		return p;
 		
@@ -69,14 +69,14 @@ public class ProfileServiceTest {
 	@Test
 	@Transactional
 	public void shouldInsertProfile() {
-		int found = this.serv.getProfiles().size();
+		int found = service.getProfiles().size();
 		
 		User user = createUser("Jorge");
 		Profile p = createProfile(user);
 		
-		this.serv.save(p);
+		service.save(p);
 		assertThat(p.getId()).isNotEqualTo(0);
-		assertThat(this.serv.getProfiles().size()).isEqualTo(found+1);
+		assertThat(service.getProfiles().size()).isEqualTo(found+1);
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class ProfileServiceTest {
 		Integer id = p.getId();
 		
 		
-		assertThat(this.serv.getProfileById(id)).isEqualTo(p);
+		assertThat(service.getProfileById(id)).isEqualTo(p);
 		
 	}
 	
@@ -102,9 +102,9 @@ public class ProfileServiceTest {
 		
 		Integer id = p.getId();
 		
-		assertThat(this.serv.getProfiles().size()).isEqualTo(2);
-		this.serv.deleteProfileById(id);;
-		assertThat(this.serv.getProfiles().size()).isEqualTo(1);
+		assertThat(service.getProfiles().size()).isEqualTo(3);
+		service.deleteProfileById(id);;
+		assertThat(service.getProfiles().size()).isEqualTo(2);
 		
 		
 	}
@@ -115,7 +115,7 @@ public class ProfileServiceTest {
 		
 		User u = createUser("Jorge");		
 		
-		this.serv.initProfile(u);
+		service.initProfile(u);
 		
 		
 		assertThat(u.getProfile().getPlayedGames()!= null).isTrue();
@@ -131,9 +131,9 @@ public class ProfileServiceTest {
 		User user = createUser("Jorge");
 		Profile p = createProfile(user);
 		
-		serv3.giveAchievement(p, acho);
+		achievementService.giveAchievement(p, acho);
 		
-		assertThat(this.serv.hasAchievement(acho, p) && p.getAchievements().contains(acho)).isTrue();
+		assertThat(service.hasAchievement(acho, p) && p.getAchievements().contains(acho)).isTrue();
 	}
 	
 	@Test
@@ -145,8 +145,8 @@ public class ProfileServiceTest {
 		
 		Achievement a = createAchievement("acho");
 		
-		serv3.giveAchievement(p, a);
-		serv.deleteAchievement(a, p);
+		achievementService.giveAchievement(p, a);
+		service.deleteAchievement(a, p);
 		assertThat(p.getAchievements().size()==0).isTrue();
 		
 	}
@@ -160,13 +160,13 @@ public class ProfileServiceTest {
 		User user1 = createUser("Adrian");
 		Profile p1 = createProfile(user1);
 		
-		Profile global = serv.getProfileById(1);
+		Profile global = service.getProfileById(1);
 		
 		p.setMatches(3);
 		p1.setMatches(5);
 		p.setSteals(2);
 		p1.setSteals(156);
-		serv.updateGlobal();
+		service.updateGlobal();
 		
 		assertThat(global.getMatches()==8 && global.getSteals()==158).isTrue();
 		

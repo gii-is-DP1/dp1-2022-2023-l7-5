@@ -10,10 +10,10 @@ public class ProfileController {
 	
 	private final String PROFILE_LISTING_VIEW= "profiles/ProfilesListing";
 	
-	private ProfileService service;
+	protected ProfileService service;
 	
 	@Autowired
-	public ProfileController(ProfileService service) {
+	private ProfileController(ProfileService service) {
 		
 		this.service= service;
 	}

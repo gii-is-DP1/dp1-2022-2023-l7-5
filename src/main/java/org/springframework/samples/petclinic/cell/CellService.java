@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.cell;
 
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
@@ -27,16 +28,16 @@ public class CellService {
 	CellRepository repo;
 
 	@Autowired
-	TileService tileService;
+	protected TileService tileService;
 
 	@Autowired
-	ScoreBoardService scoreBoardService;
+	protected ScoreBoardService scoreBoardService;
 
 	@Autowired
-	AchievementService achievementServ;
+	protected AchievementService achievementServ;
 
 	@Autowired
-	ProfileService profileService;
+	protected ProfileService profileService;
 
 	@Autowired
 	CellService(CellRepository repo) {
@@ -106,10 +107,10 @@ public class CellService {
 		if (match.size() >= 3) {
 			if (!(game.getMode().charAt(1) == 'U') || match.size() > 3) {
 				resolveMatch(match, user, game);
-				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
+				scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
 			} else if (!cluster) {
 				resolveMatch(match, user, game);
-				this.scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
+				scoreBoardService.increaseScore(match.size() - 2, user.getUsername(), game);
 			}
 		}
 		return match;
@@ -117,19 +118,19 @@ public class CellService {
 	
 	@Transactional
 	private void blockEsquinas(Set<Cell> match, Game game) {
-		List<Cell> cells = this.repo.findAll();
+		List<Cell> cells = repo.findAll();
         List<Cell> corners = cells.stream().filter(c -> c.getAdjacents().size()==3).collect(Collectors.toList());
         for (Cell corner : corners) {
         	if(match.contains(corner)) {
         		corner.setIsBlocked(true);
         		corner.setTile(null);
-        		this.repo.save(corner);
+        		repo.save(corner);
         		List<Cell> adjacents = corner.getAdjacents();
         		for (Cell adjacent : adjacents) {
         			adjacent.setIsBlocked(true);
         			adjacent.setIsFlipped(false);
         			adjacent.setTile(null);
-            		this.repo.save(adjacent);
+            		repo.save(adjacent);
         		}
         	}
         }
