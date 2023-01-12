@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.user;
 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.samples.petclinic.game.Game;
+import org.springframework.samples.petclinic.game.GameService;
+import org.springframework.samples.petclinic.profile.Profile;
+import org.springframework.samples.petclinic.profile.ProfileService;
 import org.springframework.samples.petclinic.scoreboard.ScoreBoard;
+import org.springframework.samples.petclinic.scoreboard.ScoreBoardService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +43,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
 	private UserRepository userRepository;
+	
+	@Autowired
+	GameService gameService;
+	
+	@Autowired
+	ProfileService profileService;
 
+	@Autowired
+	ScoreBoardService scoreboardService;
+			
 	@Autowired
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -63,6 +78,21 @@ public class UserService {
 	
 	@Transactional
 	public void deleteUser(String username) {
+		User user = this.userRepository.findById(username).get();
+		if (user.getProfile()!=null) {
+			user.setProfile(null);
+			this.userRepository.save(user);
+			Profile p = this.profileService.getProfileByUsername(username);
+			this.profileService.deleteProfileById(p.getId());
+		}
+		List<ScoreBoard> sbs = this.scoreboardService.getScoreBoardByUser(username);
+		for (ScoreBoard scoreBoard : sbs) {
+			Game game = this.gameService.getGameById(scoreBoard.getGame().getId());
+			this.gameService.deleteGameById(game.getId());
+			scoreBoard.setGame(null);
+			this.scoreboardService.save(scoreBoard);
+			this.scoreboardService.deleteScoreBoardById(scoreBoard.getId()); 
+		}
 		userRepository.deleteById(username);
 	}
 	

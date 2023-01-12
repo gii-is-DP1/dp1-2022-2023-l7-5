@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.profile;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -30,7 +31,7 @@ public class Profile extends BaseEntity{
 	
 	private Integer record;
 
-	@OneToOne(optional = false)
+	@OneToOne
 	private User user;
 	
 	@ManyToMany
