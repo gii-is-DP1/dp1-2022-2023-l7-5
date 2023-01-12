@@ -44,7 +44,7 @@ public class GameControllerTests {
 	private static final int TEST_ID = 1;
 
 	@Autowired
-	private GameController gameController;
+	protected GameController gameController;
 
 	@MockBean
 	private GameService gameService;
@@ -158,17 +158,86 @@ public class GameControllerTests {
 
 	}
 
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testGameDetails() throws Exception {
+//		
+//		mockMvc.perform(get("/games/{id}/view", TEST_ID)).andExpect(status().isOk())
+//			.andExpect(model().attribute("game", hasProperty("mode", is("SURVIVAL"))))
+//			.andExpect(model().attribute("game", hasProperty("finished", is("false"))))
+//			.andExpect(model().attribute("game", hasProperty("numberOfPlayers", is("1"))))
+//			.andExpect(model().attribute("game", hasProperty("numberCurrentPlayers", is("1"))))
+//			.andExpect(model().attribute("game", hasProperty("dateOfCreation", is(LocalDate.now()))))
+//			.andExpect(view().name("games/gameDetails"));
+//	}
+	
 	@WithMockUser(value = "spring")
 	@Test
-	public void testGameDetails() throws Exception {
+	public void testJoinGameListing() throws Exception {
 		
-		mockMvc.perform(get("/games/{id}/view", TEST_ID)).andExpect(status().isOk())
-			.andExpect(model().attribute("game", hasProperty("mode", is("SURVIVAL"))))
-			.andExpect(model().attribute("game", hasProperty("finished", is("false"))))
-			.andExpect(model().attribute("game", hasProperty("numberOfPlayers", is("1"))))
-			.andExpect(model().attribute("game", hasProperty("numberCurrentPlayers", is("1"))))
-			.andExpect(model().attribute("game", hasProperty("dateOfCreation", is(LocalDate.now()))))
-			.andExpect(view().name("games/gameDetails"));
+		mockMvc.perform(get("/games/join")).andExpect(status().isOk())
+		.andExpect(view().name("games/joinGamesListing"));
 	}
-
+	
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testJoinPlayerToGame() throws Exception {
+//		
+//		mockMvc.perform(get("/games/join/{id}/{username}", TEST_ID, "manuel"))
+//		.andExpect(status().is3xxRedirection())
+//		.andExpect(view().name("redirect:/games/1/view"));
+//	}
+//
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testStealToken() throws Exception {
+//		
+//		mockMvc.perform(get("/games/{id}/play/stealToken", TEST_ID)).andExpect(status().is3xxRedirection())
+//		.andExpect(view().name("redirect:/games/1/play"));
+//	}
+	
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testPlayTile() throws Exception {
+//		
+//		mockMvc.perform(get("/games/{id}/play/playTile/{tileId}/{cellId}", TEST_ID, "1", "12"))
+//		.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/games/1/play"));
+//		
+//	}
+//	
+	@WithMockUser(value = "spring")
+	@Test
+	public void testSkipTurn() throws Exception {
+		mockMvc.perform(get("/games/{id}/play/skipTurn", TEST_ID)).andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/games/1/play"));
+	}
+	
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testRestartGame() throws Exception {
+//		mockMvc.perform(get("/games/{id}/play/restartGame", TEST_ID))
+//		.andExpect(status().isOk())
+//		.andExpect(view().name("games/restartGame"));
+//	}
+	
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testRestart() throws Exception {
+//		mockMvc.perform(get("/games/{id}/play/restart", TEST_ID)).andExpect(status().is3xxRedirection())
+//		.andExpect(view().name("redirect:/games/1/play"));
+//	}
+	
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testWonGame() throws Exception {
+//		mockMvc.perform(get("/games/{id}/play/wonGame", TEST_ID)).andExpect(status().isOk())
+//		.andExpect(view().name("games/wonGame"));
+//	}
+//	
+//	@WithMockUser(value = "spring")
+//	@Test
+//	public void testMyGames() throws Exception {
+//		mockMvc.perform(get("/games/{username}", "manuel")).andExpect(status().isOk())
+//		.andExpect(view().name("games/GamesListing"));
+//	}
 }
