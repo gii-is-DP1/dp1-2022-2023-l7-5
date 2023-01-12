@@ -20,9 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class AchievementServiceTest {
 	
 	@Autowired
-	protected AchievementService serv;
+	protected AchievementService service;
 	@Autowired
-	ProfileService pServ;
+	ProfileService profileService;
 	@Autowired
 	UserService userService;
 	
@@ -39,14 +39,14 @@ public class AchievementServiceTest {
 	}
 	public Achievement createAchievement(String name) {
 		
-		Achievement ach = new Achievement();
-		ach.setName(name);
-		ach.setDescription("Description");
-		ach.setBadgeImage("Manue");
-		ach.setThreshold(1.);
-		ach.setBlockedImage("Julian");
-		this.serv.save(ach);
-		return ach;
+		Achievement a = new Achievement();
+		a.setName(name);
+		a.setDescription("Description");
+		a.setBadgeImage("Manue");
+		a.setThreshold(1.);
+		a.setBlockedImage("Julian");
+		service.save(a);
+		return a;
 		
 	}
 	
@@ -59,7 +59,7 @@ public class AchievementServiceTest {
 		p.setSteals(0);
 		p.setUser(user);
 		p.setAchievements(new ArrayList<Achievement>());
-		pServ.save(p);
+		profileService.save(p);
 		
 		return p;
 		
@@ -69,11 +69,11 @@ public class AchievementServiceTest {
 	@Transactional
 	public void shouldInsertAchie() {
 		
-		int found = this.serv.getAchievements().size();
+		int found = service.getAchievements().size();
 				
-		Achievement ach = createAchievement("Shoot from the hip");
-		assertThat(ach.getId()).isNotEqualTo(0);
-		assertThat(this.serv.getAchievements().size()).isEqualTo(found+1);
+		Achievement a = createAchievement("Shoot from the hip");
+		assertThat(a.getId()).isNotEqualTo(0);
+		assertThat(service.getAchievements().size()).isEqualTo(found+1);
 		
 	}
 	
@@ -81,10 +81,10 @@ public class AchievementServiceTest {
 	@Transactional
 	void shouldFindAchievementWithCorrectId() {
 		
-		Achievement acho = createAchievement("Fire Steal");
+		Achievement a = createAchievement("Fire Steal");
 		
-		Achievement achos = this.serv.getAchievementById(acho.getId());
-		assertThat(achos.getName()).isEqualTo("Fire Steal");
+		Achievement a2 = service.getAchievementById(a.getId());
+		assertThat(a2.getName()).isEqualTo("Fire Steal");
 
 	}
 	
@@ -93,12 +93,12 @@ public class AchievementServiceTest {
 	void shouldNotFindAchievementWithCorrectId() {
 		
 		
-		Achievement acho = createAchievement("Jorge?");
+		Achievement a = createAchievement("Jorge?");
 		
-		this.serv.save(acho);
-		assertThat(this.serv.getAchievements().size()).isEqualTo(11);
-		this.serv.deleteAchievementById(acho.getId());
-		assertThat(this.serv.getAchievements().size()).isEqualTo(10);
+		service.save(a);
+		assertThat(service.getAchievements().size()).isEqualTo(11);
+		service.deleteAchievementById(a.getId());
+		assertThat(service.getAchievements().size()).isEqualTo(10);
 
 	}
 	
@@ -108,11 +108,11 @@ public class AchievementServiceTest {
 		
 		User user = createUser("Alejandro");
 		Profile p = createProfile(user);
-		Achievement acho = createAchievement("lol?");
+		Achievement a = createAchievement("Achievement");
 		
-		this.serv.save(acho);
-		this.serv.giveAchievement(p, acho);
-		assertThat(p.getAchievements().contains(acho)).isTrue();
+		service.save(a);
+		service.giveAchievement(p, a);
+		assertThat(p.getAchievements().contains(a)).isTrue();
 
 	}
 	
@@ -125,13 +125,13 @@ public class AchievementServiceTest {
 		
 		p.setPlayedGames(1);
 		
-		this.serv.updateAchievements(p);
+		service.updateAchievements(p);
 		assertThat(p.getAchievements().size() == 1);
 		
 		p.setSteals(3);
 		
-		this.serv.updateAchievements(p);
-		this.serv.updateGlobalAchievements();
+		service.updateAchievements(p);
+		service.updateGlobalAchievements();
 		//primer steal, max games y max steal
 		assertThat(p.getAchievements().size() == 3).isTrue();
 		
@@ -145,7 +145,7 @@ public class AchievementServiceTest {
 		Profile p = createProfile(user);
 		
 		
-		this.serv.giveFirstAchieve(p);
+		service.giveFirstAchieve(p);
 		
 		assertThat(p.getAchievements().size() == 1).isTrue();
 
@@ -163,15 +163,15 @@ public class AchievementServiceTest {
 		
 		p.setWins(2);
 		p.setSteals(2);
-		this.serv.updateAchievements(p);
-		this.serv.updateAchievements(p1);
-		this.serv.updateGlobalAchievements();
+		service.updateAchievements(p);
+		service.updateAchievements(p1);
+		service.updateGlobalAchievements();
 		assertThat(p.getAchievements().size()).isEqualTo(4);
 		
 		p1.setWins(6);
-		this.serv.updateAchievements(p);
-		this.serv.updateAchievements(p1);
-		this.serv.updateGlobalAchievements();
+		service.updateAchievements(p);
+		service.updateAchievements(p1);
+		service.updateGlobalAchievements();
 		assertThat(p.getAchievements().size() == 3 && p1.getAchievements().size()==2).isTrue();
 		
 	}
