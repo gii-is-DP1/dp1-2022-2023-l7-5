@@ -47,6 +47,10 @@
 			<th>Games</th>
 			<td><c:out value="${user.profile.playedGames}"/></td>
 		</tr>
+		<tr>
+			<th>Record</th>
+			<td><c:out value="${user.profile.record}"/></td>
+		</tr>
 	</table>
 	<br />
 	<h2>Achievements</h2>
@@ -71,6 +75,6 @@
 	<spring:url value="/player/{username}/achievements" var="achUrl">
 		<spring:param name="username" value="${user.username}" />
 	</spring:url>
-	<a class="btn btn-default" href="${fn:escapeXml(achUrl)}">See my
+	<a class="btn btn-default" href="${fn:escapeXml(achUrl)}">See all
 		achievements</a>
 </petclinic:layout>

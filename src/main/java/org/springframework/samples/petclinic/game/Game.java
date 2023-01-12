@@ -57,4 +57,7 @@ public class Game extends BaseEntity {
 	
 	@OneToMany
 	private List<Tile> bag;
+	
+	private Integer turn;
+	
 }

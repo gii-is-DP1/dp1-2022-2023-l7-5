@@ -13,11 +13,14 @@
         	<th>id</th>
             <th>Mode</th>
             <th>Finished</th>
+            <th>Creator</th>
             <th>Number of Players</th>
             <th>Date of Creation</th>
+            <th>Details</th>
         </tr>
         </thead>
         <tbody>
+        <c:if test="${!games.isEmpty()}">
         <c:forEach items="${games}" var="game">
             <tr>
             	<td>
@@ -30,13 +33,20 @@
                     <c:out value="${game.finished}"/>
                 </td>
                 <td>
+                	<c:out value="${game.scoreboards.get(0).user.username}"/>
+                </td>
+                <td>
                     <c:out value="${game.numberOfPlayers}"/>
                 </td>
                 <td>
                     <c:out value="${game.dateOfCreation}"/>
                 </td>
+                <td>
+                    <a class="btn btn-default" href="/games/${game.id}/view">See details</a>
+                </td>
             </tr>
         </c:forEach>
+        </c:if>
         </tbody>
     </table>
     <a class="btn btn-default" href="/games/new">Create new game</a>

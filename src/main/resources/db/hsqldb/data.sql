@@ -194,7 +194,7 @@ INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 52);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 43);
 INSERT INTO cell_adjacents(cell_id, adjacents_id) VALUES (53, 44);
 
-INSERT INTO profile(id, played_games, wins, steals, matches, user_username) VALUES (1, 0, 0, 0, 0, 'honey');
+INSERT INTO profile(id, played_games, wins, steals, matches,record,  user_username) VALUES (1, 0, 0, 0, 0, 0,  'honey');
 
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (1, 'Baby Bee','https://media.istockphoto.com/illustrations/happy-baby-bee-illustration-id92717135?k=6&m=92717135&s=170667a&w=0&h=rT8nF4gaMA1bjExYyX4jTlTERmNtuVhVihHE5bmavIc=','https://i.imgur.com/wYoxz9e.png', 2.0, 'Enter your first game');
 INSERT INTO achievement(id,name, badge_image,blocked_image, threshold, description) VALUES (2, 'BumbleBee','https://th.bing.com/th/id/OIP.oJ3oz0uzEgtj_ev6HkXIYQHaFR?pid=ImgDet&rs=1','https://i.imgur.com/cXppzV3.png', 2.0, 'Play 5 Games');
