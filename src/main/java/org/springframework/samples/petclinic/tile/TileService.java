@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.tile;
 
 import java.util.HashMap;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
