@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.user;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,7 +36,7 @@ public class User{
 	@Id
 	@NotNull
 	@NotBlank
-	String username;
+	private String username;
 	
 	@NotNull
 	@Email
@@ -44,7 +45,7 @@ public class User{
 	
 	@NotNull
 	@NotBlank
-	String password;
+	private String password;
 	
 	boolean enabled;
 	

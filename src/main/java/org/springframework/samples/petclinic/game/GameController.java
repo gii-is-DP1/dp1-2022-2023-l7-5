@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.game;
 
 import java.security.Principal;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -247,23 +248,23 @@ public class GameController {
     	Game game = service.getGameById(id);
     	User user = userService.findUser(principal.getName()).get();
     	service.stealToken(game, user);
-    	this.service.incrementTurn(game);
+    	service.incrementTurn(game);
     	return new ModelAndView("redirect:/games/"+id+"/play");
     }
     
     @GetMapping("/{id}/play/playTile/{tileId}/{cellId}")
     public ModelAndView playTile(@PathVariable int id, Principal principal, @PathVariable("tileId") int tileId, @PathVariable("cellId") int cellId) throws AlreadyTileOnCell {
     	User user = userService.findUser(principal.getName()).get();
-    	this.service.playTile(cellId, tileId, user, id);
+    	service.playTile(cellId, tileId, user, id);
     	Game game = service.getGameById(id);
-    	this.service.incrementTurn(game);
+    	service.incrementTurn(game);
     	return new ModelAndView("redirect:/games/"+id+"/play/");
     }
     
     @GetMapping("{id}/play/skipTurn")
     public ModelAndView skipTurn(@PathVariable int id) {
  	   Game game = service.getGameById(id);
- 	   this.service.incrementTurn(game);
+ 	   service.incrementTurn(game);
  	  return new ModelAndView("redirect:/games/"+id+"/play");
     }
     
@@ -281,8 +282,8 @@ public class GameController {
     public ModelAndView restart(@PathVariable int id, Principal principal) {
     	Game game = service.getGameById(id);
     	User user = userService.findUser(principal.getName()).get();
-    	this.service.restartGame(game, user);
-    	this.service.save(game);
+    	service.restartGame(game, user);
+    	service.save(game);
     	return new ModelAndView("redirect:/games/"+id+"/play");
     }
     
@@ -311,7 +312,7 @@ public class GameController {
 	   } else {
 		   mav = new ModelAndView(FINISH_GAME);
 	   }
-   	   this.service.finishGame(game, user);
+   	   service.finishGame(game, user);
 	   mav.addObject("game", game);
 	   mav.addObject("user", user);
 	   mav.addObject("scoreboards", sbs);
@@ -331,7 +332,7 @@ public class GameController {
    	   userService.saveUser(user);
    	   achievementService.updateAchievements(p);
    	   List<ScoreBoard> sbs = scoreboardService.getScoreboardsByGameId(id);
-   	   this.service.finishGame(game, user);
+   	   service.finishGame(game, user);
 	   mav.addObject("game", game);
 	   mav.addObject("user", user);
 	   mav.addObject("scoreboards", sbs);
@@ -341,8 +342,8 @@ public class GameController {
    @GetMapping("{username}")
    public ModelAndView myGames(Principal principal) {
 	   ModelAndView mav = new ModelAndView(GAMES_LISTING_VIEW);
-	   User user = this.userService.findUser(principal.getName()).get();
-	   List<Game> myGames = this.service.getGamesByUser(user);
+	   User user = userService.findUser(principal.getName()).get();
+	   List<Game> myGames = service.getGamesByUser(user);
 	   System.out.println(myGames);
 	   mav.addObject("games", myGames);
 	   return mav;
