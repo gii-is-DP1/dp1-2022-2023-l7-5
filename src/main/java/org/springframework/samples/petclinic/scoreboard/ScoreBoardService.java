@@ -15,7 +15,7 @@ public class ScoreBoardService {
 	ScoreBoardRepository repo;
 
 	@Autowired 
-	UserService userService;
+	protected UserService userService;
 
 	
 	@Autowired ScoreBoardService(ScoreBoardRepository repo) {
