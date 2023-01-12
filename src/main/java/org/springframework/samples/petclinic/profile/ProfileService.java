@@ -87,5 +87,9 @@ public class ProfileService {
 		p.getAchievements().remove(a);
 
 	}
+	
+	public Profile getProfileByUsername(String username) {
+		return this.repo.getProfileByUser(username);
+	}
 
 }
