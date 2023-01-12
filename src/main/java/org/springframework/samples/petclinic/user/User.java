@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.user;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.List;
 
 import java.util.Set;
@@ -27,12 +29,13 @@ import org.springframework.samples.petclinic.tile.Tile;
 import lombok.Getter;
 import lombok.Setter;
 
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
-public class User{
+public class User {
+
 	@Id
 	@NotNull
 	@NotBlank
@@ -49,7 +52,19 @@ public class User{
 	
 	boolean enabled;
 	
-	@OneToMany
+	@CreatedBy
+  private String creator;
+  
+  @CreatedDate
+  private LocalDate createdDate;
+  
+  @LastModifiedBy
+  private String modifier;
+  
+  @LastModifiedDate
+  private LocalDate lastModifiedDate;
+  
+  @OneToMany
 	private List<Tile> tiles;
 	
 	@OneToOne
@@ -57,16 +72,4 @@ public class User{
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Authorities> authorities;
-	
-	@CreatedBy
-	private String creator;
-	
-	@CreatedDate
-	private LocalDateTime createdDate;
-	
-	@LastModifiedBy
-	private String modifier;
-	
-	@LastModifiedDate
-	private LocalDateTime lastModifiedDate;
 }
