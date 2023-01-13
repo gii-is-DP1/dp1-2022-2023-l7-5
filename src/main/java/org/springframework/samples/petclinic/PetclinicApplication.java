@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication()
-
 public class PetclinicApplication {
 
 	public static void main(String[] args) {
