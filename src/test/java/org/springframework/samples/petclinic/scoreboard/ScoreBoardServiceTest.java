@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.scoreboard;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -23,7 +24,7 @@ public class ScoreBoardServiceTest {
 	@Transactional
 	@Test
 	public void shouldInsertSB() {
-		int found = this.serv.getScoreBoards().size();
+		int found = serv.getScoreBoards().size();
 		
 		ScoreBoard s = new ScoreBoard();
 		s.setOrden(3);
@@ -40,9 +41,9 @@ public class ScoreBoardServiceTest {
 		
 		s.setUser(u);
 		
-		this.serv.save(s);
+		serv.save(s);
 		assertThat(s.getId()).isNotEqualTo(0);
-		assertThat(this.serv.getScoreBoards().size()).isEqualTo(found+1);
+		assertThat(serv.getScoreBoards().size()).isEqualTo(found+1);
 	}
 	
 	@Transactional
@@ -64,7 +65,7 @@ public class ScoreBoardServiceTest {
 		
 		Integer id = s.getId();
 		
-		assertThat(this.serv.getScoreBoardById(id)).isEqualTo(s);
+		assertThat(serv.getScoreBoardById(id)).isEqualTo(s);
 		
 	}
 	
@@ -86,9 +87,9 @@ public class ScoreBoardServiceTest {
 		
 		Integer id = s.getId();
 		
-		assertThat(this.serv.getScoreBoards().size()).isEqualTo(1);
-		this.serv.deleteScoreBoardById(id);;
-		assertThat(this.serv.getScoreBoards().size()).isEqualTo(0);
+		assertThat(serv.getScoreBoards().size()).isEqualTo(1);
+		serv.deleteScoreBoardById(id);;
+		assertThat(serv.getScoreBoards().size()).isEqualTo(0);
 		
 		
 	}
