@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.user;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -88,11 +89,37 @@ public class UserService {
 			profileService.deleteProfileById(p.getId());
 		}
 		List<ScoreBoard> sbs = scoreboardService.getScoreBoardByUser(username);
+		List<ScoreBoard> allScoreboards = new ArrayList<>();
+		List<Integer> allGamesId = new ArrayList<>();
 		for (ScoreBoard scoreBoard : sbs) {
 			Game game = gameService.getGameById(scoreBoard.getGame().getId());
-			gameService.deleteGameById(game.getId());
+			allScoreboards.add(scoreBoard);
+			allGamesId.add(scoreBoard.getGame().getId());
+			List<ScoreBoard> sbsGames = scoreboardService.getScoreboardsByGameId(game.getId());
+			for (ScoreBoard otherScoreBoards : sbsGames) {
+				if (!otherScoreBoards.getUser().getUsername().equals(username)) {
+					allScoreboards.add(otherScoreBoards);
+				}
+				if (!allGamesId.contains(otherScoreBoards.getGame().getId())) {
+					allGamesId.add(otherScoreBoards.getGame().getId());
+				}
+			}
+		}
+		List<ScoreBoard> toDelete = new ArrayList<>();
+		toDelete.addAll(allScoreboards);
+		for (ScoreBoard scoreBoard : toDelete) {
 			scoreBoard.setGame(null);
 			scoreboardService.save(scoreBoard);
+		}
+		List<Integer> gamesToDelete = new ArrayList<>();
+		gamesToDelete.addAll(allGamesId);
+		for (Integer id : gamesToDelete) {
+			Game game = gameService.getGameById(id);
+			if(game != null) {
+				gameService.deleteGameById(game.getId());
+			}
+		}
+		for (ScoreBoard scoreBoard : toDelete) {
 			scoreboardService.deleteScoreBoardById(scoreBoard.getId()); 
 		}
 		userRepository.deleteById(username);
