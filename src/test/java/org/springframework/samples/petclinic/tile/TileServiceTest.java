@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,16 +23,16 @@ public class TileServiceTest {
 	@Transactional
 	@Test
 	public void shouldInsertTile() {
-		int found = this.tileService.getTiles().size();
+		int found = tileService.getTiles().size();
 		
 		Tile tile = new Tile();
 		tile.setStartingSide("blue");;
 		tile.setFilledSide("green");
 		tile.setStartingSideColor("blue");;
 		tile.setFilledSideColor("green");
-		this.tileService.save(tile);
+		tileService.save(tile);
 		assertThat(tile.getId()).isNotEqualTo(0);
-		assertThat(this.tileService.getTiles().size()).isEqualTo(found+1);
+		assertThat(tileService.getTiles().size()).isEqualTo(found+1);
 	}
 	
 	@Test
@@ -44,16 +45,16 @@ public class TileServiceTest {
 		tile.setFilledSide("green");
 		tile.setStartingSideColor("blue");;
 		tile.setFilledSideColor("green");
-		this.tileService.save(tile);
+		tileService.save(tile);
 		Integer id = tile.getId();
 		
-		assertThat(this.tileService.getTileById(id)).isEqualTo(tile);
+		assertThat(tileService.getTileById(id)).isEqualTo(tile);
 	}
 	
 	
 	@Test
 	public void shouldDeleteTileById() {
-		int found = this.tileService.getTiles().size();
+		int found = tileService.getTiles().size();
 		
 		Tile tile = new Tile();
 		tile.setStartingSide("blue");;
@@ -62,20 +63,20 @@ public class TileServiceTest {
 		tile.setFilledSide("green");
 		tile.setStartingSideColor("blue");;
 		tile.setFilledSideColor("green");
-		this.tileService.save(tile);
+		tileService.save(tile);
 		Integer id = tile.getId();
 		
-		assertThat(this.tileService.getTiles().size()).isEqualTo(found + 1);
+		assertThat(tileService.getTiles().size()).isEqualTo(found + 1);
 		
-		this.tileService.deleteTileById(id);
-		assertThat(this.tileService.getTiles().size()).isEqualTo(found);
+		tileService.deleteTileById(id);
+		assertThat(tileService.getTiles().size()).isEqualTo(found);
 				
 	}
 	
 	@Test
 	public void shouldCreateAllTiles() {
-		int found = this.tileService.getTiles().size();
-		this.tileService.createAllTiles();
-		assertThat(this.tileService.getTiles().size()).isEqualTo(found+72);
+		int found = tileService.getTiles().size();
+		tileService.createAllTiles();
+		assertThat(tileService.getTiles().size()).isEqualTo(found+72);
 	}
 }

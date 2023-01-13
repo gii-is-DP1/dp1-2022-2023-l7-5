@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.cell;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
@@ -23,8 +24,7 @@ import org.springframework.samples.petclinic.tile.TileService;
 import org.springframework.samples.petclinic.user.User;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
+
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class CellServiceTests {
@@ -60,7 +60,7 @@ public class CellServiceTests {
 		game.setNumberOfPlayers(1);
 		game.setDateOfCreation(LocalDate.now());
 		game.setNumberCurrentPlayers(0);
-		this.gameService.save(game);
+		gameService.save(game);
 		return game;
 	}
 	
@@ -72,7 +72,7 @@ public class CellServiceTests {
 		p.setSteals(0);
 		p.setUser(user);
 		p.setAchievements(new ArrayList<Achievement>());
-		this.profileService.save(p);
+		profileService.save(p);
 		return p;
 	}
 	
@@ -82,13 +82,13 @@ public class CellServiceTests {
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
 		cell.setPosition(22);
-		this.cellService.save(cell);
-		assertThat(this.cellService.getCellById(cell.getId()).getPosition()).isEqualTo(22);
+		cellService.save(cell);
+		assertThat(cellService.getCellById(cell.getId()).getPosition()).isEqualTo(22);
 	}
 	
 	@Test
 	public void shouldInsertCell() {
-		int found = this.cellService.getCells().size();
+		int found = cellService.getCells().size();
 		
 		Cell cell = new Cell();
 		cell.setId(1);
@@ -96,25 +96,25 @@ public class CellServiceTests {
 		cell.setIsFlipped(false);
 		cell.setPosition(1);
 		
-		this.cellService.save(cell);
+		cellService.save(cell);
 		assertThat(cell.getId()).isNotEqualTo(0);
-		assertThat(this.cellService.getCells().size()).isEqualTo(found+1);
+		assertThat(cellService.getCells().size()).isEqualTo(found+1);
 	}
 	
 	@Test
 	public void shouldDeleteCell() {
-		int found = this.cellService.getCells().size();
+		int found = cellService.getCells().size();
 		
 		Cell cell = new Cell();
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
 		cell.setPosition(1);
 		
-		this.cellService.save(cell);
+		cellService.save(cell);
 		assertThat(cell.getId()).isNotEqualTo(0);
-		assertThat(this.cellService.getCells().size()).isEqualTo(found+1);
-		this.cellService.deleteCellById(cell.getId());
-		assertThat(this.cellService.getCells().size()).isEqualTo(found);
+		assertThat(cellService.getCells().size()).isEqualTo(found+1);
+		cellService.deleteCellById(cell.getId());
+		assertThat(cellService.getCells().size()).isEqualTo(found);
 	}
 	
 	@Test
@@ -123,14 +123,14 @@ public class CellServiceTests {
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
 		cell.setPosition(1);
-		this.cellService.save(cell);
+		cellService.save(cell);
 		Tile tile = new Tile();
 		tile.setFilledSide("red");
 		tile.setStartingSide("red");
 		tile.setFilledSideColor("red");
 		tile.setStartingSideColor("red");
-		this.tileService.save(tile);
-		this.cellService.putTileOnCell(cell.getId(), tile.getId());
+		tileService.save(tile);
+		cellService.putTileOnCell(cell.getId(), tile.getId());
 		assertThat(cell.getTile().getId().equals(tile.getId())).isTrue();
 	}
 	
@@ -140,23 +140,23 @@ public class CellServiceTests {
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
 		cell.setPosition(1);
-		this.cellService.save(cell);
+		cellService.save(cell);
 		Tile tile = new Tile();
 		tile.setFilledSide("red");
 		tile.setStartingSide("red");
 		tile.setFilledSideColor("red");
 		tile.setStartingSideColor("red");
-		this.tileService.save(tile);
-		this.cellService.putTileOnCell(cell.getId(), tile.getId());
-		assertThrows(AlreadyTileOnCell.class, () -> this.cellService.putTileOnCell(cell.getId(), tile.getId()));
+		tileService.save(tile);
+		cellService.putTileOnCell(cell.getId(), tile.getId());
+		assertThrows(AlreadyTileOnCell.class, () -> cellService.putTileOnCell(cell.getId(), tile.getId()));
 	}
 	
 	@Test
 	public void shouldDetectMatchAndChain() throws AlreadyTileOnCell {
 		Game game = createGame("SOLO");
 		User user = createUser("test");
-		this.profileService.initProfile(user);
-		this.gameService.initPlayerToGame(user.getUsername(), game);
+		profileService.initProfile(user);
+		gameService.initPlayerToGame(user.getUsername(), game);
 		Cell cell = new Cell();
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
@@ -169,24 +169,24 @@ public class CellServiceTests {
 		cell3.setIsBlocked(false);
 		cell3.setIsFlipped(false);
 		cell3.setPosition(2);	
-		this.cellService.save(cell);
-		this.cellService.save(cell2);
-		this.cellService.save(cell3);
+		cellService.save(cell);
+		cellService.save(cell2);
+		cellService.save(cell3);
 		List<Cell> adjCell1 = new ArrayList<>();
 		adjCell1.add(cell2);
 		adjCell1.add(cell3);
 		cell.setAdjacents(adjCell1);
-		this.cellService.save(cell);
+		cellService.save(cell);
 		List<Cell> adjCell2 = new ArrayList<>();
 		adjCell2.add(cell);
 		adjCell2.add(cell3);
 		cell2.setAdjacents(adjCell2);
-		this.cellService.save(cell2);
+		cellService.save(cell2);
 		List<Cell> adjCell3 = new ArrayList<>();
 		adjCell3.add(cell);
 		adjCell3.add(cell2);
 		cell3.setAdjacents(adjCell3);
-		this.cellService.save(cell3);
+		cellService.save(cell3);
 		Tile tile = new Tile();
 		tile.setFilledSide("red");
 		tile.setStartingSide("red");
@@ -202,13 +202,13 @@ public class CellServiceTests {
 		tile3.setStartingSide("red");
 		tile3.setFilledSideColor("red");
 		tile3.setStartingSideColor("red");
-		this.tileService.save(tile);
-		this.tileService.save(tile2);
-		this.tileService.save(tile3);
-		this.cellService.putTileOnCell(cell.getId(), tile.getId());
-		this.cellService.putTileOnCell(cell2.getId(), tile2.getId());
-		this.cellService.putTileOnCell(cell3.getId(), tile3.getId());
-		Set<Cell> match = this.cellService.detectMatch(cell.getId(), user, game);
+		tileService.save(tile);
+		tileService.save(tile2);
+		tileService.save(tile3);
+		cellService.putTileOnCell(cell.getId(), tile.getId());
+		cellService.putTileOnCell(cell2.getId(), tile2.getId());
+		cellService.putTileOnCell(cell3.getId(), tile3.getId());
+		Set<Cell> match = cellService.detectMatch(cell.getId(), user, game);
 		assertThat(match.size()==3).isTrue();
 		assertThat(match.stream().allMatch(c -> c.getIsFlipped() == false)).isTrue();
 		assertThat(match.stream().allMatch(c -> c.getTile() == null)).isTrue();
@@ -219,8 +219,8 @@ public class CellServiceTests {
 	public void shouldResolveMatchAndNoChain() throws AlreadyTileOnCell {
 		Game game = createGame("SOLO");
 		User user = createUser("test");
-		this.profileService.initProfile(user);
-		this.gameService.initPlayerToGame(user.getUsername(), game);
+		profileService.initProfile(user);
+		gameService.initPlayerToGame(user.getUsername(), game);
 		Cell cell = new Cell();
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
@@ -233,24 +233,24 @@ public class CellServiceTests {
 		cell3.setIsBlocked(false);
 		cell3.setIsFlipped(false);
 		cell3.setPosition(2);	
-		this.cellService.save(cell);
-		this.cellService.save(cell2);
-		this.cellService.save(cell3);
+		cellService.save(cell);
+		cellService.save(cell2);
+		cellService.save(cell3);
 		List<Cell> adjCell1 = new ArrayList<>();
 		adjCell1.add(cell2);
 		adjCell1.add(cell3);
 		cell.setAdjacents(adjCell1);
-		this.cellService.save(cell);
+		cellService.save(cell);
 		List<Cell> adjCell2 = new ArrayList<>();
 		adjCell2.add(cell);
 		adjCell2.add(cell3);
 		cell2.setAdjacents(adjCell2);
-		this.cellService.save(cell2);
+		cellService.save(cell2);
 		List<Cell> adjCell3 = new ArrayList<>();
 		adjCell3.add(cell);
 		adjCell3.add(cell2);
 		cell3.setAdjacents(adjCell3);
-		this.cellService.save(cell3);
+		cellService.save(cell3);
 		Tile tile = new Tile();
 		tile.setFilledSide("red");
 		tile.setStartingSide("red");
@@ -266,13 +266,13 @@ public class CellServiceTests {
 		tile3.setStartingSide("red");
 		tile3.setFilledSideColor("blue");
 		tile3.setStartingSideColor("red");
-		this.tileService.save(tile);
-		this.tileService.save(tile2);
-		this.tileService.save(tile3);
-		this.cellService.putTileOnCell(cell.getId(), tile.getId());
-		this.cellService.putTileOnCell(cell2.getId(), tile2.getId());
-		this.cellService.putTileOnCell(cell3.getId(), tile3.getId());
-		Set<Cell> match = this.cellService.detectMatch(cell.getId(), user, game);
+		tileService.save(tile);
+		tileService.save(tile2);
+		tileService.save(tile3);
+		cellService.putTileOnCell(cell.getId(), tile.getId());
+		cellService.putTileOnCell(cell2.getId(), tile2.getId());
+		cellService.putTileOnCell(cell3.getId(), tile3.getId());
+		Set<Cell> match = cellService.detectMatch(cell.getId(), user, game);
 		assertThat(match.size()==3).isTrue();
 		assertThat(match.stream().allMatch(c -> c.getIsFlipped() == true)).isTrue();
 		assertThat(match.stream().allMatch(c -> c.getTile() == null)).isFalse();
@@ -282,8 +282,8 @@ public class CellServiceTests {
 	public void shouldNoClusterOnSurvival() throws AlreadyTileOnCell {
 		Game game = createGame("SURVIVAL");
 		User user = createUser("test");
-		this.profileService.initProfile(user);
-		this.gameService.initPlayerToGame(user.getUsername(), game);
+		profileService.initProfile(user);
+		gameService.initPlayerToGame(user.getUsername(), game);
 		Cell cell = new Cell();
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
@@ -296,24 +296,24 @@ public class CellServiceTests {
 		cell3.setIsBlocked(false);
 		cell3.setIsFlipped(false);
 		cell3.setPosition(2);	
-		this.cellService.save(cell);
-		this.cellService.save(cell2);
-		this.cellService.save(cell3);
+		cellService.save(cell);
+		cellService.save(cell2);
+		cellService.save(cell3);
 		List<Cell> adjCell1 = new ArrayList<>();
 		adjCell1.add(cell2);
 		adjCell1.add(cell3);
 		cell.setAdjacents(adjCell1);
-		this.cellService.save(cell);
+		cellService.save(cell);
 		List<Cell> adjCell2 = new ArrayList<>();
 		adjCell2.add(cell);
 		adjCell2.add(cell3);
 		cell2.setAdjacents(adjCell2);
-		this.cellService.save(cell2);
+		cellService.save(cell2);
 		List<Cell> adjCell3 = new ArrayList<>();
 		adjCell3.add(cell);
 		adjCell3.add(cell2);
 		cell3.setAdjacents(adjCell3);
-		this.cellService.save(cell3);
+		cellService.save(cell3);
 		Tile tile = new Tile();
 		tile.setFilledSide("red");
 		tile.setStartingSide("red");
@@ -329,13 +329,13 @@ public class CellServiceTests {
 		tile3.setStartingSide("red");
 		tile3.setFilledSideColor("blue");
 		tile3.setStartingSideColor("red");
-		this.tileService.save(tile);
-		this.tileService.save(tile2);
-		this.tileService.save(tile3);
-		this.cellService.putTileOnCell(cell.getId(), tile.getId());
-		this.cellService.putTileOnCell(cell2.getId(), tile2.getId());
-		this.cellService.putTileOnCell(cell3.getId(), tile3.getId());
-		Set<Cell> match = this.cellService.detectMatch(cell.getId(), user, game);
+		tileService.save(tile);
+		tileService.save(tile2);
+		tileService.save(tile3);
+		cellService.putTileOnCell(cell.getId(), tile.getId());
+		cellService.putTileOnCell(cell2.getId(), tile2.getId());
+		cellService.putTileOnCell(cell3.getId(), tile3.getId());
+		Set<Cell> match = cellService.detectMatch(cell.getId(), user, game);
 		assertThat(match.size()==3).isTrue();
 		assertThat(match.stream().allMatch(c -> c.getIsFlipped() == false)).isTrue();
 		assertThat(match.stream().allMatch(c -> c.getTile() != null)).isTrue();
@@ -345,8 +345,8 @@ public class CellServiceTests {
 	public void shouldBlockCells() throws AlreadyTileOnCell {
 		Game game = createGame("SURVIVAL");
 		User user = createUser("test");
-		this.profileService.initProfile(user);
-		this.gameService.initPlayerToGame(user.getUsername(), game);
+		profileService.initProfile(user);
+		gameService.initPlayerToGame(user.getUsername(), game);
 		Cell cell = new Cell();
 		cell.setIsBlocked(false);
 		cell.setIsFlipped(false);
@@ -363,32 +363,32 @@ public class CellServiceTests {
 		cell3.setIsBlocked(false);
 		cell3.setIsFlipped(false);
 		cell3.setPosition(2);	
-		this.cellService.save(cell);
-		this.cellService.save(cell1);
-		this.cellService.save(cell2);
-		this.cellService.save(cell3);
+		cellService.save(cell);
+		cellService.save(cell1);
+		cellService.save(cell2);
+		cellService.save(cell3);
 		List<Cell> adjCell = new ArrayList<>();
 		adjCell.add(cell1);
 		adjCell.add(cell2);
 		adjCell.add(cell3);
 		cell.setAdjacents(adjCell);
-		this.cellService.save(cell);
+		cellService.save(cell);
 		List<Cell> adjCell1 = new ArrayList<>();
 		adjCell1.add(cell);
 		adjCell1.add(cell2);
 		cell1.setAdjacents(adjCell1);
-		this.cellService.save(cell1);
+		cellService.save(cell1);
 		List<Cell> adjCell2 = new ArrayList<>();
 		adjCell2.add(cell);
 		adjCell2.add(cell1);
 		adjCell2.add(cell3);
 		cell2.setAdjacents(adjCell2);
-		this.cellService.save(cell2);
+		cellService.save(cell2);
 		List<Cell> adjCell3 = new ArrayList<>();
 		adjCell3.add(cell);
 		adjCell3.add(cell2);
 		cell3.setAdjacents(adjCell3);
-		this.cellService.save(cell3);
+		cellService.save(cell3);
 		Tile tile = new Tile();
 		tile.setFilledSide("red");
 		tile.setStartingSide("red");
@@ -404,13 +404,13 @@ public class CellServiceTests {
 		tile3.setStartingSide("red");
 		tile3.setFilledSideColor("blue");
 		tile3.setStartingSideColor("red");
-		this.tileService.save(tile);
-		this.tileService.save(tile2);
-		this.tileService.save(tile3);
-		this.cellService.putTileOnCell(cell.getId(), tile.getId());
-		this.cellService.putTileOnCell(cell1.getId(), tile2.getId());
-		this.cellService.putTileOnCell(cell3.getId(), tile3.getId());
-		Set<Cell> match = this.cellService.detectMatch(cell.getId(), user, game);
+		tileService.save(tile);
+		tileService.save(tile2);
+		tileService.save(tile3);
+		cellService.putTileOnCell(cell.getId(), tile.getId());
+		cellService.putTileOnCell(cell1.getId(), tile2.getId());
+		cellService.putTileOnCell(cell3.getId(), tile3.getId());
+		Set<Cell> match = cellService.detectMatch(cell.getId(), user, game);
 		assertThat(cell.getAdjacents().stream().allMatch(c -> c.getIsBlocked() == true)).isTrue();
 	}
 }
